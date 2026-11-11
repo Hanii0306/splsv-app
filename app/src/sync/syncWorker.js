@@ -1,6 +1,7 @@
 // Offline → online sync (architecture.md §3.11). Learning never waits for the network.
 import { db, getProfile, getSetting, saveProfile, setSetting } from '../storage/db.js';
 import { ApiError, getApiUrl, joinClass, request } from './api.js';
+import { reportStudent } from './supabase.js';
 
 const BATCH = 200;
 const INTERVAL_MS = 2 * 60 * 1000;
@@ -27,6 +28,7 @@ async function ensureToken() {
 }
 
 export async function syncNow() {
+  reportStudent(); // online monitoring (Supabase); fire-and-forget, never blocks learning
   if (running) return;
   // Standalone mode: no server configured → never touch the network.
   const profile = await getProfile();

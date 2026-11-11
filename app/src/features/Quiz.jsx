@@ -1,6 +1,8 @@
 import { useMemo, useState } from 'react';
 import levels from '../content/levels.json';
 import { quizItem, solutionSteps } from '../engine/index.js';
+import { db, getProfile } from '../storage/db.js';
+import { reportStudent } from '../sync/supabase.js';
 import { logEvent } from '../telemetry/log.js';
 import Celebrate from '../ui/Celebrate.jsx';
 import Choice from '../ui/Choice.jsx';
@@ -28,7 +30,18 @@ export default function Quiz({ openLevels, onExit }) {
     const ok = k === it.correct;
     setPicked(k);
     logEvent('quiz_answer', { levelId: it.levelId, correct: ok, equation: it.equation }, `Q-${i}`);
-    setAnswers((a) => [...a, { ...it, chosen: k, ok }]);
+    setAnswers((a) => {
+      const all = [...a, { ...it, chosen: k, ok }];
+      if (all.length === N) saveScore(Math.round((all.filter((x) => x.ok).length / N) * 100));
+      return all;
+    });
+  }
+
+  async function saveScore(score) {
+    const p = await getProfile();
+    if (!p) return;
+    await db.profile.update(p.studentCode, { quizLast: score, quizBest: Math.max(score, p.quizBest ?? 0) });
+    reportStudent({ force: true });
   }
   function next() { setPicked(null); setI((x) => x + 1); }
 
