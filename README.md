@@ -41,6 +41,7 @@ Proyek ini memakai dua bahasa:
 | Aplikasi siswa (APK Android) | **JavaScript**: React 18 + Vite, **Three.js** (timbangan 3D), Dexie (IndexedDB offline), **Capacitor** (APK) | [app/](app/) |
 | Server & sinkronisasi | **Python**: **FastAPI** + SQLModel (SQLite/PostgreSQL), JWT | [server/](server/) |
 | Dashboard guru | **JavaScript** murni (tanpa build), disajikan oleh FastAPI di `/dashboard/` | [server/app/static/dashboard/](server/app/static/dashboard/) |
+| Alat penelitian | **Python**: analisis N-gain, Aiken's V, beban kognitif, log belajar, generator lembar soal | [research/](research/) |
 | Pengujian | **Vitest** (mesin persamaan JS), **pytest** (API Python) | `app/tests/`, `server/tests/` |
 
 Target HP: RAM 4–6 GB, Android 8+. Distribusi lewat **APK sideload**. Lihat [architecture.md](architecture.md).

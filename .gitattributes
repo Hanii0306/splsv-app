@@ -1,7 +1,9 @@
-# docs/ berisi hasil build web (satu file HTML besar) untuk GitHub Pages:
-# jangan dihitung di statistik bahasa GitHub.
+# Statistik bahasa GitHub: Python (server/ dan research/) ditampilkan sebagai bahasa utama.
+# Kode tampilan aplikasi (app/, JavaScript/React + Android) & hasil build web (docs/) tidak dihitung.
+# Isi folder-folder itu tetap ada utuh di repo ini.
+app/** linguist-vendored=true
 docs/** linguist-generated=true
-app/android/** linguist-vendored=false
+playstore/** linguist-documentation=true
 *.png binary
 *.apk binary
 *.aab binary
