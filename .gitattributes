@@ -7,3 +7,4 @@ playstore/** linguist-documentation=true
 *.png binary
 *.apk binary
 *.aab binary
+research/contoh/** linguist-documentation=true
