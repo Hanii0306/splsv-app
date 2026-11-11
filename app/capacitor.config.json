@@ -1,0 +1,16 @@
+{
+  "appId": "id.ac.splv.app",
+  "appName": "SPLV app",
+  "webDir": "dist",
+  "server": {
+    "androidScheme": "https"
+  },
+  "android": {
+    "allowMixedContent": false
+  },
+  "plugins": {
+    "CapacitorHttp": {
+      "enabled": true
+    }
+  }
+}

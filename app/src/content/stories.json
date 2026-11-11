@@ -1,0 +1,118 @@
+[
+  {
+    "id": "S-berurutan",
+    "literacy": { "process": ["formulate", "employ", "interpret"], "context": "pribadi" },
+    "chunks": [
+      "[[Jumlah|add]] tiga bilangan [[berurutan|consecutive]] adalah [[45|number]].",
+      "Berapakah [[bilangan terkecil|unknown]]?"
+    ],
+    "let": {
+      "question": "Apa yang kita misalkan sebagai x?",
+      "options": ["Bilangan terkecil", "Jumlahnya, yaitu 45", "Banyaknya bilangan, yaitu 3"],
+      "correct": 0,
+      "expressions": ["x = bilangan terkecil", "x + 1 = bilangan kedua", "x + 2 = bilangan ketiga"]
+    },
+    "cards": ["x", "+", "(x + 1)", "+", "(x + 2)", "=", "45", "3"],
+    "equation": "x + (x + 1) + (x + 2) = 45",
+    "answerUnit": "",
+    "reasonableness": {
+      "question": "Jika x = 14, apakah 14 + 15 + 16 = 45?",
+      "options": ["Ya, jumlahnya 45", "Tidak"],
+      "correct": 0
+    }
+  },
+  {
+    "id": "S-umur",
+    "literacy": { "process": ["formulate", "employ", "interpret"], "context": "pribadi" },
+    "chunks": [
+      "Umur Kakak [[4|number]] tahun [[lebih tua dari|add]] umur Adik.",
+      "[[Jumlah|add]] umur mereka [[20|number]] tahun.",
+      "Berapa [[umur Adik|unknown]]?"
+    ],
+    "let": {
+      "question": "Apa yang kita misalkan sebagai x?",
+      "options": ["Umur Adik", "Umur Kakak + Adik", "Selisih umur"],
+      "correct": 0,
+      "expressions": ["x = umur Adik", "x + 4 = umur Kakak"]
+    },
+    "cards": ["x", "+", "(x + 4)", "=", "20", "-", "4"],
+    "equation": "x + (x + 4) = 20",
+    "answerUnit": "tahun",
+    "reasonableness": {
+      "question": "Adik 8 tahun dan Kakak 12 tahun. Masuk akal?",
+      "options": ["Ya: 12 − 8 = 4 dan 8 + 12 = 20", "Tidak, umur tidak mungkin 8"],
+      "correct": 0
+    }
+  },
+  {
+    "id": "S-buku",
+    "literacy": { "process": ["formulate", "employ", "interpret"], "context": "pekerjaan" },
+    "chunks": [
+      "Rina membeli [[3|number]] buku tulis yang harganya sama.",
+      "Ia membayar dengan uang [[20|number]] ribu rupiah.",
+      "Uang [[kembaliannya|sub]] [[5|number]] ribu rupiah.",
+      "Berapa [[harga satu buku|unknown]]?"
+    ],
+    "let": {
+      "question": "Apa yang kita misalkan sebagai x?",
+      "options": ["Harga satu buku (ribu rupiah)", "Harga 3 buku", "Uang kembalian"],
+      "correct": 0,
+      "expressions": ["x = harga satu buku", "3x = harga 3 buku"]
+    },
+    "cards": ["20", "-", "3x", "=", "5", "+", "x"],
+    "equation": "20 - 3x = 5",
+    "answerUnit": "ribu rupiah",
+    "reasonableness": {
+      "question": "Harga satu buku 5 ribu. Apakah 3 × 5 ribu + 5 ribu = 20 ribu?",
+      "options": ["Ya, cocok", "Tidak cocok"],
+      "correct": 0
+    }
+  },
+  {
+    "id": "S-kas",
+    "literacy": { "process": ["formulate", "employ", "interpret"], "context": "sosial" },
+    "chunks": [
+      "Kas kelas awalnya [[10|number]] ribu rupiah.",
+      "Setiap minggu kas [[bertambah|add]] [[2|number]] ribu rupiah.",
+      "Sekarang kas [[menjadi|equals]] [[34|number]] ribu rupiah.",
+      "Sudah [[berapa minggu|unknown]]?"
+    ],
+    "let": {
+      "question": "Apa yang kita misalkan sebagai x?",
+      "options": ["Banyak minggu", "Jumlah kas sekarang", "Iuran per minggu"],
+      "correct": 0,
+      "expressions": ["x = banyak minggu", "2x = tambahan kas selama x minggu"]
+    },
+    "cards": ["10", "+", "2x", "=", "34", "-", "x"],
+    "equation": "10 + 2x = 34",
+    "answerUnit": "minggu",
+    "reasonableness": {
+      "question": "Apakah 12 minggu masuk akal untuk satu semester?",
+      "options": ["Ya, satu semester sekitar 18 minggu", "Tidak, terlalu lama"],
+      "correct": 0
+    }
+  },
+  {
+    "id": "S-suhu",
+    "literacy": { "process": ["formulate", "employ", "interpret"], "context": "ilmiah" },
+    "chunks": [
+      "Suhu pagi di Dieng [[−2|number]] °C.",
+      "Setiap jam suhu [[naik|add]] [[3|number]] °C.",
+      "[[Setelah berapa jam|unknown]] suhunya [[menjadi|equals]] [[13|number]] °C?"
+    ],
+    "let": {
+      "question": "Apa yang kita misalkan sebagai x?",
+      "options": ["Banyak jam", "Suhu akhir", "Kenaikan suhu per jam"],
+      "correct": 0,
+      "expressions": ["x = banyak jam", "3x = kenaikan suhu selama x jam"]
+    },
+    "cards": ["-2", "+", "3x", "=", "13", "-", "x"],
+    "equation": "-2 + 3x = 13",
+    "answerUnit": "jam",
+    "reasonableness": {
+      "question": "Setelah 5 jam, apakah −2 + 15 = 13?",
+      "options": ["Ya", "Tidak"],
+      "correct": 0
+    }
+  }
+]

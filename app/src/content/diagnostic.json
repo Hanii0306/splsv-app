@@ -1,0 +1,12 @@
+{
+  "items": [
+    { "id": "D1", "skill": "integerOps", "prompt": "−3 + (−5) = ?", "options": ["−8", "2", "8", "−2"], "correct": 0 },
+    { "id": "D2", "skill": "integerOps", "prompt": "7 − (−2) = ?", "options": ["5", "9", "−9", "−5"], "correct": 1 },
+    { "id": "D3", "skill": "integerOps", "prompt": "−4 × 3 = ?", "options": ["12", "−1", "−12", "7"], "correct": 2 },
+    { "id": "D4", "skill": "fractions", "prompt": "1/2 + 1/4 = ?", "options": ["2/6", "3/4", "1/6", "2/4"], "correct": 1 },
+    { "id": "D5", "skill": "fractions", "prompt": "4 × 3/4 = ?", "options": ["3", "12/16", "7/4", "16/3"], "correct": 0 },
+    { "id": "D6", "skill": "algebraSimplify", "prompt": "2x + 3x = ?", "options": ["5x²", "6x", "5x", "5"], "correct": 2 },
+    { "id": "D7", "skill": "algebraSimplify", "prompt": "3(x + 2) = ?", "options": ["3x + 2", "3x + 6", "x + 6", "3x + 5"], "correct": 1 },
+    { "id": "D8", "skill": "algebraSimplify", "prompt": "5x − x = ?", "options": ["5", "4x", "5x", "4"], "correct": 1 }
+  ]
+}

@@ -1,0 +1,45 @@
+# JS
+app/node_modules/
+app/dist/
+app/android/app/build/
+app/.env
+
+# Python
+server/.venv/
+server/__pycache__/
+**/__pycache__/
+server/*.db
+server/.env
+.pytest_cache/
+
+# Data penelitian & privasi (AGENTS.md §5) — jangan pernah commit
+data/
+*.transkrip.*
+*wawancara*.pdf
+exports/
+
+# Hasil build APK & tools lokal
+apk/*.apk
+app/android/local.properties
+
+# Kunci rahasia — JANGAN commit (cadangkan di tempat aman)
+server/certs/
+app/android/keystore/
+app/android/keystore.properties
+app/dist-web/
+web/pages/.git/
+
+# --- tambahan sebelum unggah seluruh proyek (repo publik) ---
+**/node_modules/
+app/android/.gradle/
+app/android/build/
+app/android/app/release/
+app/android/capacitor-cordova-android-plugins/build/
+app/android/.idea/
+*.jks
+*.keystore
+**/.env
+server/PUBLIC_URL.txt
+*.db
+# salinan build lama (halaman web sekarang ada di docs/)
+web/

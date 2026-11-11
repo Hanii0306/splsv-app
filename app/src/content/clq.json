@@ -1,0 +1,18 @@
+{
+  "note": "Adaptasi butir dari Klepsch dkk. (2017) dan Paas (1992). BELUM divalidasi untuk siswa SMP; validasi ahli + uji keterbacaan wajib sebelum dipakai (task.md T-D07).",
+  "scale": { "min": 1, "max": 7, "minLabel": "Sangat tidak setuju", "maxLabel": "Sangat setuju" },
+  "items": [
+    { "id": "IL1", "type": "IL", "text": "Soal-soal tadi terasa rumit bagiku." },
+    { "id": "IL2", "type": "IL", "text": "Saat mengerjakan, banyak hal yang harus kuingat sekaligus." },
+    { "id": "EL1", "type": "EL", "text": "Tampilan aplikasi membuatku sulit menemukan informasi penting." },
+    { "id": "EL2", "type": "EL", "text": "Cara penyajian di aplikasi ini membingungkan." },
+    { "id": "EL3", "type": "EL", "text": "Aku harus bolak-balik mencari informasi untuk memahami soal." },
+    { "id": "GL1", "type": "GL", "text": "Aku berusaha memahami alasan setiap langkah, bukan hanya menghafal." },
+    { "id": "GL2", "type": "GL", "text": "Aku berusaha menghubungkan langkah-langkah dengan gambar timbangan." }
+  ],
+  "paas": {
+    "id": "PAAS",
+    "text": "Seberapa besar usaha pikiran yang kamu keluarkan tadi?",
+    "min": 1, "max": 9, "minLabel": "Sangat sedikit", "maxLabel": "Sangat banyak"
+  }
+}

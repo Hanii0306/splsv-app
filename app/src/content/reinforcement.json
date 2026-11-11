@@ -1,0 +1,33 @@
+{
+  "integerOps": {
+    "title": "Penguatan: operasi bilangan bulat",
+    "tip": "Bayangkan garis bilangan: + berarti melangkah ke kanan, − berarti melangkah ke kiri. Mengurangi bilangan negatif sama dengan menambah.",
+    "items": [
+      { "prompt": "−6 + 4 = ?", "options": ["−2", "2", "−10"], "correct": 0, "explain": "Dari −6, melangkah 4 ke kanan → −2." },
+      { "prompt": "−3 − 5 = ?", "options": ["2", "−8", "8"], "correct": 1, "explain": "Dari −3, melangkah 5 ke kiri → −8." },
+      { "prompt": "5 − (−3) = ?", "options": ["2", "8", "−8"], "correct": 1, "explain": "Mengurangi −3 sama dengan menambah 3 → 8." },
+      { "prompt": "−2 × (−6) = ?", "options": ["−12", "12", "−8"], "correct": 1, "explain": "Negatif × negatif = positif → 12." },
+      { "prompt": "−15 ÷ 3 = ?", "options": ["5", "−5", "−12"], "correct": 1, "explain": "Negatif ÷ positif = negatif → −5." }
+    ]
+  },
+  "algebraSimplify": {
+    "title": "Penguatan: penyederhanaan aljabar",
+    "tip": "Suku sejenis (sama-sama ber-x) boleh dijumlahkan. Bilangan di depan kurung dikalikan ke SETIAP suku di dalam kurung.",
+    "items": [
+      { "prompt": "4x + 2x = ?", "options": ["6x", "8x", "6"], "correct": 0, "explain": "4 kotak-x + 2 kotak-x = 6 kotak-x." },
+      { "prompt": "2(x + 5) = ?", "options": ["2x + 5", "2x + 10", "x + 10"], "correct": 1, "explain": "2 × x = 2x dan 2 × 5 = 10." },
+      { "prompt": "−3(x − 2) = ?", "options": ["−3x − 6", "−3x + 6", "3x + 6"], "correct": 1, "explain": "−3 × x = −3x, dan −3 × (−2) = +6." },
+      { "prompt": "7x − 3x + 2 = ?", "options": ["4x + 2", "6x", "10x + 2"], "correct": 0, "explain": "7x − 3x = 4x, lalu konstanta 2 tetap." }
+    ]
+  },
+  "fractions": {
+    "title": "Penguatan: pecahan",
+    "tip": "Mengalikan pecahan dengan penyebutnya menghasilkan pembilangnya: 3 × (x/3) = x.",
+    "items": [
+      { "prompt": "2 × 1/2 = ?", "options": ["1", "2/4", "1/4"], "correct": 0, "explain": "Dua kali setengah = satu." },
+      { "prompt": "6 × 2/3 = ?", "options": ["4", "12/18", "8/3"], "correct": 0, "explain": "6 ÷ 3 = 2, lalu 2 × 2 = 4." },
+      { "prompt": "KPK dari 2 dan 3 = ?", "options": ["5", "6", "1"], "correct": 1, "explain": "Kelipatan bersama terkecil 2 dan 3 adalah 6." },
+      { "prompt": "4 × (x/4) = ?", "options": ["x", "4x", "x/16"], "correct": 0, "explain": "Penyebut 4 dibatalkan oleh perkalian 4." }
+    ]
+  }
+}

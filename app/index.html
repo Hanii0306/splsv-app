@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#FFE6F0" />
+    <title>SPLV app</title>
+    <style>
+      #boot { font: 17px/1.5 system-ui, sans-serif; color: #3B2240; background: #FFE6F0; min-height: 100vh;
+              display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 24px; text-align: center; }
+      #boot .b { font-size: 48px; }
+      #boot-err { display: none; max-width: 420px; }
+      #boot-err code { font-size: 12px; word-break: break-all; color: #5B6470; }
+    </style>
+  </head>
+  <body>
+    <div id="root">
+      <div id="boot">
+        <div class="b">⚖</div>
+        <p id="boot-msg">Memuat SPLV app…</p>
+        <div id="boot-err">
+          <p><strong>Aplikasi gagal dimuat.</strong></p>
+          <p>Perbarui <em>Android System WebView</em> dan <em>Chrome</em> di Play Store, lalu buka lagi aplikasi ini.</p>
+          <p><code id="boot-detail"></code></p>
+        </div>
+      </div>
+    </div>
+    <script>
+      // Plain ES5 on purpose: shows a readable message instead of a blank screen on old WebViews.
+      (function () {
+        var shown = false;
+        function fail(detail) {
+          if (shown || window.__splvReady) return;
+          shown = true;
+          var e = document.getElementById('boot-err');
+          var m = document.getElementById('boot-msg');
+          var d = document.getElementById('boot-detail');
+          if (e) e.style.display = 'block';
+          if (m) m.style.display = 'none';
+          if (d) d.textContent = (detail || '') + ' | ' + navigator.userAgent;
+        }
+        window.addEventListener('error', function (ev) { fail(ev && ev.message); });
+        setTimeout(function () { fail('timeout'); }, 15000);
+      })();
+    </script>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

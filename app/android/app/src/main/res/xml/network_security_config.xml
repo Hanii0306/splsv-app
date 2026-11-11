@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- HTTPS only. Trusts the public CAs (for servers with a real domain, e.g. Let's Encrypt)
+     plus the SPLV app local CA (for the researcher's laptop on school WiFi). -->
+<network-security-config>
+    <base-config cleartextTrafficPermitted="false">
+        <trust-anchors>
+            <certificates src="system" />
+            <certificates src="@raw/splv_ca" />
+        </trust-anchors>
+    </base-config>
+</network-security-config>

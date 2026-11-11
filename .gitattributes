@@ -1,0 +1,7 @@
+# docs/ berisi hasil build web (satu file HTML besar) untuk GitHub Pages:
+# jangan dihitung di statistik bahasa GitHub.
+docs/** linguist-generated=true
+app/android/** linguist-vendored=false
+*.png binary
+*.apk binary
+*.aab binary

@@ -1,0 +1,528 @@
+[
+  {
+    "id": "L0",
+    "title": "Arti \"=\": seimbang",
+    "goal": "Memahami huruf x sebagai bilangan yang belum diketahui dan \"=\" sebagai timbangan yang seimbang.",
+    "scale": "full",
+    "intro": [
+      {
+        "text": "Huruf x adalah \"kotak misteri\": bilangan yang belum kita ketahui. Di timbangan, x adalah kotak biru.",
+        "equation": "x + 3 = 5"
+      },
+      {
+        "text": "Tanda \"=\" artinya kedua sisi SAMA BERAT, jadi timbangannya seimbang. Lihat wajah si Timbangan: tersenyum!",
+        "equation": "x + 3 = 5"
+      },
+      {
+        "text": "Aturan emas: apa pun yang kamu lakukan pada satu sisi, lakukan juga pada sisi lainnya. Kalau tidak, timbangan miring.",
+        "equation": "x + 3 = 5"
+      },
+      {
+        "text": "Ambil 3 beban dari KEDUA sisi. Sisa kiri hanya x, sisa kanan 2 beban. Jadi x = 2.",
+        "equation": "x = 2"
+      }
+    ],
+    "items": [
+      {
+        "id": "L0-E1",
+        "type": "worked",
+        "equation": "x + 3 = 5"
+      },
+      {
+        "id": "L0-P1",
+        "type": "practice",
+        "equation": "x + 2 = 6"
+      },
+      {
+        "id": "L0-P2",
+        "type": "practice",
+        "equation": "x + 4 = 7"
+      },
+      {
+        "id": "L0-P3",
+        "type": "practice",
+        "equation": "x + 1 = 8"
+      }
+    ],
+    "extra": [
+      "x + 5 = 9",
+      "x + 6 = 10"
+    ],
+    "pattern": [
+      "Lihat apa yang menempel pada x.",
+      "Ambil yang sama dari kedua sisi timbangan.",
+      "Timbangan tetap seimbang, dan x pun sendirian."
+    ],
+    "transfer": "7 = x + 2"
+  },
+  {
+    "id": "L1",
+    "title": "Bentuk x + a = b",
+    "goal": "Menyelesaikan persamaan satu langkah dengan penjumlahan atau pengurangan, termasuk bilangan negatif.",
+    "scale": "full",
+    "items": [
+      {
+        "id": "L1-E1",
+        "type": "worked",
+        "equation": "x + 5 = 12"
+      },
+      {
+        "id": "L1-C1",
+        "type": "completion",
+        "equation": "x - 4 = 9"
+      },
+      {
+        "id": "L1-P1",
+        "type": "practice",
+        "equation": "x + 7 = 15"
+      },
+      {
+        "id": "L1-P2",
+        "type": "practice",
+        "equation": "x + 9 = 3",
+        "why": true
+      },
+      {
+        "id": "L1-P3",
+        "type": "practice",
+        "equation": "x - 6 = -2"
+      },
+      {
+        "id": "L1-P4",
+        "type": "practice",
+        "equation": "x - 3 = 8"
+      }
+    ],
+    "extra": [
+      "x + 8 = 2",
+      "x - 5 = -9",
+      "x + 11 = 20"
+    ],
+    "pattern": [
+      "+a di sebelah x → kurangi kedua ruas dengan a.",
+      "−a di sebelah x → tambahkan a ke kedua ruas.",
+      "Itulah yang disebut \"pindah ruas ganti tanda\"."
+    ],
+    "transfer": "12 = x - 5",
+    "intro": [
+      {
+        "text": "Di level ini ada bilangan yang menempel pada x, misalnya x + 5 = 12. Tugas kita: membuat x sendirian.",
+        "equation": "x + 5 = 12"
+      },
+      {
+        "text": "Ambil 5 beban dari KEDUA piring: x + 5 − 5 = 12 − 5. Timbangan tetap seimbang dan x tinggal sendirian.",
+        "equation": "x + 5 = 12"
+      },
+      {
+        "text": "Hasilnya x = 7. Cek: 7 + 5 = 12. Kedua ruas sama, berarti benar!",
+        "equation": "x = 7"
+      },
+      {
+        "text": "Kalau yang menempel −4 (x − 4 = 9), lakukan kebalikannya: TAMBAHKAN 4 ke kedua ruas. Hasilnya x = 13.",
+        "equation": "x - 4 = 9"
+      },
+      {
+        "text": "Bilangan negatif juga boleh. x + 9 = 3 → x = 3 − 9 = −6. Balon di timbangan menandai bilangan negatif.",
+        "equation": "x + 9 = 3"
+      }
+    ]
+  },
+  {
+    "id": "L2",
+    "title": "Bentuk ax = b",
+    "goal": "Membagi kedua ruas dengan koefisien, termasuk koefisien negatif.",
+    "scale": "full",
+    "items": [
+      {
+        "id": "L2-E1",
+        "type": "worked",
+        "equation": "3x = 12"
+      },
+      {
+        "id": "L2-C1",
+        "type": "completion",
+        "equation": "-2x = 8"
+      },
+      {
+        "id": "L2-P1",
+        "type": "practice",
+        "equation": "5x = 35"
+      },
+      {
+        "id": "L2-P2",
+        "type": "practice",
+        "equation": "-4x = 20",
+        "why": true
+      },
+      {
+        "id": "L2-P3",
+        "type": "practice",
+        "equation": "-3x = -18"
+      },
+      {
+        "id": "L2-P4",
+        "type": "practice",
+        "equation": "6x = -24"
+      }
+    ],
+    "extra": [
+      "-5x = 15",
+      "7x = 21",
+      "-x = 6"
+    ],
+    "pattern": [
+      "Angka di depan x artinya dikali.",
+      "Kebalikan dari perkalian adalah pembagian.",
+      "Bagi kedua ruas dengan angka itu, termasuk tanda minusnya."
+    ],
+    "transfer": "18 = -6x",
+    "intro": [
+      {
+        "text": "2x artinya x + x, yaitu dua kotak-x. Angka di depan x disebut koefisien, artinya DIKALI.",
+        "equation": "2x = 8"
+      },
+      {
+        "text": "Jika 2 kotak-x seberat 8 beban, maka 1 kotak-x seberat 8 ÷ 2 = 4. Jadi BAGI kedua ruas dengan 2.",
+        "equation": "2x = 8"
+      },
+      {
+        "text": "Hati-hati: −2x = 8 TIDAK diselesaikan dengan menambah 2. Bagi kedua ruas dengan −2, hasilnya x = −4.",
+        "equation": "-2x = 8"
+      },
+      {
+        "text": "Ingat aturan tanda pembagian: negatif ÷ negatif = positif; positif ÷ negatif = negatif.",
+        "equation": "-3x = -12"
+      }
+    ]
+  },
+  {
+    "id": "L3",
+    "title": "Bentuk ax + b = c",
+    "goal": "Menyelesaikan persamaan dua langkah: hilangkan konstanta dulu, baru bagi dengan koefisien.",
+    "scale": "full",
+    "items": [
+      {
+        "id": "L3-E1",
+        "type": "worked",
+        "equation": "2x + 5 = 15"
+      },
+      {
+        "id": "L3-C1",
+        "type": "completion",
+        "equation": "3x - 4 = 11"
+      },
+      {
+        "id": "L3-P1",
+        "type": "practice",
+        "equation": "4x + 3 = 23"
+      },
+      {
+        "id": "L3-P2",
+        "type": "practice",
+        "equation": "5x - 7 = 18",
+        "why": true
+      },
+      {
+        "id": "L3-P3",
+        "type": "practice",
+        "equation": "-2x + 6 = 14"
+      },
+      {
+        "id": "L3-P4",
+        "type": "practice",
+        "equation": "3x + 10 = 1"
+      }
+    ],
+    "extra": [
+      "6x - 5 = 13",
+      "-3x + 4 = -11",
+      "2x + 9 = 1"
+    ],
+    "pattern": [
+      "Langkah 1: hilangkan konstanta di ruas x (operasi pada kedua ruas).",
+      "Langkah 2: bagi kedua ruas dengan koefisien x.",
+      "Langkah 3: cek dengan substitusi."
+    ],
+    "transfer": "20 = 4x + 8",
+    "intro": [
+      {
+        "text": "Bentuk 2x + 5 = 15 punya DUA penghalang: +5 dan angka 2 yang mengalikan x.",
+        "equation": "2x + 5 = 15"
+      },
+      {
+        "text": "Langkah 1: hilangkan +5 dengan mengurangi kedua ruas dengan 5. Hasilnya 2x = 10.",
+        "equation": "2x + 5 = 15"
+      },
+      {
+        "text": "Langkah 2: bagi kedua ruas dengan 2. Hasilnya x = 5.",
+        "equation": "2x = 10"
+      },
+      {
+        "text": "Seperti membuka kado: buka lapisan luar dulu (penjumlahan/pengurangan), baru lapisan dalam (perkalian).",
+        "equation": "x = 5"
+      },
+      {
+        "text": "Cek: 2 × 5 + 5 = 15. Benar! Biasakan selalu mengecek dengan memasukkan nilai x.",
+        "equation": "x = 5"
+      }
+    ]
+  },
+  {
+    "id": "L4",
+    "title": "Variabel di kedua ruas",
+    "goal": "Mengumpulkan suku x di satu ruas dan konstanta di ruas lain.",
+    "scale": "compact",
+    "items": [
+      {
+        "id": "L4-E1",
+        "type": "worked",
+        "equation": "5x - 3 = 2x + 9"
+      },
+      {
+        "id": "L4-C1",
+        "type": "completion",
+        "equation": "4x + 1 = x + 13"
+      },
+      {
+        "id": "L4-P1",
+        "type": "practice",
+        "equation": "6x - 5 = 2x + 7"
+      },
+      {
+        "id": "L4-P2",
+        "type": "practice",
+        "equation": "3x + 8 = 5x - 2",
+        "why": true
+      },
+      {
+        "id": "L4-P3",
+        "type": "practice",
+        "equation": "7x - 4 = 3x + 12"
+      },
+      {
+        "id": "L4-P4",
+        "type": "practice",
+        "equation": "2x + 9 = -x + 3"
+      }
+    ],
+    "extra": [
+      "8x - 1 = 5x + 11",
+      "x + 10 = 4x - 2",
+      "9x + 2 = 4x + 27"
+    ],
+    "pattern": [
+      "Kumpulkan x: kurangi kedua ruas dengan suku x yang lebih kecil.",
+      "Kumpulkan konstanta di ruas lain.",
+      "Bagi dengan koefisien x."
+    ],
+    "transfer": "12 - x = 2x + 3",
+    "intro": [
+      {
+        "text": "Sekarang x ada di KEDUA ruas: 5x − 3 = 2x + 9. Kumpulkan dulu semua x di satu ruas.",
+        "equation": "5x - 3 = 2x + 9"
+      },
+      {
+        "text": "Kurangi kedua ruas dengan 2x (suku x yang lebih kecil). Hasilnya 3x − 3 = 9.",
+        "equation": "5x - 3 = 2x + 9"
+      },
+      {
+        "text": "Lanjutkan seperti level sebelumnya: tambah 3 ke kedua ruas (3x = 12), lalu bagi 3. Jadi x = 4.",
+        "equation": "3x - 3 = 9"
+      },
+      {
+        "text": "Tips: pindahkan suku x yang LEBIH KECIL supaya koefisien x tetap positif dan hitungan lebih mudah.",
+        "equation": "3x + 8 = 5x - 2"
+      }
+    ]
+  },
+  {
+    "id": "L5",
+    "title": "Tanda kurung",
+    "goal": "Menjabarkan kurung dengan benar ke setiap suku, lalu menyelesaikan persamaan.",
+    "scale": "compact",
+    "items": [
+      {
+        "id": "L5-E1",
+        "type": "worked",
+        "equation": "3(x - 2) = 12"
+      },
+      {
+        "id": "L5-C1",
+        "type": "completion",
+        "equation": "2(x + 4) = 18"
+      },
+      {
+        "id": "L5-P1",
+        "type": "practice",
+        "equation": "4(x - 1) = 20"
+      },
+      {
+        "id": "L5-P2",
+        "type": "practice",
+        "equation": "5(x + 2) = 3x + 16",
+        "why": true
+      },
+      {
+        "id": "L5-P3",
+        "type": "practice",
+        "equation": "-2(x - 3) = 10"
+      },
+      {
+        "id": "L5-P4",
+        "type": "practice",
+        "equation": "3(2x + 1) = 21"
+      }
+    ],
+    "extra": [
+      "2(x - 5) = 4",
+      "6(x + 1) = 4x + 12",
+      "-3(x + 2) = 9"
+    ],
+    "pattern": [
+      "Kalikan bilangan di depan kurung ke SETIAP suku di dalamnya.",
+      "Perhatikan tanda: −2 × (−3) = +6.",
+      "Lanjutkan seperti bentuk ax + b = c."
+    ],
+    "transfer": "2(3 - x) = x - 9",
+    "intro": [
+      {
+        "text": "3(x − 2) artinya 3 kelompok yang masing-masing berisi (x − 2).",
+        "equation": "3(x - 2) = 12"
+      },
+      {
+        "text": "Bilangan di depan kurung mengalikan SETIAP suku di dalamnya: 3 × x − 3 × 2 = 3x − 6.",
+        "equation": "3x - 6 = 12"
+      },
+      {
+        "text": "Hati-hati tanda: −2(x − 3) = −2x + 6, karena −2 × (−3) = +6.",
+        "equation": "-2(x - 3) = 10"
+      },
+      {
+        "text": "Setelah kurung dijabarkan, selesaikan seperti bentuk ax + b = c yang sudah kamu kuasai.",
+        "equation": "3x - 6 = 12"
+      }
+    ]
+  },
+  {
+    "id": "L6",
+    "title": "Pecahan (pelan-pelan)",
+    "goal": "Menghilangkan penyebut dengan mengalikan kedua ruas, lalu menyelesaikan persamaan.",
+    "scale": "hidden",
+    "slow": true,
+    "items": [
+      {
+        "id": "L6-E1",
+        "type": "worked",
+        "equation": "1/2(x + 3) = 5"
+      },
+      {
+        "id": "L6-E2",
+        "type": "worked",
+        "equation": "x/3 + 2 = 6"
+      },
+      {
+        "id": "L6-C1",
+        "type": "completion",
+        "equation": "1/4(x - 2) = 3"
+      },
+      {
+        "id": "L6-P1",
+        "type": "practice",
+        "equation": "x/2 - 1 = 4",
+        "why": true
+      },
+      {
+        "id": "L6-P2",
+        "type": "practice",
+        "equation": "2/3x = 8"
+      },
+      {
+        "id": "L6-P3",
+        "type": "practice",
+        "equation": "1/2(x + 1) = x - 3"
+      }
+    ],
+    "extra": [
+      "x/4 + 3 = 5",
+      "1/3(x - 6) = 2",
+      "x/5 = 3"
+    ],
+    "pattern": [
+      "Cari penyebutnya (KPK bila lebih dari satu).",
+      "Kalikan KEDUA ruas dengan bilangan itu, sehingga pecahan hilang.",
+      "Selesaikan seperti biasa, lalu cek."
+    ],
+    "transfer": "x/2 + x/3 = 10",
+    "intro": [
+      {
+        "text": "½(x + 3) = 5 artinya SETENGAH dari (x + 3) adalah 5. Pecahan membuat hitungan sulit, jadi kita hilangkan dulu.",
+        "equation": "1/2(x + 3) = 5"
+      },
+      {
+        "text": "Kalikan KEDUA ruas dengan penyebutnya, yaitu 2. Hasilnya x + 3 = 10, lalu x = 7.",
+        "equation": "x + 3 = 10"
+      },
+      {
+        "text": "Untuk x/3 + 2 = 6, kalikan SEMUA suku dengan 3: x + 6 = 18. Ingat, angka 2 juga ikut dikali 3!",
+        "equation": "x/3 + 2 = 6"
+      },
+      {
+        "text": "Kalau penyebutnya berbeda (x/2 + x/3), kalikan dengan KPK-nya. KPK dari 2 dan 3 adalah 6.",
+        "equation": "x/2 + x/3 = 10"
+      }
+    ]
+  },
+  {
+    "id": "L7",
+    "title": "Soal cerita",
+    "goal": "Merumuskan situasi nyata menjadi persamaan, menyelesaikannya, lalu menafsirkan jawabannya (literasi matematis).",
+    "scale": "compact",
+    "items": [
+      {
+        "id": "L7-S1",
+        "type": "story",
+        "story": "S-berurutan"
+      },
+      {
+        "id": "L7-S2",
+        "type": "story",
+        "story": "S-umur"
+      },
+      {
+        "id": "L7-S3",
+        "type": "story",
+        "story": "S-buku"
+      },
+      {
+        "id": "L7-S4",
+        "type": "story",
+        "story": "S-kas"
+      }
+    ],
+    "extra": [],
+    "pattern": [
+      "Cari tahu apa yang ditanyakan → itulah x.",
+      "Terjemahkan kata kunci menjadi operasi.",
+      "Susun persamaan → selesaikan → cek apakah masuk akal."
+    ],
+    "transferStory": "S-suhu",
+    "intro": [
+      {
+        "text": "Soal cerita adalah persamaan yang \"bersembunyi\" di dalam kalimat. Tugas kita: menemukan persamaannya.",
+        "equation": "x + (x + 4) = 20"
+      },
+      {
+        "text": "Langkah 1: cari yang DITANYAKAN, itulah x. Contoh: \"Berapa umur Adik?\" → x = umur Adik.",
+        "equation": "x + (x + 4) = 20"
+      },
+      {
+        "text": "Langkah 2: terjemahkan kata kunci. Jumlah → +, selisih/sisa → −, kali lipat → ×, adalah/menjadi → =.",
+        "equation": "x + (x + 4) = 20"
+      },
+      {
+        "text": "Langkah 3: selesaikan persamaannya, lalu cek apakah jawabannya MASUK AKAL dalam cerita (umur tidak mungkin negatif).",
+        "equation": "x = 8"
+      }
+    ]
+  }
+]

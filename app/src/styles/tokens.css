@@ -1,0 +1,76 @@
+/* Design tokens (design.md §3.1) — v1.3 "pink muda, menggemaskan".
+   Semantic maths colours (--var x-terms, --const constants, --op operation, --ok, --warn) keep their meaning. */
+:root {
+  --bg: #FFE6F0;          /* pink muda */
+  --bg-dot: #FFD0E3;      /* titik-titik latar menu */
+  --surface: #FFFFFF;
+  --surface-pink: #FFF3F8;
+  --border: #F6BFD6;
+  --text: #3B2240;        /* plum tua: lebih lembut dari hitam */
+  --text-muted: #8B6488;
+  --primary: #FF5C9E;     /* tombol utama */
+  --primary-shadow: #DB3D7E;
+  --var: #3B5BFD;         /* suku variabel (x) */
+  --const: #E0670B;       /* konstanta */
+  --op: #9B3BEA;          /* operasi yang diterapkan ke kedua ruas */
+  --ok: #17A34A;
+  --warn: #E11D48;
+  --scale-frame: #C4A3E6; /* timbangan lavender */
+  --balloon: #FF9CC6;
+  --sun: #FFB020;         /* lencana & perayaan saja */
+  --sun-soft: #FFF1C9;
+  --sky-soft: #FFD9E8;
+  --radius: 24px;
+  --font-ui: 'Nunito', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-cute: 'Fredoka', 'Nunito', system-ui, sans-serif;
+  --font-math: 'JetBrains Mono', ui-monospace, 'Roboto Mono', monospace;
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --bg: #2B1830;
+    --bg-dot: #3A2140;
+    --surface: #3A2342;
+    --surface-pink: #44284D;
+    --border: #6A4170;
+    --text: #FBE9F3;
+    --text-muted: #D3AFCB;
+    --primary: #FF7AB0;
+    --primary-shadow: #C9487F;
+    --var: #8EA2FF;
+    --const: #FFA25C;
+    --op: #C99BFF;
+    --ok: #5BD38A;
+    --warn: #FF7A93;
+    --scale-frame: #A989CC;
+    --balloon: #E58AB4;
+    --sun: #FFC54D;
+    --sun-soft: #4A3818;
+    --sky-soft: #4E2C57;
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme='dark'] {
+  --bg: #2B1830;
+  --bg-dot: #3A2140;
+  --surface: #3A2342;
+  --surface-pink: #44284D;
+  --border: #6A4170;
+  --text: #FBE9F3;
+  --text-muted: #D3AFCB;
+  --primary: #FF7AB0;
+  --primary-shadow: #C9487F;
+  --var: #8EA2FF;
+  --const: #FFA25C;
+  --op: #C99BFF;
+  --ok: #5BD38A;
+  --warn: #FF7A93;
+  --scale-frame: #A989CC;
+  --balloon: #E58AB4;
+  --sun: #FFC54D;
+  --sun-soft: #4A3818;
+  --sky-soft: #4E2C57;
+  color-scheme: dark;
+}

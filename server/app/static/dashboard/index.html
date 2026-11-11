@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dashboard Guru · SPLV app</title>
+  <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+  <header class="top">
+    <h1>Dashboard Guru</h1>
+    <button id="logout" class="link" hidden>Keluar</button>
+  </header>
+
+  <main>
+    <section id="login-view" class="card narrow">
+      <h2>Masuk</h2>
+      <form id="login-form">
+        <label>Email <input name="email" type="email" required autocomplete="username"></label>
+        <label>PIN <input name="pin" type="password" inputmode="numeric" required autocomplete="current-password"></label>
+        <button type="submit" class="primary">Masuk</button>
+        <p id="login-error" class="error" role="alert"></p>
+      </form>
+    </section>
+
+    <section id="classes-view" hidden>
+      <h2>Kelas saya</h2>
+      <ul id="class-list" class="class-list"></ul>
+    </section>
+
+    <section id="class-view" hidden>
+      <div class="row">
+        <button id="back" class="link">← Kelas</button>
+        <h2 id="class-title"></h2>
+        <span class="spacer"></span>
+        <button id="refresh">Muat ulang</button>
+        <button id="export">Unduh CSV</button>
+      </div>
+
+      <div class="card">
+        <h3>Kesalahan dominan di kelas</h3>
+        <div id="error-bars" class="bars"></div>
+      </div>
+
+      <div class="card">
+        <h3>Siswa × Level</h3>
+        <p class="muted">○ terkunci · ◐ sedang · ● dikuasai. Baris berlabel "macet" artinya siswa membuka hint H3/H4 ≥ 3 kali di satu level.</p>
+        <div class="table-wrap"><table id="student-table"></table></div>
+      </div>
+
+      <div class="card" id="student-detail" hidden></div>
+    </section>
+  </main>
+
+  <script src="dashboard.js"></script>
+</body>
+</html>

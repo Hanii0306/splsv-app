@@ -1,0 +1,177 @@
+{
+  "L0": {
+    "idea": "Tanda \"=\" artinya kedua sisi sama berat, seperti timbangan yang seimbang. Huruf x adalah bilangan yang belum kita ketahui.",
+    "steps": [
+      "Lihat apa yang ada bersama x.",
+      "Ambil benda yang sama dari KEDUA sisi.",
+      "Timbangan tetap seimbang, x tinggal sendirian."
+    ],
+    "example": "x + 3 = 5",
+    "mistakes": [
+      {
+        "wrong": "Mengurangi 3 hanya di ruas kiri",
+        "right": "Kurangi 3 di ruas kiri DAN kanan, supaya timbangan tidak miring."
+      }
+    ],
+    "analogy": "Bayangkan jungkat-jungkit di taman. Kalau dua anak sama berat, papannya datar. Itulah arti tanda =."
+  },
+  "L1": {
+    "idea": "Untuk menghilangkan bilangan yang ditambahkan atau dikurangkan pada x, lakukan operasi kebalikannya pada kedua ruas.",
+    "steps": [
+      "+a di sebelah x → kurangi kedua ruas dengan a.",
+      "−a di sebelah x → tambahkan a ke kedua ruas.",
+      "Cek: masukkan nilai x ke persamaan awal."
+    ],
+    "example": "x - 4 = 9",
+    "mistakes": [
+      {
+        "wrong": "x + 9 = 3 → x = 3 + 9",
+        "right": "x = 3 − 9 = −6. +9 \"pindah ruas\" menjadi −9 karena kedua ruas dikurangi 9."
+      },
+      {
+        "wrong": "Lupa tanda negatif pada hasil",
+        "right": "Hitung bilangan bulat dengan teliti: 3 − 9 = −6."
+      }
+    ],
+    "analogy": "Seperti tabungan: kalau di kiri ada x + 5 ribu dan di kanan 12 ribu, ambil 5 ribu dari keduanya. Tersisa x = 7 ribu."
+  },
+  "L2": {
+    "idea": "Angka di depan x artinya DIKALI. Kebalikan perkalian adalah pembagian.",
+    "steps": [
+      "Lihat koefisien x (angka di depannya), termasuk tandanya.",
+      "Bagi kedua ruas dengan koefisien itu.",
+      "Cek hasilnya dengan substitusi."
+    ],
+    "example": "-2x = 8",
+    "mistakes": [
+      {
+        "wrong": "−2x = 8 → x = 8 + 2",
+        "right": "−2 mengalikan x, bukan ditambahkan. Bagi kedua ruas dengan −2: x = −4."
+      },
+      {
+        "wrong": "Membagi dengan 2 (tanpa minus)",
+        "right": "Bagi dengan −2 persis. Negatif ÷ negatif = positif, positif ÷ negatif = negatif."
+      }
+    ],
+    "analogy": "Kalau 3 bungkus permen yang sama berisi 12 permen, satu bungkus berisi 12 ÷ 3 = 4 permen."
+  },
+  "L3": {
+    "idea": "Persamaan dua langkah: hilangkan dulu konstanta di ruas x, baru bagi dengan koefisien.",
+    "steps": [
+      "Kurangi/tambahkan konstanta pada kedua ruas.",
+      "Bagi kedua ruas dengan koefisien x.",
+      "Substitusi untuk mengecek."
+    ],
+    "example": "2x + 5 = 15",
+    "mistakes": [
+      {
+        "wrong": "2x + 5 = 15 → 2x = 15 + 5",
+        "right": "+5 hilang dengan mengurangi 5 di kedua ruas: 2x = 10."
+      },
+      {
+        "wrong": "Membagi 15 dengan 2 lebih dulu",
+        "right": "Boleh, tetapi muncul pecahan. Lebih mudah hilangkan +5 dulu."
+      }
+    ],
+    "analogy": "Seperti membuka kado berlapis: buka kertas luar (+5) dulu, baru kotak di dalamnya (×2)."
+  },
+  "L4": {
+    "idea": "Jika x ada di kedua ruas, kumpulkan semua suku x di satu ruas dan konstanta di ruas lainnya.",
+    "steps": [
+      "Kurangi kedua ruas dengan suku x yang lebih kecil.",
+      "Pindahkan konstanta ke ruas lain (operasi kebalikan di kedua ruas).",
+      "Bagi dengan koefisien x."
+    ],
+    "example": "5x - 3 = 2x + 9",
+    "mistakes": [
+      {
+        "wrong": "5x − 3 = 2x + 9 → 7x − 3 = 9",
+        "right": "2x harus DIKURANGI dari kedua ruas: 3x − 3 = 9."
+      }
+    ],
+    "analogy": "Seperti dua tim yang sama-sama punya kotak-x: buang kotak-x yang sama dari kedua tim supaya mudah dibandingkan."
+  },
+  "L5": {
+    "idea": "Bilangan di depan kurung dikalikan ke SETIAP suku di dalam kurung.",
+    "steps": [
+      "Jabarkan kurung: k(x + m) = kx + km.",
+      "Selesaikan seperti persamaan dua langkah.",
+      "Cek dengan substitusi ke bentuk berkurung."
+    ],
+    "example": "3(x - 2) = 12",
+    "mistakes": [
+      {
+        "wrong": "3(x − 2) = 3x − 2",
+        "right": "3 juga mengalikan −2: 3(x − 2) = 3x − 6."
+      },
+      {
+        "wrong": "−2(x − 3) = −2x − 6",
+        "right": "−2 × (−3) = +6, jadi −2(x − 3) = −2x + 6."
+      }
+    ],
+    "analogy": "3(x − 2) seperti 3 kantong, tiap kantong berisi x lalu diambil 2. Total: 3x dikurangi 6."
+  },
+  "L6": {
+    "idea": "Hilangkan pecahan dengan mengalikan KEDUA ruas dengan penyebutnya (atau KPK penyebut).",
+    "steps": [
+      "Cari penyebut (KPK bila lebih dari satu).",
+      "Kalikan kedua ruas dengan bilangan itu.",
+      "Selesaikan persamaan tanpa pecahan, lalu cek."
+    ],
+    "example": "1/2(x + 3) = 5",
+    "mistakes": [
+      {
+        "wrong": "Mengalikan 2 hanya pada ruas kiri",
+        "right": "Kalikan kedua ruas: x + 3 = 10."
+      },
+      {
+        "wrong": "x/3 + 2 = 6 → x + 2 = 18",
+        "right": "Semua suku dikali 3: x + 6 = 18."
+      }
+    ],
+    "analogy": "Pecahan seperti kue yang dipotong. Mengalikan dengan penyebut sama dengan menyatukan potongan kue kembali."
+  },
+  "L7": {
+    "idea": "Soal cerita: ubah situasi nyata menjadi persamaan, selesaikan, lalu tafsirkan jawabannya dalam cerita.",
+    "steps": [
+      "Baca per kalimat dan tandai bilangan serta kata kunci.",
+      "Tentukan yang ditanyakan → itulah x.",
+      "Terjemahkan kata kunci menjadi operasi dan susun persamaan.",
+      "Selesaikan, lalu cek apakah jawabannya masuk akal."
+    ],
+    "example": "x + (x + 4) = 20",
+    "keywords": [
+      [
+        "jumlah, total, lebih … dari, bertambah, naik",
+        "+"
+      ],
+      [
+        "selisih, kurang, sisa, kembalian, turun",
+        "−"
+      ],
+      [
+        "kali lipat, sama banyak untuk tiap",
+        "×"
+      ],
+      [
+        "adalah, menjadi",
+        "="
+      ],
+      [
+        "berurutan",
+        "x, x + 1, x + 2"
+      ]
+    ],
+    "mistakes": [
+      {
+        "wrong": "Memisalkan x sebagai angka yang sudah diketahui",
+        "right": "x selalu yang DITANYAKAN dan belum diketahui."
+      },
+      {
+        "wrong": "Menerima jawaban yang tidak masuk akal (umur negatif)",
+        "right": "Cek kembali ke cerita: umur, harga, dan banyak barang tidak mungkin negatif."
+      }
+    ],
+    "analogy": "Soal cerita seperti teka-teki detektif: cari petunjuk (kata kunci), tulis dugaan (persamaan), lalu buktikan (cek)."
+  }
+}
