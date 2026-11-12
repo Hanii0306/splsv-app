@@ -98,3 +98,6 @@ from public.siswa
 order by terakhir_aktif desc;
 
 revoke all on public.ringkasan_siswa from anon, authenticated;
+
+-- Muat ulang cache API agar fungsi baru langsung bisa dipanggil.
+notify pgrst, 'reload schema';

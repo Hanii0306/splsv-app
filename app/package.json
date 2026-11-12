@@ -1,6 +1,6 @@
 {
   "name": "splv-app",
-  "version": "1.4.2",
+  "version": "1.5.0",
   "private": true,
   "type": "module",
   "description": "Aplikasi Android belajar SPLSV berbasis Cognitive Load Theory untuk literasi matematis",
