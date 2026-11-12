@@ -43,3 +43,6 @@ server/PUBLIC_URL.txt
 *.db
 # salinan build lama (halaman web sekarang ada di docs/)
 web/
+
+# cache Supabase CLI
+supabase/.temp/
