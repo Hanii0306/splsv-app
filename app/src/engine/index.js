@@ -8,3 +8,4 @@ export * from './why.js';
 export * from './adaptive.js';
 export * from './story.js';
 export * from './generator.js';
+export * from './cases.js';

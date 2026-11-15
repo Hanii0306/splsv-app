@@ -4,7 +4,8 @@ import FreePractice from '../features/FreePractice.jsx';
 import Quiz from '../features/Quiz.jsx';
 import SummaryView from '../features/SummaryView.jsx';
 import LearningMap from '../features/LearningMap.jsx';
-import LevelRunner from '../features/LevelRunner.jsx';
+import CaseRunner from '../features/CaseRunner.jsx';
+import cases from '../content/cases.json';
 import Login from '../features/Login.jsx';
 import Reinforce from '../features/Reinforce.jsx';
 import Research from '../features/Research.jsx';
@@ -13,7 +14,13 @@ import { getProfile, getSetting, setSetting } from '../storage/db.js';
 import { startSync, syncNow } from '../sync/syncWorker.js';
 import { logEvent, startSession } from '../telemetry/log.js';
 
-const DEFAULT_SETTINGS = { light3d: false, reducedMotion: false, clq: false, unlockAll: false };
+// Every learning/gamification feature can be switched off in Menu peneliti (v1.6).
+export const DEFAULT_SETTINGS = {
+  light3d: false, reducedMotion: false, clq: false, unlockAll: false,
+  detective: true, agentM: true, clues: true, xp: true, badges: true,
+  summaries: true, freePractice: true, quiz: true, cats: true,
+};
+const caseById = (id) => cases.find((c) => c.id === id) || cases[0];
 
 export default function App() {
   const [route, setRoute] = useState({ name: 'boot' });
@@ -37,8 +44,11 @@ export default function App() {
   }, []);
 
   useEffect(() => {
-    document.documentElement.classList.toggle('reduce-motion', !!settings.reducedMotion);
-  }, [settings.reducedMotion]);
+    const root = document.documentElement;
+    root.classList.toggle('reduce-motion', !!settings.reducedMotion);
+    root.classList.toggle('no-cats', settings.cats === false);
+    root.dataset.skin = settings.detective === false ? 'cute' : 'detective';
+  }, [settings.reducedMotion, settings.cats, settings.detective]);
 
   const saveSettings = async (s) => { setSettings(s); await setSetting('app', s); };
 
@@ -58,9 +68,9 @@ export default function App() {
           onDone={(p) => { setProfile(p); setRoute({ name: 'level', level: route.level }); }} />
       );
     case 'level':
-      return <LevelRunner key={route.level.id} level={route.level} profile={profile} settings={settings} onExit={() => { syncNow(); setRoute({ name: 'map' }); }} />;
+      return <CaseRunner key={route.level.id} caseInfo={caseById(route.level.id)} profile={profile} settings={settings} onExit={() => { syncNow(); setRoute({ name: 'map' }); }} />;
     case 'summary':
-      return <SummaryView key={route.level.id} level={route.level} onBack={() => setRoute({ name: 'map' })} onStart={() => openLevel(route.level, null)} />;
+      return <SummaryView key={route.level.id} level={route.level} onBack={() => setRoute({ name: 'map' })} onStart={() => openLevel(caseById(route.level.id), null)} />;
     case 'free':
       return <FreePractice key={route.level.id} level={route.level} profile={profile} settings={settings} onExit={() => { syncNow(); setRoute({ name: 'map' }); }} />;
     case 'quiz':

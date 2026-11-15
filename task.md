@@ -68,6 +68,9 @@ Format: `[ ]` belum, `[~]` sedang, `[x]` selesai. Setiap task punya ID dan meruj
 ### Sprint 6 — Pemolesan
 - [~] T-V60 Aksesibilitas: reduced motion, target ≥48dp, dan mode gelap sudah ada. TalkBack belum diuji
 - [~] T-V61 Uji e2e alur utama: lulus di Chromium 360×740 (login→diagnostik→L0/L2/L5/L7→sinkron→dashboard), tetapi skripnya belum dimasukkan ke repo
+- [x] T-V70 v1.6 tema detektif: 70 soal instrumen (`cases.json`, kunci diverifikasi mesin), Peta Investigasi,
+  kartu sidik jari, isian bertahap satu-aktif, Amplop Petunjuk H1–H4, lencana/XP/pangkat, Agent M (peta & akhir
+  saja), semua fitur bisa dimatikan di Menu peneliti. 146 uji lulus; e2e 360×640 lulus (K-01 penuh + fitur mati)
 - [x] T-V62 Signed release APK 1.0.0 (`apk/SPLV-app-1.0.0.apk`), HTTPS-only + CA lokal terbundel
 
 ## D. Implementation (uji coba)

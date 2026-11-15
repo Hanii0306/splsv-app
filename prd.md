@@ -277,3 +277,26 @@ Lihat daftar di `task.md` bagian **"Keputusan tertunda"**.
 - **Animasi saat menjawab** (umpan balik singkat ≤ 0,8 detik): langkah benar → persamaan memantul + percikan bintang; salah → tombol bergoyang; soal selesai → perayaan kecil. Mati pada pengaturan "kurangi animasi".
 - **Lebih banyak gambar lucu di latar menu** (13 simbol + 5 karakter: kotak-x, beban, balon yang tersenyum) dan parade karakter di Peta Belajar. Layar soal tetap tanpa gambar latar (EL03).
 - **Centang persetujuan orang tua/wali dihapus dari aplikasi.** Persetujuan tetap wajib secara etik penelitian dan dikumpulkan di luar aplikasi (lembar persetujuan kertas).
+
+## 15. Perubahan v1.6 — tema "Secret Agent / Math Detective" (permintaan pengembang, 15 Nov 2026)
+
+- **Isi level = 70 soal instrumen** (7 level × 10: soal 1–6 pilihan ganda, 7–10 isian bertahap), disimpan di
+  `app/src/content/cases.json`. Kunci jawaban diverifikasi otomatis oleh mesin persamaan (`tests/cases.test.js`).
+  Soal ini **khusus untuk aplikasi**, bukan pretest/posttest skripsi (dikonfirmasi pengembang).
+- Kartu penjelasan dan soal terpandu lama (levels.json) tidak lagi tampil. **Timbangan (latihan bebas ∞),
+  ringkasan, dan kuis acak tetap ada** sebagai fitur tambahan.
+- **Peta Investigasi Kasus** K-01…K-07: Dokumen Dasar, Sandi Kode Rahasia, Kombinasi Brankas, Jejak Ganda
+  Pelaku, Enkripsi Berlapis, Kode Pecahan Rusak, Penyelidikan Lapangan Akhir. Berurutan; kasus berikutnya
+  terbuka setelah 10 bukti kasus sebelumnya selesai.
+- **Amplop Petunjuk** = tangga hint H1 (pertanyaan pemantik) → H2 (langkah) → H3 (contoh kasus sejenis) →
+  H4 (berkas penyelesaian). Menyala setelah 2 kesalahan berturut-turut (DS02). H4 berisi jawaban akhir, jadi
+  baru bisa dibuka setelah minimal 1 percobaan (GL03).
+- **Gamifikasi**: lencana per kasus (Junior Sleuth, Cipher Breaker, Safe Cracker, Trail Tracker, Layer
+  Decoder, Fraction Fixer, Master Detective); XP 10/7/4/2 per soal (tanpa pengurangan XP sebagai sanksi) +
+  20 bonus kasus; XP total = skor terbaik tiap kasus (mengulang tidak "menambang" XP); pangkat Rekrut → Agen
+  Junior → Agen Lapangan → Agen Senior → Kepala Detektif → Master Detective.
+- **Agent M** hanya di peta, briefing, dan akhir kasus (AGENTS.md §2.2).
+- **Semua fitur bisa dinonaktifkan** di Menu peneliti: tema detektif, Agent M, amplop petunjuk, XP & pangkat,
+  lencana, ringkasan, latihan timbangan, kuis acak, animasi kucing/simbol (selain pengaturan lama).
+- Log penelitian baru: `case_start`, `case_answer` (ok, indikator literasi: merumuskan/menerapkan/
+  menafsirkan/bernalar), `item_complete` berisi `ind`, sehingga skor per indikator bisa dianalisis.

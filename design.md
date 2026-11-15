@@ -73,6 +73,22 @@ Aturan:
   `--ok` dan `--warn` selalu disertai ikon ✓/!.
 - Warna yang sama dipakai untuk objek 3D: kotak-x biru, beban satuan oranye, sorotan operasi ungu.
 
+### 3.1b Tema detektif v1.6 (`data-skin="detective"`, bawaan)
+
+Navy gelap + abu baja dengan aksen hijau zamrud dan emas. Makna warna semantik **tidak berubah**:
+
+| Token | Nilai | Makna |
+|---|---|---|
+| `--bg` / `--surface` / `--border` | `#0B1426` / `#13213A` / `#2E4263` | Latar papan kasus / kartu berkas / abu baja |
+| `--primary` | `#10B981` (zamrud) | Tombol aksi utama (teks `#04241A`) |
+| `--sun` | `#F5B942` (emas) | Lencana, XP, pangkat, kotak isian aktif, stempel "Terbuka" |
+| `--var` / `--const` / `--op` | `#7AA7FF` / `#FF9A6B` / `#C4A1FF` | x / konstanta / operasi |
+| `--ok` / `--warn` | `#34D399` / `#F87171` | Benar (✓, stempel "Terpecahkan") / salah (✗, stempel "Top Secret") |
+
+Elemen: Peta Investigasi (benang merah putus-putus menghubungkan berkas K-01…K-07), stempel, kartu sidik
+jari A–D, kotak isian bertahap (satu aktif), amplop petunjuk (bottom sheet, tidak menutupi soal), medali
+lencana dan bilah XP hanya di layar akhir kasus. Mematikan "Tema detektif" kembali ke token §3.1/v1.3 pink.
+
 ### 3.2 Tipografi
 - Font UI: **Nunito** atau system sans. Persamaan: **JetBrains Mono** atau font tabular agar suku sejajar.
 - Ukuran: persamaan 28 sp, instruksi 18 sp, teks bantu 14 sp. Mengikuti pengaturan ukuran font Android.

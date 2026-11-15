@@ -199,6 +199,15 @@ export default function Research({ profile, settings, onSettings, onBack, onLogo
         <section>
           <h2>Pengaturan</h2>
           {[
+            ['detective', 'Tema detektif (mati = tema pink lama)'],
+            ['agentM', 'Agent M di peta & akhir kasus'],
+            ['clues', 'Amplop petunjuk (H1–H4)'],
+            ['xp', 'XP & pangkat agen'],
+            ['badges', 'Lencana kehormatan'],
+            ['summaries', 'Tombol Ringkasan'],
+            ['freePractice', 'Latihan timbangan ∞'],
+            ['quiz', 'Kuis acak'],
+            ['cats', 'Animasi kucing & simbol di menu'],
             ['light3d', 'Mode ringan (timbangan 2D)'],
             ['reducedMotion', 'Kurangi animasi'],
             ['clq', 'Kuesioner beban kognitif di akhir level'],

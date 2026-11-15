@@ -20,6 +20,11 @@ Setiap aturan mengacu pada kode temuan wawancara.
    (misalnya timbangan seimbang + centang).
    Diizinkan sejak v1.2 karena membawa informasi: wajah timbangan (senyum = seimbang, cemas = miring),
    lencana bersimbol konsep level, dan perayaan simbol matematika **hanya** di layar akhir level/kuis.
+   Sejak v1.6 (tema detektif, keputusan pengembang 15 Nov 2026): maskot **Agent M hanya di Peta Investigasi,
+   briefing kasus, dan layar akhir kasus**, tidak pernah di layar soal. Saat mengerjakan soal yang tampil
+   hanya ikon Amplop Petunjuk (= tangga hint H1→H4), kartu sidik jari (= pilihan jawaban), dan stempel status.
+   Isian bertahap: semua kotak terlihat, tetapi **hanya satu yang aktif** (aturan 3). Semua fitur ini bisa
+   dimatikan di Menu peneliti.
 3. **Satu langkah per layar.** Jangan menggabungkan beberapa transformasi dalam satu interaksi (IL02, EL04).
 4. **Tidak ada auto-advance / autoplay.** Siswa selalu yang menekan "Lanjut" (EL04, K02 "video cepet banget").
 5. **Teks dan visual berdekatan.** Persamaan simbolik selalu tampil tepat di bawah atau di atas timbangan,

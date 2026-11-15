@@ -1,16 +1,18 @@
 import { useEffect, useState } from 'react';
+import cases from '../content/cases.json';
 import levels from '../content/levels.json';
-import { reinforcementFor } from '../engine/index.js';
+import { rankFor, reinforcementFor, totalXp } from '../engine/index.js';
 import { getProgress } from '../storage/db.js';
 import { onSyncStatus } from '../sync/syncWorker.js';
 import Badge from '../ui/Badge.jsx';
-import Header from '../ui/Header.jsx';
+import { AgentSays, Stamp } from '../ui/Detective.jsx';
 import FloatingSymbols from '../ui/FloatingSymbols.jsx';
-import Walkers from '../ui/Walkers.jsx';
+import Header from '../ui/Header.jsx';
 import Logo from '../ui/Logo.jsx';
+import Walkers from '../ui/Walkers.jsx';
 
-const LABEL = { mastered: 'dikuasai ★', active: 'siap dipelajari', locked: 'terkunci' };
 export const QUIZ_MIN_MASTERED = 2;
+const levelMeta = (id) => levels.find((l) => l.id === id);
 
 function SyncBadge() {
   const [s, setS] = useState(null);
@@ -20,8 +22,15 @@ function SyncBadge() {
   return <span className={`sync-badge sync-${s.state}`}>{text}</span>;
 }
 
-/** Two-level navigation only: Map → Level (design.md §2). */
+function agentLine(code, solved, next) {
+  if (solved === 0) return `Selamat datang, Agen ${code}. Kasus pertamamu menunggu.`;
+  if (solved >= cases.length) return 'Semua kasus terpecahkan! Ulangi kasus untuk menaikkan XP.';
+  return `${solved} kasus terpecahkan. Berikutnya: ${next}.`;
+}
+
+/** Two-level navigation only: Map → Case (design.md §2). Every extra feature can be switched off. */
 export default function LearningMap({ profile, settings, onOpenLevel, onSummary, onFree, onQuiz, onResearch, onSignOut }) {
+  const det = settings.detective !== false;
   const [progress, setProgress] = useState({});
   useEffect(() => { getProgress(profile.studentCode).then(setProgress); }, [profile.studentCode]);
 
@@ -29,47 +38,69 @@ export default function LearningMap({ profile, settings, onOpenLevel, onSummary,
     if (settings.unlockAll) return progress[id]?.status === 'mastered' ? 'mastered' : 'active';
     return progress[id]?.status || (i === 0 ? 'active' : 'locked');
   };
-  const statuses = levels.map((lv, i) => statusOf(lv.id, i));
-  const mastered = statuses.filter((s) => s === 'mastered').length;
-  const quizOpen = settings.unlockAll || mastered >= QUIZ_MIN_MASTERED;
+  const statuses = cases.map((c, i) => statusOf(c.id, i));
+  const solved = statuses.filter((s) => s === 'mastered').length;
+  const quizOpen = settings.unlockAll || solved >= QUIZ_MIN_MASTERED;
+  const xp = totalXp(progress);
+  const rank = rankFor(xp);
+  const nextCase = cases.find((_, i) => statuses[i] === 'active');
+  const stampFor = { mastered: ['Terpecahkan', 'ok'], active: ['Terbuka', 'sun'], locked: ['Terkunci', 'muted'] };
 
   return (
     <div className="screen cute-bg">
       <FloatingSymbols />
-      <Header title="Peta Belajar" right={<button type="button" className="icon-btn" onClick={onResearch} aria-label="Menu peneliti">⚙</button>} />
+      <Header title={det ? 'Peta Investigasi Kasus' : 'Peta Belajar'}
+        right={<button type="button" className="icon-btn" onClick={onResearch} aria-label="Menu peneliti">⚙</button>} />
       <main className="content">
         <section className="hello">
           <div className="hello-top">
-            <h2>Halo, {profile.studentCode}!</h2>
-            <span className="logo-mini"><Logo size={52} /></span>
+            <h2>{det ? `Agen ${profile.studentCode}` : `Halo, ${profile.studentCode}!`}</h2>
+            {!det && <span className="logo-mini"><Logo size={52} /></span>}
             <SyncBadge />
           </div>
-          <div className="progress" role="progressbar" aria-valuemin={0} aria-valuemax={levels.length} aria-valuenow={mastered}>
-            <span style={{ width: `${(mastered / levels.length) * 100}%` }} />
+          {det && settings.agentM !== false && (
+            <AgentSays mood="happy">{agentLine(profile.studentCode, solved, nextCase ? nextCase.title : '')}</AgentSays>
+          )}
+          {settings.xp !== false && (
+            <div className="rank-line">
+              <span className="rank-name">★ {rank.name}</span>
+              <span className="muted">{xp} XP{rank.next ? ` · ${rank.next.min - xp} lagi ke ${rank.next.name}` : ''}</span>
+            </div>
+          )}
+          <div className="progress" role="progressbar" aria-valuemin={0} aria-valuemax={cases.length} aria-valuenow={solved}>
+            <span style={{ width: `${(solved / cases.length) * 100}%` }} />
           </div>
           <div className="who">
-            <span className="muted">{mastered} dari {levels.length} lencana terkumpul</span>
+            <span className="muted">{solved} dari {cases.length} {det ? 'kasus terpecahkan' : 'level selesai'}</span>
             <button type="button" className="mini-btn" onClick={onSignOut}>Bukan {profile.studentCode}? Keluar</button>
           </div>
         </section>
 
-        <ol className="level-list">
-          {levels.map((lv, i) => {
+        <ol className="level-list case-path">
+          {cases.map((c, i) => {
             const st = statuses[i];
-            const reinforce = st !== 'locked' ? reinforcementFor(profile.prereq, lv.id, profile.reinforced) : null;
+            const reinforce = st !== 'locked' ? reinforcementFor(profile.prereq, c.id, profile.reinforced) : null;
+            const meta = levelMeta(c.id);
+            const best = progress[c.id];
             return (
-              <li key={lv.id} className={`level-card ${st}`}>
-                <button type="button" className={`level-item level-${st}`} disabled={st === 'locked'} onClick={() => onOpenLevel(lv, reinforce)}>
-                  <Badge levelId={lv.id} status={st} />
+              <li key={c.id} className={`level-card case-card ${st}`}>
+                <button type="button" className={`level-item level-${st}`} disabled={st === 'locked'} onClick={() => onOpenLevel(c, reinforce)}>
+                  {settings.badges !== false ? <Badge levelId={c.id} status={st} /> : <span className="case-no">{i + 1}</span>}
                   <span className="level-text">
-                    <strong>{lv.id} · {lv.title}</strong>
-                    <small>{LABEL[st]}{reinforce ? ' · ada latihan penguatan dulu' : ''}</small>
+                    {det && <span className="case-code">{c.code} · <span className="eq">{c.form}</span></span>}
+                    <strong>{det ? c.title : `${c.id} · ${meta?.title || c.form}`}</strong>
+                    <small>
+                      {det ? <Stamp tone={stampFor[st][1]}>{stampFor[st][0]}</Stamp> : { mastered: 'selesai ★', active: 'siap dipelajari', locked: 'terkunci' }[st]}
+                      {st === 'mastered' && settings.badges !== false && det ? ` ${c.badge}` : ''}
+                      {best?.firstTry != null ? ` · ${best.firstTry}/10 tepat` : ''}
+                      {reinforce ? ' · ada latihan penguatan dulu' : ''}
+                    </small>
                   </span>
                 </button>
-                {st !== 'locked' && (
+                {st !== 'locked' && (settings.summaries !== false || settings.freePractice !== false) && (
                   <div className="level-actions">
-                    <button type="button" className="mini-btn" onClick={() => onSummary(lv)}>Ringkasan</button>
-                    <button type="button" className="mini-btn" onClick={() => onFree(lv)}>Latihan bebas ∞</button>
+                    {settings.summaries !== false && <button type="button" className="mini-btn" onClick={() => onSummary(meta)}>Ringkasan</button>}
+                    {settings.freePractice !== false && <button type="button" className="mini-btn" onClick={() => onFree(meta)}>Latihan timbangan ∞</button>}
                   </div>
                 )}
               </li>
@@ -77,14 +108,16 @@ export default function LearningMap({ profile, settings, onOpenLevel, onSummary,
           })}
         </ol>
 
-        <button type="button" className="quiz-card" disabled={!quizOpen}
-          onClick={() => { const open = levels.filter((_, i) => statuses[i] !== 'locked').map((l) => l.id); onQuiz(open.length > 1 ? open.filter((id) => id !== 'L0') : open); }}>
-          <span className="badge mastered" aria-hidden>?</span>
-          <span className="level-text">
-            <strong>Kuis campuran</strong>
-            <small>{quizOpen ? '10 soal dari level yang sudah kamu buka' : `Terbuka setelah ${QUIZ_MIN_MASTERED} lencana terkumpul`}</small>
-          </span>
-        </button>
+        {settings.quiz !== false && (
+          <button type="button" className="quiz-card" disabled={!quizOpen}
+            onClick={() => onQuiz(cases.filter((_, i) => statuses[i] !== 'locked').map((c) => c.id))}>
+            <span className="badge mastered" aria-hidden>?</span>
+            <span className="level-text">
+              <strong>{det ? 'Uji kilat agen (kuis acak)' : 'Kuis campuran'}</strong>
+              <small>{quizOpen ? '10 soal dari level yang sudah terbuka' : `Terbuka setelah ${QUIZ_MIN_MASTERED} ${det ? 'kasus terpecahkan' : 'level selesai'}`}</small>
+            </span>
+          </button>
+        )}
         <Walkers />
       </main>
     </div>
