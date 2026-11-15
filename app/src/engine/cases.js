@@ -128,3 +128,44 @@ export function rankFor(xp) {
 
 /** Items answered correctly at the first try (rubric-free summary for the end screen). */
 export const firstTryCount = (results) => results.filter((r) => r.wrongs === 0).length;
+
+// --- Reuse of the 70 instrument items outside the case runner (quiz, scale practice) ------
+
+/** Deterministic PRNG (mulberry32) so a seed always gives the same order (testable). */
+function prng(seed) {
+  let a = seed >>> 0;
+  return () => {
+    a = (a + 0x6D2B79F5) >>> 0;
+    let t = a;
+    t = Math.imul(t ^ (t >>> 15), t | 1);
+    t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
+/** Fisher–Yates shuffle with a seed; never mutates the input. */
+export function shuffled(list, seed) {
+  const r = prng(seed);
+  const a = list.slice();
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(r() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+/**
+ * Quiz = `n` multiple-choice instrument items from the opened cases (no generated items).
+ * @returns {Array<object & { levelId: string }>}
+ */
+export function quizPool(allCases, openIds, seed, n = 10) {
+  const open = allCases.filter((c) => openIds.includes(c.id));
+  const pool = (open.length ? open : allCases.slice(0, 1))
+    .flatMap((c) => c.items.filter((i) => i.kind === 'mc').map((i) => ({ ...i, levelId: c.id })));
+  return shuffled(pool, seed).slice(0, Math.min(n, pool.length));
+}
+
+/** Scale practice = the case's instrument items that have an equation, in a seeded order. */
+export function practiceEquations(caseInfo, seed) {
+  return shuffled(caseInfo.items.filter((i) => i.eq), seed);
+}

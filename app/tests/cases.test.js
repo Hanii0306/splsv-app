@@ -165,3 +165,22 @@ describe('content/cases.json (instrument: 7 levels × 10 items)', () => {
     }
   });
 });
+
+describe('instrument items reused in quiz and scale practice', () => {
+  it('quizPool takes only MC instrument items from opened cases, no duplicates', async () => {
+    const { quizPool } = await import('../src/engine/cases.js');
+    const q = quizPool(cases, ['L1', 'L2'], 42);
+    expect(q).toHaveLength(10);
+    expect(q.every((i) => i.kind === 'mc' && ['L1', 'L2'].includes(i.levelId))).toBe(true);
+    expect(new Set(q.map((i) => i.id)).size).toBe(10);
+    expect(quizPool(cases, ['L1', 'L2'], 42).map((i) => i.id)).toEqual(q.map((i) => i.id));
+    expect(quizPool(cases, [], 1).every((i) => i.levelId === 'L1')).toBe(true);
+  });
+  it('practiceEquations uses the case equations only', async () => {
+    const { practiceEquations, shuffled } = await import('../src/engine/cases.js');
+    const p = practiceEquations(cases[0], 7);
+    expect(p).toHaveLength(10);
+    expect(p.every((i) => i.id.startsWith('L1-') && i.eq)).toBe(true);
+    expect(shuffled([1, 2, 3], 5).sort()).toEqual([1, 2, 3]);
+  });
+});

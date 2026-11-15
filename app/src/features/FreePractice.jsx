@@ -1,29 +1,32 @@
 import { useMemo, useState } from 'react';
-import { genEquation, genStory, isClean, isMastered, nextLevel, planMode } from '../engine/index.js';
+import cases from '../content/cases.json';
+import { isClean, isMastered, nextLevel, planMode, practiceEquations } from '../engine/index.js';
 import { updateProgress } from '../storage/db.js';
 import { logEvent } from '../telemetry/log.js';
 import Header from '../ui/Header.jsx';
 import Solver from './Solver.jsx';
-import StoryTask from './StoryTask.jsx';
 
-/** Unlimited generated practice for one level; hints still fade, mastery still counts. */
+/**
+ * Scale practice: the case's own instrument equations (PDF) solved step by step on the balance,
+ * repeated in a fresh random order every round. Hints still fade, mastery still counts.
+ */
 export default function FreePractice({ level, profile, settings, onExit }) {
+  const caseInfo = cases.find((c) => c.id === level.id) || cases[0];
   const base = useMemo(() => Date.now() % 1_000_000, []);
   const [n, setN] = useState(0);
   const [results, setResults] = useState([]);
   const [masteredNow, setMasteredNow] = useState(false);
-  const seed = base + n;
-  const itemId = `${level.id}-G${seed}`;
-  const isStory = level.id === 'L7';
-  const equation = useMemo(() => (isStory ? null : genEquation(level.id, seed)), [isStory, level.id, seed]);
-  const story = useMemo(() => (isStory ? genStory(seed) : null), [isStory, seed]);
-  const mode = isStory ? 'practice' : planMode(results, 'practice');
+  const round = Math.floor(n / Math.max(1, practiceEquations(caseInfo, 0).length));
+  const list = useMemo(() => practiceEquations(caseInfo, base + round), [caseInfo, base, round]);
+  const item = list[n % list.length];
+  const itemId = `${item.id}-S${n}`;
+  const mode = planMode(results, 'practice');
 
   const streak = (() => { let s = 0; for (let i = results.length - 1; i >= 0 && isClean(results[i]); i--) s++; return s; })();
 
   async function done(r) {
     const res = { ...r, mode };
-    logEvent('item_complete', { levelId: level.id, wrongs: r.wrongs, maxHint: r.maxHint, ms: r.ms, mode, free: true, seed }, itemId);
+    logEvent('item_complete', { levelId: level.id, wrongs: r.wrongs, maxHint: r.maxHint, ms: r.ms, mode, free: true, source: item.id }, itemId);
     const all = [...results, res];
     setResults(all);
     if (!masteredNow && isMastered(all)) {
@@ -37,19 +40,15 @@ export default function FreePractice({ level, profile, settings, onExit }) {
 
   return (
     <div className="screen">
-      <Header title={`Latihan bebas · ${level.id}`} onBack={onExit} right={<span className="header-meta">Soal {n + 1}</span>} />
+      <Header title={`Latihan timbangan · ${caseInfo.code}`} onBack={onExit} right={<span className="header-meta">Soal {n + 1}</span>} />
       <main className="content">
         <div className="counter">
-          <span className="pill">Selesai: {results.length}</span>
+          <span className="pill">Bukti {item.id.slice(3)} · {item.label}</span>
           <span className="pill sun">Beruntun rapi: {streak}</span>
-          {masteredNow && <span className="pill sun">★ Lencana {level.id} didapat!</span>}
+          {masteredNow && <span className="pill sun">★ Kasus {caseInfo.code} dikuasai!</span>}
         </div>
-        {isStory ? (
-          <StoryTask key={itemId} story={story} levelId={level.id} itemId={itemId} settings={settings} onDone={done} />
-        ) : (
-          <Solver key={itemId} equation={equation} mode={mode} itemId={itemId} levelId={level.id} scaleMode={level.scale}
-            settings={settings} showPindahRuas={['L1', 'L2', 'L3', 'L4'].includes(level.id)} onDone={done} />
-        )}
+        <Solver key={itemId} equation={item.eq} mode={mode} itemId={itemId} levelId={level.id} scaleMode={level.scale}
+          settings={settings} showPindahRuas={['L1', 'L2', 'L3', 'L4'].includes(level.id)} onDone={done} />
       </main>
     </div>
   );

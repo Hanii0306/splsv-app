@@ -1,25 +1,22 @@
 import { useMemo, useState } from 'react';
-import levels from '../content/levels.json';
-import { quizItem, solutionSteps } from '../engine/index.js';
+import cases from '../content/cases.json';
+import { quizPool } from '../engine/index.js';
 import { db, getProfile } from '../storage/db.js';
 import { reportStudent } from '../sync/supabase.js';
 import { logEvent } from '../telemetry/log.js';
 import Celebrate from '../ui/Celebrate.jsx';
-import Choice from '../ui/Choice.jsx';
-import { pretty } from '../ui/EquationLine.jsx';
+import { Fingerprint } from '../ui/Detective.jsx';
 import FloatingSymbols from '../ui/FloatingSymbols.jsx';
 import Header from '../ui/Header.jsx';
 import Walkers from '../ui/Walkers.jsx';
+import { MathText } from './CaseItem.jsx';
 
-const N = 10;
+const LETTERS = ['A', 'B', 'C', 'D'];
 
-/** Mixed quiz from the opened levels. No hints (it checks independent skill); review at the end. */
+/** Mixed quiz = 10 multiple-choice instrument items (PDF) from opened cases. No hints; review at the end. */
 export default function Quiz({ openLevels, onExit }) {
-  const items = useMemo(() => {
-    const pool = openLevels.length ? openLevels : ['L1'];
-    const seed = Date.now() % 1_000_000;
-    return Array.from({ length: N }, (_, i) => quizItem(pool[i % pool.length], seed + i));
-  }, [openLevels]);
+  const items = useMemo(() => quizPool(cases, openLevels, Date.now() % 1_000_000), [openLevels]);
+  const N = items.length;
   const [i, setI] = useState(0);
   const [answers, setAnswers] = useState([]);
   const [picked, setPicked] = useState(null);
@@ -27,9 +24,9 @@ export default function Quiz({ openLevels, onExit }) {
 
   function pick(k) {
     const it = items[i];
-    const ok = k === it.correct;
+    const ok = k === it.answer;
     setPicked(k);
-    logEvent('quiz_answer', { levelId: it.levelId, correct: ok, equation: it.equation }, `Q-${i}`);
+    logEvent('quiz_answer', { levelId: it.levelId, correct: ok, ind: it.ind }, it.id);
     setAnswers((a) => {
       const all = [...a, { ...it, chosen: k, ok }];
       if (all.length === N) saveScore(Math.round((all.filter((x) => x.ok).length / N) * 100));
@@ -47,9 +44,9 @@ export default function Quiz({ openLevels, onExit }) {
 
   if (done) {
     const score = answers.filter((a) => a.ok).length;
-    const byLevel = levels.map((lv) => {
-      const mine = answers.filter((a) => a.levelId === lv.id);
-      return mine.length ? `${lv.id}: ${mine.filter((a) => a.ok).length}/${mine.length}` : null;
+    const byLevel = cases.map((c) => {
+      const mine = answers.filter((a) => a.levelId === c.id);
+      return mine.length ? `${c.code}: ${mine.filter((a) => a.ok).length}/${mine.length}` : null;
     }).filter(Boolean);
     const wrong = answers.filter((a) => !a.ok);
     return (
@@ -64,13 +61,12 @@ export default function Quiz({ openLevels, onExit }) {
           <div className="counter">{byLevel.map((t) => <span key={t} className="pill">{t}</span>)}</div>
           {wrong.length > 0 && <h2>Pembahasan soal yang salah</h2>}
           {wrong.map((a) => (
-            <div key={a.equation} className="sum-example">
-              {solutionSteps(a.equation).map((st, k) => (
-                <div key={k}>{st.op && <div className="op">↓ {st.op}</div>}<div>{pretty(st.text)}</div></div>
-              ))}
+            <div key={a.id} className="sum-example">
+              <strong>{a.label}</strong>
+              <ol className="clue-lines">{a.steps.map((s) => <li key={s}><MathText text={s} /></li>)}</ol>
             </div>
           ))}
-          <footer className="action-bar"><span /><button type="button" className="btn btn-primary" onClick={onExit}>Ke Peta Belajar</button></footer>
+          <footer className="action-bar"><span /><button type="button" className="btn btn-primary" onClick={onExit}>Ke peta</button></footer>
         </main>
       </div>
     );
@@ -79,15 +75,30 @@ export default function Quiz({ openLevels, onExit }) {
   const it = items[i];
   return (
     <div className="screen">
-      <Header title="Kuis campuran" onBack={onExit} right={<span className="header-meta">{i + 1}/{N}</span>} />
+      <Header title="Kuis acak" onBack={onExit} right={<span className="header-meta">{i + 1}/{N}</span>} />
       <main className="content">
-        <p className="muted">Tanpa bantuan. Hitung di kertas bila perlu, lalu pilih nilai x.</p>
-        <div className="quiz-eq">{pretty(it.equation)}</div>
-        <Choice key={i} options={it.optionsText ? it.optionsText.map(pretty) : it.options.map((v) => pretty(`x = ${v}`))} onPick={pick} disabled={picked != null}
-          state={picked != null ? { [picked]: picked === it.correct ? 'right' : 'wrong', [it.correct]: 'right' } : {}} />
+        <p className="muted">Tanpa bantuan. Hitung di kertas bila perlu.</p>
+        <div className="evidence">
+          <strong className="evidence-label">{it.label}</strong>
+          {it.prompt.map((p) => <p key={p}><MathText text={p} /></p>)}
+        </div>
+        <div className="fp-cards">
+          {it.options.map((o, k) => {
+            const st = picked == null ? '' : k === it.answer ? ' fp-right' : k === picked ? ' fp-wrong' : '';
+            return (
+              <button key={o} type="button" className={`fp-card${st}`} disabled={picked != null} onClick={() => pick(k)}>
+                <span className="fp-letter">{LETTERS[k]}</span>
+                <span className="fp-text"><MathText text={o} /></span>
+                <span className="fp-chip">{st === ' fp-right' ? '✓' : st === ' fp-wrong' ? '✗' : <Fingerprint size={22} />}</span>
+              </button>
+            );
+          })}
+        </div>
         {picked != null && (
           <footer className="action-bar">
-            <span className={picked === it.correct ? 'feedback feedback-ok' : 'feedback feedback-warn'}>{picked === it.correct ? 'Benar!' : `Jawaban: ${it.optionsText ? pretty(it.answer) : `x = ${pretty(String(it.answer))}`}`}</span>
+            <span className={picked === it.answer ? 'feedback feedback-ok' : 'feedback feedback-warn'}>
+              {picked === it.answer ? '✓ Benar!' : `! Jawaban: ${LETTERS[it.answer]}`}
+            </span>
             <button type="button" className="btn btn-primary" onClick={next}>{i + 1 < N ? 'Berikutnya →' : 'Lihat hasil'}</button>
           </footer>
         )}

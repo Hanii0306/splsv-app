@@ -208,6 +208,7 @@ export default function Research({ profile, settings, onSettings, onBack, onLogo
             ['freePractice', 'Latihan timbangan ∞'],
             ['quiz', 'Kuis acak'],
             ['cats', 'Animasi kucing & simbol di menu'],
+            ['diagnostic', 'Tes awal prasyarat (8 soal, bukan dari PDF)'],
             ['light3d', 'Mode ringan (timbangan 2D)'],
             ['reducedMotion', 'Kurangi animasi'],
             ['clq', 'Kuesioner beban kognitif di akhir level'],

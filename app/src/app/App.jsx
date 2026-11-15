@@ -19,6 +19,7 @@ export const DEFAULT_SETTINGS = {
   light3d: false, reducedMotion: false, clq: false, unlockAll: false,
   detective: true, agentM: true, clues: true, xp: true, badges: true,
   summaries: true, freePractice: true, quiz: true, cats: true,
+  diagnostic: false, // prerequisite pre-test (not from the PDF); researcher can switch it on
 };
 const caseById = (id) => cases.find((c) => c.id === id) || cases[0];
 
@@ -29,13 +30,14 @@ export default function App() {
 
   useEffect(() => {
     (async () => {
-      setSettings({ ...DEFAULT_SETTINGS, ...((await getSetting('app')) || {}) });
+      const st = { ...DEFAULT_SETTINGS, ...((await getSetting('app')) || {}) };
+      setSettings(st);
       const p = await getProfile();
       if (!p) { setRoute({ name: 'login' }); return; }
       setProfile(p);
       startSession(p.studentCode);
       startSync();
-      setRoute({ name: p.prereq ? 'map' : 'diagnostic' });
+      setRoute({ name: p.prereq || !st.diagnostic ? 'map' : 'diagnostic' });
     })();
     const end = () => { logEvent('session_end', {}); };
     const onHide = () => { if (document.visibilityState === 'hidden') { end(); syncNow(); } };
@@ -59,7 +61,7 @@ export default function App() {
     case 'boot':
       return <div className="screen center"><p className="muted">Memuat…</p></div>;
     case 'login':
-      return <Login onDone={(p) => { setProfile(p); startSession(p.studentCode); startSync(); setRoute({ name: p.prereq ? 'map' : 'diagnostic' }); }} />;
+      return <Login onDone={(p) => { setProfile(p); startSession(p.studentCode); startSync(); setRoute({ name: p.prereq || !settings.diagnostic ? 'map' : 'diagnostic' }); }} />;
     case 'diagnostic':
       return <Diagnostic profile={profile} onDone={(p) => { setProfile(p); setRoute({ name: 'map' }); }} />;
     case 'reinforce':

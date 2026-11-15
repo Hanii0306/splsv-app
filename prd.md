@@ -300,3 +300,9 @@ Lihat daftar di `task.md` bagian **"Keputusan tertunda"**.
   lencana, ringkasan, latihan timbangan, kuis acak, animasi kucing/simbol (selain pengaturan lama).
 - Log penelitian baru: `case_start`, `case_answer` (ok, indikator literasi: merumuskan/menerapkan/
   menafsirkan/bernalar), `item_complete` berisi `ind`, sehingga skor per indikator bisa dianalisis.
+
+### v1.6.1 — seluruh aplikasi hanya memakai 70 soal PDF (16 Nov 2026)
+- **Kuis acak** = 10 soal pilihan ganda PDF yang diacak dari kasus yang sudah terbuka (bukan soal buatan mesin).
+- **Latihan timbangan ∞** = persamaan dari soal PDF kasus itu, dikerjakan langkah demi langkah di timbangan,
+  diulang dengan urutan acak tiap putaran. (Variabel ditulis sebagai x di timbangan.)
+- **Tes awal prasyarat** (8 soal non-PDF) **mati secara bawaan**; bisa dinyalakan di Menu peneliti.
