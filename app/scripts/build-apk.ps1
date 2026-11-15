@@ -14,10 +14,10 @@ if (-not (Get-Command node -ErrorAction SilentlyContinue)) {
   if (-not $portable) { throw 'Node.js tidak ditemukan. Pasang Node.js 20+ dari nodejs.org.' }
   $env:Path = "$($portable.FullName);$env:Path"
 }
-# JDK 17 + Android SDK: pakai JAVA_HOME/ANDROID_HOME bila ada, jika tidak pakai versi portable.
+# JDK 21 + Android SDK: pakai JAVA_HOME/ANDROID_HOME bila ada, jika tidak pakai versi portable.
 if (-not $env:JAVA_HOME) {
-  $jdk = Get-ChildItem (Join-Path $tools 'jdk') -Directory -ErrorAction SilentlyContinue | Select-Object -First 1
-  if (-not $jdk) { throw 'JDK 17 tidak ditemukan. Set JAVA_HOME atau pasang Android Studio.' }
+  $jdk = Get-ChildItem (Join-Path $tools 'jdk21') -Directory -ErrorAction SilentlyContinue | Select-Object -First 1
+  if (-not $jdk) { throw 'JDK 21 (wajib untuk Capacitor 8) tidak ditemukan. Set JAVA_HOME atau pasang Android Studio.' }
   $env:JAVA_HOME = $jdk.FullName
 }
 if (-not $env:ANDROID_HOME) { $env:ANDROID_HOME = Join-Path $tools 'sdk' }
