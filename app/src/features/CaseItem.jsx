@@ -197,19 +197,22 @@ export function StepsItem({ item, caseInfo, n, settings, onDone }) {
   }
 
   function check(given) {
-    const r = checkBox(box, given);
-    s.attempt(r.ok, { box: cur });
+    const r = checkBox(box, box.free ? given[0] : given);
+    // Free explanations are stored verbatim for the researcher (student code only, no names).
+    s.attempt(r.ok, box.free ? { box: cur, explanation: String(given[0] || '').slice(0, 500) } : { box: cur });
     if (r.ok) {
       if (box.choices) setVals((all) => all.map((row, k) => (k === cur ? [box.choices[given]] : row)));
       setCur(cur + 1); setWrong([]); setBoxWrongs(0); setMsg(null);
       setTimeout(() => inputRefs.current[0]?.focus?.(), 0);
     } else {
       setWrong(r.wrong); setBoxWrongs(boxWrongs + 1);
-      setMsg(s.hint.wrongStreak + 1 >= 2 && s.cluesOn ? 'Belum tepat. Amplop petunjuk siap dibuka.' : 'Belum tepat. Cek tanda dan hitunganmu.');
+      setMsg(box.free ? 'Tulis alasanmu minimal 3 kata.' : s.hint.wrongStreak + 1 >= 2 && s.cluesOn ? 'Belum tepat. Amplop petunjuk siap dibuka.' : 'Belum tepat. Cek tanda dan hitunganmu.');
     }
   }
 
-  const filled = box && !box.choices && (vals[cur] || []).filter((v) => String(v || '').trim()).length === (box.text.match(/□/g) || []).length;
+  const filled = box && !box.choices && (box.free
+    ? String(vals[cur][0] || '').trim().length > 0
+    : (vals[cur] || []).filter((v) => String(v || '').trim()).length === (box.text.match(/□/g) || []).length);
   const flipSign = () => {
     const i = Math.max(0, inputRefs.current.findIndex((el) => el === document.activeElement));
     const v = String(vals[cur][i] || '');
@@ -226,7 +229,15 @@ export function StepsItem({ item, caseInfo, n, settings, onDone }) {
             <li key={bi} className={`box box-${state}`}>
               <span className="box-no">{bi < cur ? '✓' : bi + 1}</span>
               <div className="box-body">
-                {b.choices && state !== 'done' ? (
+                {b.free ? (
+                  <>
+                    <span className="box-text">{b.text}</span>
+                    {state === 'done'
+                      ? <span className="box-free-done">{vals[bi][0]}</span>
+                      : <textarea className="box-free" rows={3} disabled={state !== 'active'} value={vals[bi][0] || ''}
+                          placeholder="Tulis alasanmu…" onChange={(e) => setVal(bi, 0, e.target.value)} />}
+                  </>
+                ) : b.choices && state !== 'done' ? (
                   <>
                     <span className="box-text">{b.text}</span>
                     <div className="box-choices">
@@ -258,7 +269,7 @@ export function StepsItem({ item, caseInfo, n, settings, onDone }) {
             {s.envBtn || <span />}
             {!box.choices && (
               <span className="row-tight">
-                <button type="button" className="btn btn-ghost sign-btn" onMouseDown={(e) => e.preventDefault()} onClick={flipSign} aria-label="Ganti tanda plus/minus">±</button>
+                {!box.free && <button type="button" className="btn btn-ghost sign-btn" onMouseDown={(e) => e.preventDefault()} onClick={flipSign} aria-label="Ganti tanda plus/minus">±</button>}
                 <button type="button" className="btn btn-primary" disabled={!filled} onClick={() => check(vals[cur])}>Periksa</button>
               </span>
             )}

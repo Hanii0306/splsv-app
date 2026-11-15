@@ -38,11 +38,16 @@ export const expectedOf = (box) => (Array.isArray(box.answer) ? box.answer : [bo
 
 /**
  * Check one scaffolded box.
- * @param {{text:string, answer:string|string[]|number, choices?:string[]}} box
+ * @param {{text:string, answer?:string|string[]|number, choices?:string[], free?:boolean}} box
  * @param {string[]|number} given  typed values (numeric box) or picked index (choice box)
  * @returns {{ ok: boolean, wrong: number[] }}  `wrong` lists the blank indexes that are wrong
  */
 export function checkBox(box, given) {
+  // Free explanation ("Jelaskan alasan Anda!"): not auto-scored, only needs a real attempt (≥ 3 words).
+  if (box.free) {
+    const ok = String(given ?? '').trim().split(/\s+/).filter(Boolean).length >= 3;
+    return { ok, wrong: ok ? [] : [0] };
+  }
   if (box.choices) {
     const ok = Number(given) === box.answer;
     return { ok, wrong: ok ? [] : [0] };

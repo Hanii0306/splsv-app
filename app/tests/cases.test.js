@@ -39,6 +39,12 @@ describe('checkBox', () => {
     expect(checkBox({ text: '□x − □x = 12 + 8', answer: ['7', '3'] }, ['7', '4'])).toEqual({ ok: false, wrong: [1] });
     expect(checkBox({ text: 'x = □', answer: '3/2' }, ['1,5']).ok).toBe(true);
   });
+  it('free explanation boxes need a real attempt, not a key', () => {
+    const b = { text: 'Jelaskan alasan Anda!', free: true };
+    expect(checkBox(b, 'karena kotak harus bulat').ok).toBe(true);
+    expect(checkBox(b, 'ok').ok).toBe(false);
+    expect(checkBox(b, '').ok).toBe(false);
+  });
   it('choice boxes compare the picked index', () => {
     const b = { text: 'Pernyataan itu …', choices: ['Benar', 'Salah'], answer: 1 };
     expect(checkBox(b, 1).ok).toBe(true);
@@ -122,13 +128,12 @@ describe('content/cases.json (instrument: 7 levels × 10 items)', () => {
     }
   });
 
-  it('the final numeric box of each scaffolded equation item is the engine solution', () => {
+  it('every scaffolded equation item (L1–L6) has a blank whose key is the engine solution', () => {
     for (const c of cases.slice(0, 6)) {
       for (const i of c.items.filter((x) => x.kind === 'steps')) {
         const sol = solve(parse(i.eq));
-        const finalBox = i.boxes.filter((b) => !b.choices && blanksIn(b.text) === 1).find((b) => /^[a-z] = □$|^x = □|= □$/.test(b.text) && /^(Nilai |Langkah 2: |Penyelesaian yang tepat: |Jika .*maka )?[a-z] = □$/.test(b.text.replace(/^Nilai x yang (tepat|benar) = □$/, 'x = □').replace(/^Nilai x yang memenuhi = □$/, 'x = □')));
-        expect(finalBox, i.id).toBeTruthy();
-        expect(F.eq(parseAnswer(finalBox.answer), sol), i.id).toBe(true);
+        const keys = i.boxes.filter((b) => !b.choices && !b.free).flatMap(expectedOf);
+        expect(keys.some((k) => F.eq(parseAnswer(k), sol)), i.id).toBe(true);
       }
     }
   });
@@ -150,9 +155,19 @@ describe('content/cases.json (instrument: 7 levels × 10 items)', () => {
       for (const i of c.items.filter((x) => x.kind === 'steps')) {
         for (const b of i.boxes) {
           if (b.choices) { expect(b.answer).toBeLessThan(b.choices.length); continue; }
+          if (b.free) { expect(blanksIn(b.text)).toBe(0); continue; }
           expect(expectedOf(b)).toHaveLength(blanksIn(b.text));
           expectedOf(b).forEach((a) => expect(parseAnswer(a), `${i.id} ${b.text}`).not.toBeNull());
         }
+      }
+    }
+  });
+
+  it('scale-practice items record the PDF variable letter', () => {
+    for (const c of cases) {
+      for (const i of c.items.filter((x) => x.eq)) {
+        expect(i.var, i.id).toMatch(/^[a-z]$/);
+        if (i.var !== 'x') expect(i.prompt.join(' '), i.id).toContain(i.var);
       }
     }
   });

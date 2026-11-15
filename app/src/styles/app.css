@@ -515,3 +515,6 @@ html[data-skin='detective'] { background: #0B1426; }
 .reduce-motion .stamp-big, .reduce-motion .fp-right .fp-chip { animation: none; }
 .no-flexgap .fp-card > * + *, .no-flexgap .box > * + *, .no-flexgap .agent-says > * + * { margin-left: 10px; }
 .nowrap { white-space: nowrap; }
+.box-free { width: 100%; min-height: 84px; padding: 8px 10px; border-radius: 10px; border: 2px solid var(--border); background: var(--bg); color: var(--text); font: 16px/1.4 var(--font-ui); resize: vertical; }
+.box-free:focus { outline: none; border-color: var(--sun); }
+.box-free-done { font-size: 16px; color: var(--ok); }

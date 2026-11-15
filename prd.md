@@ -306,3 +306,11 @@ Lihat daftar di `task.md` bagian **"Keputusan tertunda"**.
 - **Latihan timbangan ∞** = persamaan dari soal PDF kasus itu, dikerjakan langkah demi langkah di timbangan,
   diulang dengan urutan acak tiap putaran. (Variabel ditulis sebagai x di timbangan.)
 - **Tes awal prasyarat** (8 soal non-PDF) **mati secara bawaan**; bisa dinyalakan di Menu peneliti.
+
+### v1.6.2 — soal disamakan persis dengan PDF instrumen (16 Nov 2026)
+- Bunyi soal dan kotak isian 28 soal campuran dikembalikan **persis seperti PDF** (kotak bantu tambahan
+  dihapus; kotak berganda seperti "□x + □ = 42 → x = □" tetap satu baris seperti di PDF). Soal cerita L7
+  memakai kalimat asli PDF.
+- L7 no. 8 "Jelaskan alasan Anda!" = isian bebas: tidak dinilai otomatis, minimal 3 kata, teksnya tersimpan
+  di log `case_answer.explanation` untuk dinilai peneliti dengan rubrik PDF.
+- Latihan timbangan menampilkan bunyi soal PDF dan huruf variabel aslinya (`var`), misalnya "p ditulis x".

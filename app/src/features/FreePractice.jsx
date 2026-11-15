@@ -43,10 +43,11 @@ export default function FreePractice({ level, profile, settings, onExit }) {
       <Header title={`Latihan timbangan · ${caseInfo.code}`} onBack={onExit} right={<span className="header-meta">Soal {n + 1}</span>} />
       <main className="content">
         <div className="counter">
-          <span className="pill">Bukti {item.id.slice(3)} · {item.label}</span>
+          <span className="pill">Soal no. {Number(item.id.slice(3))} · {item.label}</span>
           <span className="pill sun">Beruntun rapi: {streak}</span>
           {masteredNow && <span className="pill sun">★ Kasus {caseInfo.code} dikuasai!</span>}
         </div>
+        <p className="muted pdf-stem">{item.prompt.join(' ')}{item.var && item.var !== 'x' ? ` (di timbangan, ${item.var} ditulis x)` : ''}</p>
         <Solver key={itemId} equation={item.eq} mode={mode} itemId={itemId} levelId={level.id} scaleMode={level.scale}
           settings={settings} showPindahRuas={['L1', 'L2', 'L3', 'L4'].includes(level.id)} onDone={done} />
       </main>
