@@ -52,13 +52,18 @@ export default function CaseRunner({ caseInfo, profile, settings, onExit }) {
     } else finish(all);
   }
 
-  const meta = phase === 'item' ? `Bukti ${idx + 1}/10` : '';
+  const meta = '';
   const ItemView = item?.kind === 'mc' ? McItem : StepsItem;
   const rank = end ? rankFor(end.total) : null;
 
   return (
     <div className="screen case-screen">
       <Header title={title} onBack={onExit} right={<span className="header-meta">{meta}</span>} />
+      {phase === 'item' && (
+        <div className="count-box">
+          <span>Jumlah soal: <strong>{caseInfo.items.length}</strong></span>
+        </div>
+      )}
       {phase === 'item' && (
         <div className="case-progress" aria-hidden>
           {caseInfo.items.map((it, i) => <span key={it.id} className={i < idx ? 'done' : i === idx ? 'now' : ''} />)}
@@ -74,7 +79,7 @@ export default function CaseRunner({ caseInfo, profile, settings, onExit }) {
               <p className="case-form">Bentuk: <span className="eq">{caseInfo.form}</span></p>
               {caseInfo.briefing.map((b) => <p key={b}>{b}</p>)}
               <ul className="case-facts">
-                <li>10 bukti: 6 pilihan ganda, 4 isian bertahap.</li>
+                <li>Jumlah soal: {caseInfo.items.length} (6 pilihan ganda, 4 isian).</li>
                 {settings.clues !== false && <li>Macet? Buka amplop petunjuk.</li>}
               </ul>
             </div>

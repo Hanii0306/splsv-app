@@ -325,3 +325,8 @@ Lihat daftar di `task.md` bagian **"Keputusan tertunda"**.
 - Soal yang bisa dikerjakan siswa hanya **70 soal PDF**: di halaman kasus (10 per level) dan di kuis acak
   (10 soal yang diambil dari 70 soal yang sama).
 - Masih ada (bukan soal): Ringkasan materi per level dan contoh sejenis di amplop petunjuk H3.
+
+### v1.6.5 — nomor soal PDF disembunyikan (16 Nov 2026)
+- Label "Bukti #n" dan "Bukti n/10" dihapus (urutannya sama dengan nomor di PDF). Kemajuan hanya berupa
+  bilah titik tanpa angka. Tag soal kini "Pilihan ganda" / "Isian".
+- Kotak **"Jumlah soal: 10"** di kartu kasus (peta), layar kasus, kartu kuis, dan layar kuis.

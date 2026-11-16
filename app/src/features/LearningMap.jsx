@@ -88,6 +88,7 @@ export default function LearningMap({ profile, settings, onOpenLevel, onSummary,
                   <span className="level-text">
                     {det && <span className="case-code">{c.code} · <span className="eq">{c.form}</span></span>}
                     <strong>{det ? c.title : `${c.id} · ${meta?.title || c.form}`}</strong>
+                    <span className="count-pill">Jumlah soal: {c.items.length}</span>
                     <small>
                       {det ? <Stamp tone={stampFor[st][1]}>{stampFor[st][0]}</Stamp> : { mastered: 'selesai ★', active: 'siap dipelajari', locked: 'terkunci' }[st]}
                       {st === 'mastered' && settings.badges !== false && det ? ` ${c.badge}` : ''}
@@ -111,7 +112,8 @@ export default function LearningMap({ profile, settings, onOpenLevel, onSummary,
             <span className="badge mastered" aria-hidden>?</span>
             <span className="level-text">
               <strong>{det ? 'Uji kilat agen (kuis acak)' : 'Kuis campuran'}</strong>
-              <small>{quizOpen ? '10 soal dari level yang sudah terbuka' : `Terbuka setelah ${QUIZ_MIN_MASTERED} ${det ? 'kasus terpecahkan' : 'level selesai'}`}</small>
+              <span className="count-pill">Jumlah soal: 10</span>
+              <small>{quizOpen ? 'Diambil acak dari level yang sudah terbuka' : `Terbuka setelah ${QUIZ_MIN_MASTERED} ${det ? 'kasus terpecahkan' : 'level selesai'}`}</small>
             </span>
           </button>
         )}

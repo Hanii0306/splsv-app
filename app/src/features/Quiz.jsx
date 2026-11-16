@@ -174,7 +174,11 @@ export default function Quiz({ openLevels, onExit }) {
 
   return (
     <div className="screen">
-      <Header title="Kuis acak" onBack={onExit} right={<span className="header-meta">{i + 1}/{N}</span>} />
+      <Header title="Kuis acak" onBack={onExit} />
+      <div className="count-box">
+        <span>Jumlah soal: <strong>{N}</strong></span>
+        <span>Selesai: <strong>{answers.length}</strong></span>
+      </div>
       <main className="content">
         <p className="muted">Tanpa bantuan. Hitung di kertas bila perlu.</p>
         <div className="evidence">

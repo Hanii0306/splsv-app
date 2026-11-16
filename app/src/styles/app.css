@@ -521,3 +521,7 @@ html[data-skin='detective'] { background: #0B1426; }
 .box-missed { border-color: var(--warn); }
 .box-missed .box-no { background: var(--warn); color: #2A0A0A; }
 .box-val-wrong { color: var(--warn); border-bottom-color: var(--warn); }
+.count-box { display: flex; justify-content: space-between; gap: 8px; max-width: 520px; width: calc(100% - 32px); margin: 8px auto 0;
+  padding: 6px 12px; border-radius: 10px; border: 1.5px solid var(--border); background: var(--surface); font-size: 14px; color: var(--text-muted); }
+.count-box strong { color: var(--sun); font-size: 16px; }
+.count-pill { align-self: flex-start; font-size: 12px; font-weight: 700; padding: 0 8px; margin: 2px 0; border-radius: 6px; border: 1.5px solid var(--border); color: var(--text-muted); }

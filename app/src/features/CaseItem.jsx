@@ -91,7 +91,7 @@ function Evidence({ item, n }) {
   return (
     <>
       <div className="case-tag">
-        <span>Bukti #{n}</span>
+        <span>{item.kind === 'mc' ? 'Pilihan ganda' : 'Isian'}</span>
         <span className="ind-tag">{IND_LABEL[item.ind]}</span>
       </div>
       <div className="evidence">
