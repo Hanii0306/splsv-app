@@ -75,29 +75,29 @@
   color-scheme: dark;
 }
 
-/* v1.6 "Secret Agent / Math Detective" (design.md §3.2): navy gelap + abu baja, aksen hijau zamrud & emas.
+/* v1.6 "Secret Agent / Math Detective" (design.md §3.1b): latar ungu pastel (v1.6.6), aksen hijau zamrud & emas.
    Semantic maths colours keep their meaning: --var x-terms, --const constants, --op operation, --ok, --warn.
    Placed last so it wins over the light/dark rules above. Switch off: Menu peneliti → Tema detektif. */
 :root[data-skin='detective'] {
-  --bg: #0B1426;          /* navy gelap */
-  --bg-dot: #16243D;      /* garis papan kasus */
-  --surface: #13213A;     /* kartu berkas */
-  --surface-pink: #1A2B47;
-  --border: #2E4263;      /* abu baja */
-  --text: #E6EDF7;
-  --text-muted: #93A4BF;
+  --bg: #EFE7FB;          /* ungu pastel (v1.6.6, permintaan pengembang) */
+  --bg-dot: #E0D3F5;      /* garis papan kasus */
+  --surface: #FFFFFF;     /* kartu berkas */
+  --surface-pink: #F6F0FE;
+  --border: #D3C3EE;
+  --text: #2A2142;
+  --text-muted: #6E6390;
   --primary: #10B981;     /* hijau zamrud: aksi utama */
-  --primary-shadow: #047857;
+  --primary-shadow: #0B8A60;
   --primary-text: #04241A;
-  --var: #7AA7FF;
-  --const: #FF9A6B;
-  --op: #C4A1FF;
-  --ok: #34D399;
-  --warn: #F87171;
-  --scale-frame: #8FA3C0;
-  --balloon: #5B7BA8;
-  --sun: #F5B942;         /* emas detektif: lencana, XP, stempel */
-  --sun-soft: #33280F;
-  --sky-soft: #172842;
-  color-scheme: dark;
+  --var: #3B5BFD;
+  --const: #D9620B;
+  --op: #8B3BEA;
+  --ok: #15803D;
+  --warn: #DC2626;
+  --scale-frame: #B9A6E0;
+  --balloon: #C9B3F2;
+  --sun: #B7791F;         /* emas detektif (lebih gelap agar terbaca di latar terang) */
+  --sun-soft: #FFF3D6;
+  --sky-soft: #F1EAFD;
+  color-scheme: light;
 }

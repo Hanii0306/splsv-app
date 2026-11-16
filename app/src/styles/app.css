@@ -376,7 +376,7 @@ h1, h2, .app-header h1, .level-text strong, .hello h2, .score, .quiz-eq, .diag-p
 .reduce-motion .walker .cat-tail, .lite .walker .cat-tail { animation: none; }
 
 /* ================= v1.6 detective theme + case runner ================= */
-html[data-skin='detective'] { background: #0B1426; }
+html[data-skin='detective'] { background: #EFE7FB; }
 .no-cats .walkers, .no-cats .floaty { display: none !important; }
 
 [data-skin='detective'] .cute-bg {
@@ -384,7 +384,7 @@ html[data-skin='detective'] { background: #0B1426; }
   background-size: 28px 28px;
 }
 [data-skin='detective'] .btn-primary { color: var(--primary-text); }
-[data-skin='detective'] .btn-primary:disabled { background: #1F4D3F; border-color: #1F4D3F; color: #7FA898; box-shadow: 0 4px 0 #173A30; }
+[data-skin='detective'] .btn-primary:disabled { background: #A7E3CC; border-color: #A7E3CC; color: #3F6F5E; box-shadow: 0 4px 0 #8CCFB6; }
 [data-skin='detective'] .app-header { border-bottom: 2px solid var(--border); }
 [data-skin='detective'] .hello { background: var(--surface); border: 1px solid var(--border); }
 [data-skin='detective'] .progress span { background: var(--sun); }
@@ -482,8 +482,8 @@ html[data-skin='detective'] { background: #0B1426; }
 .box { display: flex; gap: 10px; align-items: flex-start; padding: 10px 12px; border-radius: 12px; border: 1.5px solid var(--border); background: var(--surface); }
 .box-no { flex: none; width: 28px; height: 28px; margin-top: 6px; border-radius: 50%; display: grid; place-items: center; font-size: 14px; font-weight: 800; background: var(--bg); color: var(--text-muted); }
 .box-active { border-color: var(--sun); box-shadow: 0 0 0 3px color-mix(in srgb, var(--sun) 20%, transparent); }
-.box-active .box-no { background: var(--sun); color: #1B1405; }
-.box-done .box-no { background: var(--ok); color: #04241A; }
+.box-active .box-no { background: var(--sun); color: #FFFFFF; }
+.box-done .box-no { background: var(--ok); color: #FFFFFF; }
 .box-later { opacity: .5; }
 .box-body { flex: 1; display: flex; flex-direction: column; gap: 6px; min-width: 0; }
 .box-text { font-family: var(--font-math); font-size: 18px; line-height: 2.1; overflow-wrap: anywhere; }
@@ -519,7 +519,7 @@ html[data-skin='detective'] { background: #0B1426; }
 .box-free:focus { outline: none; border-color: var(--sun); }
 .box-free-done { font-size: 16px; color: var(--ok); }
 .box-missed { border-color: var(--warn); }
-.box-missed .box-no { background: var(--warn); color: #2A0A0A; }
+.box-missed .box-no { background: var(--warn); color: #FFFFFF; }
 .box-val-wrong { color: var(--warn); border-bottom-color: var(--warn); }
 .count-box { display: flex; justify-content: space-between; gap: 8px; max-width: 520px; width: calc(100% - 32px); margin: 8px auto 0;
   padding: 6px 12px; border-radius: 10px; border: 1.5px solid var(--border); background: var(--surface); font-size: 14px; color: var(--text-muted); }

@@ -75,15 +75,15 @@ Aturan:
 
 ### 3.1b Tema detektif v1.6 (`data-skin="detective"`, bawaan)
 
-Navy gelap + abu baja dengan aksen hijau zamrud dan emas. Makna warna semantik **tidak berubah**:
+Sejak v1.6.6 latar **ungu pastel** (permintaan pengembang) dengan aksen hijau zamrud dan emas. Makna warna semantik **tidak berubah**:
 
 | Token | Nilai | Makna |
 |---|---|---|
-| `--bg` / `--surface` / `--border` | `#0B1426` / `#13213A` / `#2E4263` | Latar papan kasus / kartu berkas / abu baja |
+| `--bg` / `--surface` / `--border` | `#EFE7FB` / `#FFFFFF` / `#D3C3EE` | Latar ungu pastel / kartu berkas / garis |
 | `--primary` | `#10B981` (zamrud) | Tombol aksi utama (teks `#04241A`) |
-| `--sun` | `#F5B942` (emas) | Lencana, XP, pangkat, kotak isian aktif, stempel "Terbuka" |
-| `--var` / `--const` / `--op` | `#7AA7FF` / `#FF9A6B` / `#C4A1FF` | x / konstanta / operasi |
-| `--ok` / `--warn` | `#34D399` / `#F87171` | Benar (✓, stempel "Terpecahkan") / salah (✗, stempel "Top Secret") |
+| `--sun` | `#B7791F` (emas) | Lencana, XP, pangkat, kotak isian aktif, stempel "Terbuka" |
+| `--var` / `--const` / `--op` | `#3B5BFD` / `#D9620B` / `#8B3BEA` | x / konstanta / operasi |
+| `--ok` / `--warn` | `#15803D` / `#DC2626` | Benar (✓, stempel "Terpecahkan") / salah (✗, stempel "Top Secret") |
 
 Elemen: Peta Investigasi (benang merah putus-putus menghubungkan berkas K-01…K-07), stempel, kartu sidik
 jari A–D, kotak isian bertahap (satu aktif), amplop petunjuk (bottom sheet, tidak menutupi soal), medali

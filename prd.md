@@ -330,3 +330,6 @@ Lihat daftar di `task.md` bagian **"Keputusan tertunda"**.
 - Label "Bukti #n" dan "Bukti n/10" dihapus (urutannya sama dengan nomor di PDF). Kemajuan hanya berupa
   bilah titik tanpa angka. Tag soal kini "Pilihan ganda" / "Isian".
 - Kotak **"Jumlah soal: 10"** di kartu kasus (peta), layar kasus, kartu kuis, dan layar kuis.
+
+### v1.6.6 — latar ungu pastel (16 Nov 2026)
+- Latar tema detektif diganti **ungu pastel** (#EFE7FB) dengan kartu putih; aksen zamrud & emas tetap. Makna warna semantik tidak berubah (design.md §3.1b).
