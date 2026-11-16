@@ -518,3 +518,6 @@ html[data-skin='detective'] { background: #0B1426; }
 .box-free { width: 100%; min-height: 84px; padding: 8px 10px; border-radius: 10px; border: 2px solid var(--border); background: var(--bg); color: var(--text); font: 16px/1.4 var(--font-ui); resize: vertical; }
 .box-free:focus { outline: none; border-color: var(--sun); }
 .box-free-done { font-size: 16px; color: var(--ok); }
+.box-missed { border-color: var(--warn); }
+.box-missed .box-no { background: var(--warn); color: #2A0A0A; }
+.box-val-wrong { color: var(--warn); border-bottom-color: var(--warn); }

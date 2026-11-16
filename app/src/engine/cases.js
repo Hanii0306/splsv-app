@@ -160,13 +160,13 @@ export function shuffled(list, seed) {
 }
 
 /**
- * Quiz = `n` multiple-choice instrument items from the opened cases (no generated items).
+ * Quiz = `n` instrument items (PDF, verbatim: multiple choice AND scaffolded) from the opened cases.
  * @returns {Array<object & { levelId: string }>}
  */
 export function quizPool(allCases, openIds, seed, n = 10) {
   const open = allCases.filter((c) => openIds.includes(c.id));
   const pool = (open.length ? open : allCases.slice(0, 1))
-    .flatMap((c) => c.items.filter((i) => i.kind === 'mc').map((i) => ({ ...i, levelId: c.id })));
+    .flatMap((c) => c.items.map((i) => ({ ...i, levelId: c.id })));
   return shuffled(pool, seed).slice(0, Math.min(n, pool.length));
 }
 

@@ -182,11 +182,15 @@ describe('content/cases.json (instrument: 7 levels × 10 items)', () => {
 });
 
 describe('instrument items reused in quiz and scale practice', () => {
-  it('quizPool takes only MC instrument items from opened cases, no duplicates', async () => {
+  it('quizPool takes 10 verbatim instrument items (MC and scaffolded) from opened cases', async () => {
     const { quizPool } = await import('../src/engine/cases.js');
     const q = quizPool(cases, ['L1', 'L2'], 42);
     expect(q).toHaveLength(10);
-    expect(q.every((i) => i.kind === 'mc' && ['L1', 'L2'].includes(i.levelId))).toBe(true);
+    expect(q.every((i) => ['L1', 'L2'].includes(i.levelId))).toBe(true);
+    const byId = Object.fromEntries(cases.flatMap((c) => c.items).map((i) => [i.id, i]));
+    q.forEach((i) => expect({ ...i, levelId: undefined }).toEqual({ ...byId[i.id], levelId: undefined }));
+    const big = quizPool(cases, cases.map((c) => c.id), 3, 70);
+    expect(new Set(big.map((i) => i.kind))).toEqual(new Set(['mc', 'steps']));
     expect(new Set(q.map((i) => i.id)).size).toBe(10);
     expect(quizPool(cases, ['L1', 'L2'], 42).map((i) => i.id)).toEqual(q.map((i) => i.id));
     expect(quizPool(cases, [], 1).every((i) => i.levelId === 'L1')).toBe(true);

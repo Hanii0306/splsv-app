@@ -314,3 +314,8 @@ Lihat daftar di `task.md` bagian **"Keputusan tertunda"**.
 - L7 no. 8 "Jelaskan alasan Anda!" = isian bebas: tidak dinilai otomatis, minimal 3 kata, teksnya tersimpan
   di log `case_answer.explanation` untuk dinilai peneliti dengan rubrik PDF.
 - Latihan timbangan menampilkan bunyi soal PDF dan huruf variabel aslinya (`var`), misalnya "p ditulis x".
+
+### v1.6.3 — kuis acak memakai semua jenis soal PDF (16 Nov 2026)
+- Kuis acak = **10 soal PDF persis (pilihan ganda + isian bertahap)**, diacak dari level yang sudah terbuka.
+  Tanpa amplop petunjuk; tiap kotak isian dinilai sekali, kunci tampil setelah siswa mencoba (GL03).
+  Soal isian dihitung benar bila semua kotaknya benar; kotak "Jelaskan alasan" tidak dinilai otomatis.
