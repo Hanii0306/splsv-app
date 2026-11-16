@@ -79,7 +79,7 @@ Sejak v1.6.6 latar **ungu pastel** (permintaan pengembang) dengan aksen hijau za
 
 | Token | Nilai | Makna |
 |---|---|---|
-| `--bg` / `--surface` / `--border` | `#EFE7FB` / `#FFFFFF` / `#D3C3EE` | Latar ungu pastel / kartu berkas / garis |
+| `--bg` / `--surface` / `--border` | `#D8C6F5` / `#FFFFFF` / `#C2AAEB` | Latar ungu pastel / kartu berkas / garis |
 | `--primary` | `#10B981` (zamrud) | Tombol aksi utama (teks `#04241A`) |
 | `--sun` | `#B7791F` (emas) | Lencana, XP, pangkat, kotak isian aktif, stempel "Terbuka" |
 | `--var` / `--const` / `--op` | `#3B5BFD` / `#D9620B` / `#8B3BEA` | x / konstanta / operasi |

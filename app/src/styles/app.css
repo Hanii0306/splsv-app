@@ -376,7 +376,7 @@ h1, h2, .app-header h1, .level-text strong, .hello h2, .score, .quiz-eq, .diag-p
 .reduce-motion .walker .cat-tail, .lite .walker .cat-tail { animation: none; }
 
 /* ================= v1.6 detective theme + case runner ================= */
-html[data-skin='detective'] { background: #EFE7FB; }
+html[data-skin='detective'] { background: #D8C6F5; }
 .no-cats .walkers, .no-cats .floaty { display: none !important; }
 
 [data-skin='detective'] .cute-bg {

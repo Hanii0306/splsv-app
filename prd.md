@@ -333,3 +333,4 @@ Lihat daftar di `task.md` bagian **"Keputusan tertunda"**.
 
 ### v1.6.6 — latar ungu pastel (16 Nov 2026)
 - Latar tema detektif diganti **ungu pastel** (#EFE7FB) dengan kartu putih; aksen zamrud & emas tetap. Makna warna semantik tidak berubah (design.md §3.1b).
+- v1.6.7: ungu pastel dipertegas (#D8C6F5) agar tidak terlihat putih di layar HP.
