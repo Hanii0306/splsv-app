@@ -181,7 +181,7 @@ describe('content/cases.json (instrument: 7 levels × 10 items)', () => {
   });
 });
 
-describe('instrument items reused in quiz and scale practice', () => {
+describe('instrument items reused in the random quiz', () => {
   it('quizPool takes 10 verbatim instrument items (MC and scaffolded) from opened cases', async () => {
     const { quizPool } = await import('../src/engine/cases.js');
     const q = quizPool(cases, ['L1', 'L2'], 42);
@@ -195,11 +195,8 @@ describe('instrument items reused in quiz and scale practice', () => {
     expect(quizPool(cases, ['L1', 'L2'], 42).map((i) => i.id)).toEqual(q.map((i) => i.id));
     expect(quizPool(cases, [], 1).every((i) => i.levelId === 'L1')).toBe(true);
   });
-  it('practiceEquations uses the case equations only', async () => {
-    const { practiceEquations, shuffled } = await import('../src/engine/cases.js');
-    const p = practiceEquations(cases[0], 7);
-    expect(p).toHaveLength(10);
-    expect(p.every((i) => i.id.startsWith('L1-') && i.eq)).toBe(true);
+  it('shuffled keeps every element', async () => {
+    const { shuffled } = await import('../src/engine/cases.js');
     expect(shuffled([1, 2, 3], 5).sort()).toEqual([1, 2, 3]);
   });
 });

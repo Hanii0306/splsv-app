@@ -319,3 +319,9 @@ Lihat daftar di `task.md` bagian **"Keputusan tertunda"**.
 - Kuis acak = **10 soal PDF persis (pilihan ganda + isian bertahap)**, diacak dari level yang sudah terbuka.
   Tanpa amplop petunjuk; tiap kotak isian dinilai sekali, kunci tampil setelah siswa mencoba (GL03).
   Soal isian dihitung benar bila semua kotaknya benar; kotak "Jelaskan alasan" tidak dinilai otomatis.
+
+### v1.6.4 — total soal di aplikasi tepat 70 (16 Nov 2026)
+- **Latihan timbangan ∞ dihapus.** Tes awal prasyarat (8 soal) dan modul penguatan juga dihapus dari aplikasi.
+- Soal yang bisa dikerjakan siswa hanya **70 soal PDF**: di halaman kasus (10 per level) dan di kuis acak
+  (10 soal yang diambil dari 70 soal yang sama).
+- Masih ada (bukan soal): Ringkasan materi per level dan contoh sejenis di amplop petunjuk H3.

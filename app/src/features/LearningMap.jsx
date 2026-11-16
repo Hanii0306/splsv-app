@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import cases from '../content/cases.json';
 import levels from '../content/levels.json';
-import { rankFor, reinforcementFor, totalXp } from '../engine/index.js';
+import { rankFor, totalXp } from '../engine/index.js';
 import { getProgress } from '../storage/db.js';
 import { onSyncStatus } from '../sync/syncWorker.js';
 import Badge from '../ui/Badge.jsx';
@@ -29,7 +29,7 @@ function agentLine(code, solved, next) {
 }
 
 /** Two-level navigation only: Map → Case (design.md §2). Every extra feature can be switched off. */
-export default function LearningMap({ profile, settings, onOpenLevel, onSummary, onFree, onQuiz, onResearch, onSignOut }) {
+export default function LearningMap({ profile, settings, onOpenLevel, onSummary, onQuiz, onResearch, onSignOut }) {
   const det = settings.detective !== false;
   const [progress, setProgress] = useState({});
   useEffect(() => { getProgress(profile.studentCode).then(setProgress); }, [profile.studentCode]);
@@ -79,12 +79,11 @@ export default function LearningMap({ profile, settings, onOpenLevel, onSummary,
         <ol className="level-list case-path">
           {cases.map((c, i) => {
             const st = statuses[i];
-            const reinforce = st !== 'locked' ? reinforcementFor(profile.prereq, c.id, profile.reinforced) : null;
             const meta = levelMeta(c.id);
             const best = progress[c.id];
             return (
               <li key={c.id} className={`level-card case-card ${st}`}>
-                <button type="button" className={`level-item level-${st}`} disabled={st === 'locked'} onClick={() => onOpenLevel(c, reinforce)}>
+                <button type="button" className={`level-item level-${st}`} disabled={st === 'locked'} onClick={() => onOpenLevel(c)}>
                   {settings.badges !== false ? <Badge levelId={c.id} status={st} /> : <span className="case-no">{i + 1}</span>}
                   <span className="level-text">
                     {det && <span className="case-code">{c.code} · <span className="eq">{c.form}</span></span>}
@@ -93,14 +92,12 @@ export default function LearningMap({ profile, settings, onOpenLevel, onSummary,
                       {det ? <Stamp tone={stampFor[st][1]}>{stampFor[st][0]}</Stamp> : { mastered: 'selesai ★', active: 'siap dipelajari', locked: 'terkunci' }[st]}
                       {st === 'mastered' && settings.badges !== false && det ? ` ${c.badge}` : ''}
                       {best?.firstTry != null ? ` · ${best.firstTry}/10 tepat` : ''}
-                      {reinforce ? ' · ada latihan penguatan dulu' : ''}
                     </small>
                   </span>
                 </button>
-                {st !== 'locked' && (settings.summaries !== false || settings.freePractice !== false) && (
+                {st !== 'locked' && settings.summaries !== false && (
                   <div className="level-actions">
                     {settings.summaries !== false && <button type="button" className="mini-btn" onClick={() => onSummary(meta)}>Ringkasan</button>}
-                    {settings.freePractice !== false && <button type="button" className="mini-btn" onClick={() => onFree(meta)}>Latihan timbangan ∞</button>}
                   </div>
                 )}
               </li>

@@ -1,13 +1,10 @@
 import { useEffect, useState } from 'react';
-import Diagnostic from '../features/Diagnostic.jsx';
-import FreePractice from '../features/FreePractice.jsx';
 import Quiz from '../features/Quiz.jsx';
 import SummaryView from '../features/SummaryView.jsx';
 import LearningMap from '../features/LearningMap.jsx';
 import CaseRunner from '../features/CaseRunner.jsx';
 import cases from '../content/cases.json';
 import Login from '../features/Login.jsx';
-import Reinforce from '../features/Reinforce.jsx';
 import Research from '../features/Research.jsx';
 import { signOut } from '../storage/accounts.js';
 import { getProfile, getSetting, setSetting } from '../storage/db.js';
@@ -18,8 +15,7 @@ import { logEvent, startSession } from '../telemetry/log.js';
 export const DEFAULT_SETTINGS = {
   light3d: false, reducedMotion: false, clq: false, unlockAll: false,
   detective: true, agentM: true, clues: true, xp: true, badges: true,
-  summaries: true, freePractice: true, quiz: true, cats: true,
-  diagnostic: false, // prerequisite pre-test (not from the PDF); researcher can switch it on
+  summaries: true, quiz: true, cats: true,
 };
 const caseById = (id) => cases.find((c) => c.id === id) || cases[0];
 
@@ -37,7 +33,7 @@ export default function App() {
       setProfile(p);
       startSession(p.studentCode);
       startSync();
-      setRoute({ name: p.prereq || !st.diagnostic ? 'map' : 'diagnostic' });
+      setRoute({ name: 'map' });
     })();
     const end = () => { logEvent('session_end', {}); };
     const onHide = () => { if (document.visibilityState === 'hidden') { end(); syncNow(); } };
@@ -54,27 +50,17 @@ export default function App() {
 
   const saveSettings = async (s) => { setSettings(s); await setSetting('app', s); };
 
-  const openLevel = (level, reinforce) =>
-    setRoute(reinforce ? { name: 'reinforce', skill: reinforce, level } : { name: 'level', level });
+  const openLevel = (level) => setRoute({ name: 'level', level });
 
   switch (route.name) {
     case 'boot':
       return <div className="screen center"><p className="muted">Memuat…</p></div>;
     case 'login':
-      return <Login onDone={(p) => { setProfile(p); startSession(p.studentCode); startSync(); setRoute({ name: p.prereq || !settings.diagnostic ? 'map' : 'diagnostic' }); }} />;
-    case 'diagnostic':
-      return <Diagnostic profile={profile} onDone={(p) => { setProfile(p); setRoute({ name: 'map' }); }} />;
-    case 'reinforce':
-      return (
-        <Reinforce key={route.skill} skill={route.skill} profile={profile} onBack={() => setRoute({ name: 'map' })}
-          onDone={(p) => { setProfile(p); setRoute({ name: 'level', level: route.level }); }} />
-      );
+      return <Login onDone={(p) => { setProfile(p); startSession(p.studentCode); startSync(); setRoute({ name: 'map' }); }} />;
     case 'level':
       return <CaseRunner key={route.level.id} caseInfo={caseById(route.level.id)} profile={profile} settings={settings} onExit={() => { syncNow(); setRoute({ name: 'map' }); }} />;
     case 'summary':
-      return <SummaryView key={route.level.id} level={route.level} onBack={() => setRoute({ name: 'map' })} onStart={() => openLevel(caseById(route.level.id), null)} />;
-    case 'free':
-      return <FreePractice key={route.level.id} level={route.level} profile={profile} settings={settings} onExit={() => { syncNow(); setRoute({ name: 'map' }); }} />;
+      return <SummaryView key={route.level.id} level={route.level} onBack={() => setRoute({ name: 'map' })} onStart={() => openLevel(caseById(route.level.id))} />;
     case 'quiz':
       return <Quiz openLevels={route.open} onExit={() => { syncNow(); setRoute({ name: 'map' }); }} />;
     case 'research':
@@ -85,7 +71,6 @@ export default function App() {
     default:
       return <LearningMap key={route.name} profile={profile} settings={settings} onOpenLevel={openLevel}
           onSummary={(level) => setRoute({ name: 'summary', level })}
-          onFree={(level) => setRoute({ name: 'free', level })}
           onQuiz={(open) => setRoute({ name: 'quiz', open })}
           onResearch={() => setRoute({ name: 'research' })}
           onSignOut={async () => { logEvent('session_end', {}); await signOut(); setProfile(null); setRoute({ name: 'login' }); }} />;

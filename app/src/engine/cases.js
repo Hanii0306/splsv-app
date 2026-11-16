@@ -134,7 +134,7 @@ export function rankFor(xp) {
 /** Items answered correctly at the first try (rubric-free summary for the end screen). */
 export const firstTryCount = (results) => results.filter((r) => r.wrongs === 0).length;
 
-// --- Reuse of the 70 instrument items outside the case runner (quiz, scale practice) ------
+// --- Reuse of the 70 instrument items in the random quiz -----------------------------------
 
 /** Deterministic PRNG (mulberry32) so a seed always gives the same order (testable). */
 function prng(seed) {
@@ -168,9 +168,4 @@ export function quizPool(allCases, openIds, seed, n = 10) {
   const pool = (open.length ? open : allCases.slice(0, 1))
     .flatMap((c) => c.items.map((i) => ({ ...i, levelId: c.id })));
   return shuffled(pool, seed).slice(0, Math.min(n, pool.length));
-}
-
-/** Scale practice = the case's instrument items that have an equation, in a seeded order. */
-export function practiceEquations(caseInfo, seed) {
-  return shuffled(caseInfo.items.filter((i) => i.eq), seed);
 }

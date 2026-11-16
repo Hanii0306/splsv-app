@@ -68,6 +68,7 @@ Format: `[ ]` belum, `[~]` sedang, `[x]` selesai. Setiap task punya ID dan meruj
 ### Sprint 6 — Pemolesan
 - [~] T-V60 Aksesibilitas: reduced motion, target ≥48dp, dan mode gelap sudah ada. TalkBack belum diuji
 - [~] T-V61 Uji e2e alur utama: lulus di Chromium 360×740 (login→diagnostik→L0/L2/L5/L7→sinkron→dashboard), tetapi skripnya belum dimasukkan ke repo
+- [x] T-V74 v1.6.4 latihan timbangan, tes prasyarat & penguatan dihapus; total soal = 70 PDF. 147 uji lulus, e2e kasus & kuis lulus
 - [x] T-V73 v1.6.3 kuis acak = 10 soal PDF persis (PG + isian). 150 uji lulus, e2e kuis lulus
 - [x] T-V72 v1.6.2 soal & kotak isian disamakan persis dengan PDF, alasan bebas L7-08, huruf variabel asli. 150 uji lulus, e2e K-01 & K-07 lulus
 - [x] T-V71 v1.6.1 kuis acak & latihan timbangan memakai soal PDF; tes prasyarat opsional (mati). 148 uji lulus, e2e 360×640 lulus
