@@ -27,19 +27,20 @@ export default function LearningMap({ profile, settings, onOpenTest, onResearch,
   const det = settings.detective !== false;
   const practice = settings.testMode === 'latihan';
   const [draft, setDraft] = useState(null);
-  const [done, setDone] = useState(null);
+  const [done, setDone] = useState({});
   const [pending, setPending] = useState(0);
   const [chat, setChat] = useState(false);
   const tutorOn = practice && settings.tutor !== false && tutorConfigured();
 
   useEffect(() => {
     getSetting(`testDraft:${profile.studentCode}`).then(setDraft);
-    getSetting(`testDone:${profile.studentCode}`).then(setDone);
+    Promise.all(test.items.map((it) => getSetting(`testDone:${profile.studentCode}:${it.id}`))).then((r) => setDone(Object.fromEntries(test.items.map((it, i) => [it.id, r[i]]))));
     flushPendingTests().then(setPending);
   }, [profile.studentCode]);
 
   const prog = progressOf(test, restoreAnswers(test, draft?.answers));
-  const status = draft?.start ? 'draft' : done ? 'done' : 'new';
+  const doneCount = Object.values(done).filter(Boolean).length;
+  const status = doneCount === test.items.length ? 'done' : draft?.start || doneCount ? 'draft' : 'new';
   const line = status === 'done' ? 'Berkasmu sudah terkirim. Terima kasih, Agen!'
     : status === 'draft' ? `Lanjutkan penyelidikan: ${prog.filled} dari ${prog.total} tahap terisi.`
       : `Selamat datang, Agen ${profile.studentCode}. Ada 4 kasus menunggumu.`;
@@ -69,7 +70,8 @@ export default function LearningMap({ profile, settings, onOpenTest, onResearch,
         <ol className="level-list case-path">
           {test.items.map((it, i) => {
             const p = prog.perItem[it.id];
-            const st = status === 'done' ? 'mastered' : 'active';
+            const sent = !!done[it.id];
+            const st = sent ? 'mastered' : 'active';
             return (
               <li key={it.id} className={`level-card case-card test-card ${st}`}>
                 <button type="button" className="level-item" onClick={() => onOpenTest(i)}>
@@ -78,7 +80,7 @@ export default function LearningMap({ profile, settings, onOpenTest, onResearch,
                     <span className="case-code">KASUS {it.no} · {it.indicator}</span>
                     <strong>{it.title}</strong>
                     <span className="count-pill">{p.filled}/{p.total} tahap terisi · skor maks {it.max}</span>
-                    <small><Stamp tone={status === 'done' ? 'ok' : p.filled ? 'sun' : 'warn'}>{status === 'done' ? 'Terkirim' : p.filled ? 'Dikerjakan' : 'Top secret'}</Stamp> {practice ? 'mode latihan' : 'mode tes'}</small>
+                    <small><Stamp tone={sent ? 'ok' : p.filled ? 'sun' : 'warn'}>{sent ? 'Terkirim' : p.filled ? 'Dikerjakan' : 'Top secret'}</Stamp> {practice ? 'mode latihan' : 'mode tes'}</small>
                   </span>
                 </button>
               </li>

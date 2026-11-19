@@ -100,14 +100,14 @@ export default function TestRunner({ profile, settings, onExit, startIdx = 0 }) 
   async function send() {
     const t = Date.now();
     setEnd(t);
-    const payload = buildSubmission(test, answers, {
+    const payload = buildSubmission({ ...test, items: [item] }, answers, {
       kode: profile.studentCode, installId: await installId(), mode: practice ? 'latihan' : 'tes', version: APP_VERSION, start: start || t, end: t,
     });
     logEvent('test_submit', { mode: payload.mode, filled: prog.filled, total: prog.total, start: payload.waktu_mulai, end: payload.waktu_selesai, answers });
-    test.items.forEach((it) => logEvent('item_complete', { levelId: 'UJI', kind: 'essay', ind: it.ind, filled: progressOf(test, answers).perItem[it.id].filled }, it.id));
+    logEvent('item_complete', { levelId: 'UJI', kind: 'essay', ind: item.ind, filled: prog.perItem[item.id].filled }, item.id);
     setSendState(await submitTest(payload));
     await setSetting(draftKey(profile.studentCode), null);
-    await setSetting(`testDone:${profile.studentCode}`, { at: t, mode: payload.mode });
+    await setSetting(`testDone:${profile.studentCode}:${item.id}`, { at: t, mode: payload.mode });
     setPhase(settings.clq ? 'clq' : 'done');
   }
 
@@ -118,15 +118,12 @@ export default function TestRunner({ profile, settings, onExit, startIdx = 0 }) 
   return (
     <div className={`screen test-screen${phase === 'soal' ? (settings.pattern !== false ? ' solve-bg' : '') : ' cute-bg'}`}>
       {phase !== 'soal' && <FloatingSymbols />}
-      <Header title={phase === 'soal' ? `Soal ${item.no} dari ${test.items.length}` : test.title} onBack={onExit} right={(
+      <Header title={`Soal ${item.no}. ${item.title}`} onBack={onExit} right={(
         <span className="row-tight">
           {settings.music !== false && <MusicButton />}
           {phase === 'soal' && tutorOn && <button type="button" className="icon-btn tutor-btn" onClick={() => setChat(!chat)} aria-label="Tanya Detektif AI">💬</button>}
         </span>
       )} />
-      {phase === 'soal' && (
-        <div className="case-progress" aria-hidden>{test.items.map((it, i) => <span key={it.id} className={i < idx ? 'done' : i === idx ? 'now' : ''} />)}</div>
-      )}
       <main className="content">
         {phase === 'cover' && (
           <div className="briefing">
@@ -184,13 +181,11 @@ export default function TestRunner({ profile, settings, onExit, startIdx = 0 }) 
             </div>
             <p className="footer-note"><span>{item.footer}</span><span>Skor Soal {item.no} (diisi peneliti): ______ / {item.max}</span></p>
             <footer className="action-bar">
-              {idx > 0 ? <button type="button" className="btn btn-ghost" onClick={() => setIdx(idx - 1)}>← Soal {idx}</button> : <span />}
+              <button type="button" className="btn btn-ghost" onClick={onExit}>← Peta</button>
               {practice && settings.clues !== false && (
                 <button type="button" className="btn btn-ghost env-btn" onClick={openClue} disabled={myLevel >= (attemptedHere ? 4 : 3) && !!clue}><Envelope size={20} /> Amplop</button>
               )}
-              {idx + 1 < test.items.length
-                ? <button type="button" className="btn btn-primary" onClick={() => setIdx(idx + 1)}>Soal {idx + 2} →</button>
-                : <button type="button" className="btn btn-primary" onClick={() => setPhase('confirm')}>Kirim jawaban</button>}
+              <button type="button" className="btn btn-primary" onClick={() => setPhase('confirm')}>Kirim Soal {item.no}</button>
             </footer>
             {practice && clue && (
               <ClueSheet clue={clue} canMore={myLevel < (attemptedHere ? 4 : 3)} lockedH4={myLevel === 3 && !attemptedHere} onMore={openClue} onClose={() => setClue(null)} />
@@ -202,8 +197,7 @@ export default function TestRunner({ profile, settings, onExit, startIdx = 0 }) 
         {phase === 'confirm' && (
           <div className="break-card">
             <h2>Kirim jawaban sekarang?</h2>
-            <p>Terisi {prog.filled} dari {prog.total} tahap.{prog.filled < prog.total ? ' Masih ada tahap yang kosong. Kamu boleh kembali dan melengkapinya.' : ''}</p>
-            <ul className="petunjuk">{test.items.map((it) => <li key={it.id}>Soal {it.no}: {prog.perItem[it.id].filled}/{prog.perItem[it.id].total} tahap terisi</li>)}</ul>
+            <p>Terisi {prog.perItem[item.id].filled} dari {prog.perItem[item.id].total} tahap.{prog.perItem[item.id].filled < prog.perItem[item.id].total ? ' Masih ada tahap yang kosong. Kamu boleh kembali dan melengkapinya.' : ''}</p>
             <footer className="action-bar">
               <button type="button" className="btn btn-ghost" onClick={() => setPhase('soal')}>← Periksa lagi</button>
               <button type="button" className="btn btn-primary" onClick={send}>Ya, kirim</button>
@@ -217,12 +211,12 @@ export default function TestRunner({ profile, settings, onExit, startIdx = 0 }) 
           <div className="summary-card case-closed">
             <Celebrate />
             <Stamp tone="ok" big>Berkas terkirim</Stamp>
-            <p>Jam mulai {fmtTime(start)} · jam selesai {fmtTime(end)} · {prog.filled}/{prog.total} tahap terisi.</p>
+            <p>Soal {item.no} · jam mulai {fmtTime(start)} · jam selesai {fmtTime(end)} · {prog.perItem[item.id].filled}/{prog.perItem[item.id].total} tahap terisi.</p>
             <p className="muted">{sendState === 'sent' ? 'Jawabanmu sudah diterima peneliti. Skor diisi oleh peneliti.' : 'Jawaban tersimpan di perangkat dan akan terkirim otomatis saat ada internet.'}</p>
             {practice && (
               <>
                 <button type="button" className="btn btn-ghost" onClick={() => setShowKey(!showKey)}>{showKey ? 'Tutup pembahasan' : 'Lihat pembahasan'}</button>
-                {showKey && test.items.map((it) => (
+                {showKey && [item].map((it) => (
                   <div key={it.id} className="sum-example"><strong>Soal {it.no}. {it.title}</strong>
                     <ol className="clue-lines">{it.steps.map((s) => <li key={s}><MathText text={s} /></li>)}</ol></div>
                 ))}
