@@ -9,6 +9,7 @@ import { AgentSays, Stamp } from '../ui/Detective.jsx';
 import FloatingSymbols from '../ui/FloatingSymbols.jsx';
 import Header from '../ui/Header.jsx';
 import Logo from '../ui/Logo.jsx';
+import MusicButton from '../ui/MusicButton.jsx';
 import Walkers from '../ui/Walkers.jsx';
 import { tutorConfigured } from '../sync/tutor.js';
 import TutorChat from './TutorChat.jsx';
@@ -54,7 +55,7 @@ export default function LearningMap({ profile, settings, onOpenLevel, onSummary,
     <div className="screen cute-bg">
       <FloatingSymbols />
       <Header title={det ? 'Peta Investigasi Kasus' : 'Peta Belajar'}
-        right={<button type="button" className="icon-btn" onClick={onResearch} aria-label="Menu peneliti">⚙</button>} />
+        right={<span className="row-tight">{settings.music !== false && <MusicButton />}<button type="button" className="icon-btn" onClick={onResearch} aria-label="Menu peneliti">⚙</button></span>} />
       <main className="content">
         <section className="hello">
           <div className="hello-top">

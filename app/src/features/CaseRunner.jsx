@@ -1,4 +1,6 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { setMusicMode } from '../audio/music.js';
+import MusicButton from '../ui/MusicButton.jsx';
 import levels from '../content/levels.json';
 import { firstTryCount, isClean, nextLevel, rankFor, totalXp, xpForCase } from '../engine/index.js';
 import { resetSegment, segmentDue } from '../app/session.js';
@@ -27,6 +29,10 @@ export default function CaseRunner({ caseInfo, profile, settings, onExit }) {
   const [chat, setChat] = useState(false);
   const live = useRef({});
   const tutorOn = settings.tutor !== false && tutorConfigured();
+  const solving = phase === 'item' || phase === 'break' || phase === 'clq';
+  // Music: quiet "focus" version while solving, full tune on briefing / case closed.
+  useEffect(() => { setMusicMode(solving ? 'focus' : 'menu'); }, [solving]);
+  useEffect(() => () => setMusicMode('menu'), []);
   const item = caseInfo.items[idx];
   const title = det ? `${caseInfo.code} · ${caseInfo.title}` : `${caseInfo.id} · ${plainTitle(caseInfo.id)}`;
 
@@ -68,9 +74,14 @@ export default function CaseRunner({ caseInfo, profile, settings, onExit }) {
     <div className={`screen case-screen${phase === 'item' || phase === 'break' || phase === 'clq'
       ? (settings.pattern !== false ? ' solve-bg' : '') : ' cute-bg'}`}>
       {(phase === 'brief' || phase === 'done') && <FloatingSymbols />}
-      <Header title={title} onBack={onExit} right={phase === 'item' && tutorOn
-        ? <button type="button" className="icon-btn tutor-btn" onClick={() => setChat(!chat)} aria-label="Tanya Detektif AI">💬</button>
-        : <span className="header-meta">{meta}</span>} />
+      <Header title={title} onBack={onExit} right={(
+        <span className="row-tight">
+          {settings.music !== false && <MusicButton />}
+          {phase === 'item' && tutorOn
+            ? <button type="button" className="icon-btn tutor-btn" onClick={() => setChat(!chat)} aria-label="Tanya Detektif AI">💬</button>
+            : <span className="header-meta">{meta}</span>}
+        </span>
+      )} />
       {phase === 'item' && (
         <div className="count-box">
           <span>Jumlah soal: <strong>{caseInfo.items.length}</strong></span>

@@ -7,6 +7,8 @@ import cases from '../content/cases.json';
 import Login from '../features/Login.jsx';
 import Research from '../features/Research.jsx';
 import { signOut } from '../storage/accounts.js';
+import { startMusic, stopMusic } from '../audio/music.js';
+import { musicWanted } from '../ui/MusicButton.jsx';
 import { getProfile, getSetting, setSetting } from '../storage/db.js';
 import { startSync, syncNow } from '../sync/syncWorker.js';
 import { logEvent, startSession } from '../telemetry/log.js';
@@ -18,6 +20,7 @@ export const DEFAULT_SETTINGS = {
   summaries: true, quiz: true, cats: true,
   tutor: true, // Detektif AI chatbot (needs the Supabase Edge Function `tutor`)
   pattern: true, // faint static detective pattern behind questions (no motion)
+  music: true, // detective tune, started only by the student's tap on 🎵
 };
 const caseById = (id) => cases.find((c) => c.id === id) || cases[0];
 
@@ -50,6 +53,15 @@ export default function App() {
     root.classList.toggle('no-pattern', settings.pattern === false);
     root.dataset.skin = settings.detective === false ? 'cute' : 'detective';
   }, [settings.reducedMotion, settings.cats, settings.detective, settings.pattern]);
+
+  // If the student switched music on earlier, resume it on their first tap (browsers forbid real autoplay).
+  useEffect(() => {
+    if (settings.music === false) { stopMusic(); return undefined; }
+    if (!musicWanted()) return undefined;
+    const go = () => startMusic();
+    window.addEventListener('pointerdown', go, { once: true });
+    return () => window.removeEventListener('pointerdown', go);
+  }, [settings.music]);
 
   const saveSettings = async (s) => { setSettings(s); await setSetting('app', s); };
 

@@ -1,4 +1,5 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
+import { setMusicMode } from '../audio/music.js';
 import cases from '../content/cases.json';
 import { checkBox, expectedOf, quizPool } from '../engine/index.js';
 import { db, getProfile } from '../storage/db.js';
@@ -125,6 +126,7 @@ export default function Quiz({ openLevels, onExit }) {
   const it = items[i];
   const answered = it?.kind === 'mc' ? picked != null : stepsDone != null;
   const done = answers.length === N && !answered;
+  useEffect(() => { setMusicMode(done ? 'menu' : 'focus'); return () => setMusicMode('menu'); }, [done]);
 
   function record(ok, detail) {
     logEvent('quiz_answer', { levelId: it.levelId, correct: ok, ind: it.ind, kind: it.kind, ...detail }, it.id);

@@ -379,3 +379,13 @@ Tidak ada soal baru: chatbot dilarang membuat soal latihan (total soal tetap 70)
   - Agent M berjalan membawa kaca pembesar.
 - Warna properti detektif: navy, khaki jas hujan, cokelat, emas, merah benang. Latar ungu pastel tetap.
   Pola diam di layar soal kini berwarna navy/cokelat/emas.
+
+### v1.10.0 — musik detektif & gradasi senja (19 Nov 2026)
+- **Musik latar orisinal** (Web Audio, tanpa file, bebas hak cipta): gaya "sneaky detective", A minor, 112 bpm,
+  bass petik, vibrafon, jentikan jari, putaran 8 birama.
+  - Tidak pernah autoplay: mulai hanya dari tombol 🎵 (di Peta dan layar kasus).
+  - Pilihan tersimpan; bila sebelumnya menyala, musik lanjut setelah ketukan pertama siswa.
+  - **Layar soal/kuis = versi pelan:** volume ±⅓ dan melodi dimatikan (hanya bass + jentikan).
+  - Berhenti saat aplikasi disembunyikan. Saklar "Musik latar detektif" di Menu peneliti.
+- **Gradasi senja detektif:** lavender #F1E8FD → #DCCBF7 → periwinkle #B9C2EE → #AFB9E8 (diam, menempel di
+  jendela). Header semi-transparan. Pola diam di layar soal tetap tampil.

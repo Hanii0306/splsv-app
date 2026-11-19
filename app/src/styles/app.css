@@ -641,3 +641,18 @@ html[data-skin='detective'] { background: #D8C6F5; }
 .reduce-motion .agent-walk .aw-leg, .reduce-motion .agent-walk .aw-arm { animation: none; }
 .reduce-motion .det-scene .shoe { opacity: .35; }
 .lite .spotlight { display: none; }
+
+/* ================= v1.10 detective dusk gradient + music button ================= */
+html[data-skin='detective'] {
+  background: #E9DDFB linear-gradient(165deg, #F1E8FD 0%, #DCCBF7 32%, #CBC4F3 62%, #B9C2EE 85%, #AFB9E8 100%) fixed;
+  min-height: 100%;
+}
+[data-skin='detective'] body, [data-skin='detective'] #root, [data-skin='detective'] .screen { background-color: transparent; }
+[data-skin='detective'] .app-header { background: rgba(241, 232, 253, .72); }
+[data-skin='detective'] .action-bar { background: linear-gradient(180deg, rgba(220, 210, 247, 0), rgba(214, 204, 245, .95) 35%); }
+[data-skin='detective'] .solve-bg { background-color: transparent; }
+[data-skin='detective'] .cute-bg { background-color: transparent; }
+.music-btn { font-size: 20px; }
+.music-btn.music-on { animation: music-pulse 1.07s ease-in-out infinite; }
+@keyframes music-pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.15); } }
+.reduce-motion .music-btn.music-on { animation: none; }

@@ -209,6 +209,7 @@ export default function Research({ profile, settings, onSettings, onBack, onLogo
             ['tutor', 'Chatbot Detektif AI (perlu internet)'],
             ['cats', 'Animasi detektif di menu (lampu sorot, kaca pembesar, papan kasus, Agent M)'],
             ['pattern', 'Pola latar detektif diam di layar soal'],
+            ['music', 'Musik latar detektif (tombol 🎵; pelan di layar soal)'],
             ['light3d', 'Mode ringan (timbangan 2D)'],
             ['reducedMotion', 'Kurangi animasi'],
             ['clq', 'Kuesioner beban kognitif di akhir level'],
