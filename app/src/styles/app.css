@@ -729,3 +729,4 @@ html[data-skin='detective'] {
   animation: tap-print .65s ease-out forwards; }
 @keyframes tap-ring { from { transform: scale(.3); opacity: 1; } to { transform: scale(1.6); opacity: 0; } }
 @keyframes tap-print { 0% { transform: scale(.5) rotate(-20deg); opacity: 0; } 25% { opacity: 1; } 100% { transform: scale(1.1) rotate(8deg); opacity: 0; } }
+.soal-link { width: 100%; text-align: left; border: none; background: none; padding: 6px 0; min-height: 40px; cursor: pointer; font-size: 14px; color: var(--text); }

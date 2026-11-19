@@ -67,26 +67,27 @@ export default function LearningMap({ profile, settings, onOpenTest, onResearch,
           </div>
         </section>
 
-        <ol className="level-list case-path">
-          {test.items.map((it, i) => {
-            const p = prog.perItem[it.id];
-            const sent = !!done[it.id];
-            const st = sent ? 'mastered' : 'active';
-            return (
-              <li key={it.id} className={`level-card case-card test-card ${st}`}>
-                <button type="button" className="level-item" onClick={() => onOpenTest(i)}>
-                  <span className="badge active" aria-hidden>{it.no}</span>
-                  <span className="level-text">
-                    <span className="case-code">KASUS {it.no} · {it.indicator}</span>
-                    <strong>{it.title}</strong>
-                    <span className="count-pill">{p.filled}/{p.total} tahap terisi · skor maks {it.max}</span>
-                    <small><Stamp tone={sent ? 'ok' : p.filled ? 'sun' : 'warn'}>{sent ? 'Terkirim' : p.filled ? 'Dikerjakan' : 'Top secret'}</Stamp> {practice ? 'mode latihan' : 'mode tes'}</small>
-                  </span>
-                </button>
-              </li>
-            );
-          })}
-        </ol>
+        <section className={`level-card case-card test-card ${status === 'done' ? 'mastered' : 'active'}`}>
+          <button type="button" className="level-item" onClick={() => onOpenTest(0)}>
+            <span className="badge active" aria-hidden>ML</span>
+            <span className="level-text">
+              <span className="case-code">{practice ? 'MODE LATIHAN' : 'MODE TES'} · soal cerita SPLSV</span>
+              <strong>{test.title}</strong>
+              <span className="count-pill">Jumlah soal: {test.items.length}</span>
+              <small>
+                <Stamp tone={status === 'done' ? 'ok' : status === 'draft' ? 'sun' : 'warn'}>{status === 'done' ? 'Terkirim' : status === 'draft' ? 'Draf tersimpan' : 'Top secret'}</Stamp>
+                {' '}{status === 'done' ? 'ketuk untuk mengerjakan lagi' : status === 'draft' ? 'ketuk untuk melanjutkan' : 'ketuk untuk mulai'}
+              </small>
+            </span>
+          </button>
+          <ol className="soal-list">
+            {test.items.map((it) => (
+              <li key={it.id}><button type="button" className="soal-link" onClick={() => onOpenTest(it.no - 1)}>
+                <strong>Soal {it.no}.</strong> {it.title} <span className="muted">· {done[it.id] ? 'terkirim ✓' : `${prog.perItem[it.id].filled}/${prog.perItem[it.id].total} tahap`}</span>
+              </button></li>
+            ))}
+          </ol>
+        </section>
         <Walkers />
         {chat && <TutorChat mode="materi" profile={profile} onClose={() => setChat(false)} />}
       </main>
