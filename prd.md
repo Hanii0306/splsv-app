@@ -366,3 +366,4 @@ Tidak ada soal baru: chatbot dilarang membuat soal latihan (total soal tetap 70)
 - **Layar soal dan kuis:** pola latar detektif ungu samar yang diam (kaca pembesar, sidik jari, jejak kaki, "?").
 - Saklar: "Animasi detektif lucu di menu" dan "Pola latar detektif diam di layar soal". Semua gerak mati pada
   "Kurangi animasi" dan WebView lama.
+- v1.8.1: animasi tetap bergerak walau HP diatur 'kurangi/hapus animasi' (keputusan pengembang); yang menghentikan hanya saklar 'Kurangi animasi' di Menu peneliti. WebView lama (.lite) hanya mendiamkan doodle latar penuh-layar.
