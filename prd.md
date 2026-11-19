@@ -355,3 +355,14 @@ Keputusan pengembang:
 | F37 | Aman & hemat | Kunci hanya di secret Supabase. Batas 60 tanya/perangkat/hari dan 1200/hari total. Kode siswa tidak dikirim ke penyedia AI. Bisa dimatikan di Menu peneliti |
 
 Tidak ada soal baru: chatbot dilarang membuat soal latihan (total soal tetap 70). Kuis acak tetap tanpa chatbot.
+
+## 17. v1.8 — desain detektif yang lucu dan bergerak (19 Nov 2026)
+- Keputusan pengembang: animasi di **semua layar**, tetapi **layar soal versi pelan** (pola samar, diam).
+- **Menu:**
+  - tiga kucing detektif berjalan (topi detektif, syal, kaca pembesar berayun; kucing oranye membawa papan "x = ?");
+  - jejak kaki muncul bergantian;
+  - doodle melayang (kaca pembesar, sidik jari, tanda tanya, amplop rahasia, topi, wajah kucing detektif);
+  - Agent M bergoyang, berkedip, mengangkat topi, dan mengayunkan kaca pembesar.
+- **Layar soal dan kuis:** pola latar detektif ungu samar yang diam (kaca pembesar, sidik jari, jejak kaki, "?").
+- Saklar: "Animasi detektif lucu di menu" dan "Pola latar detektif diam di layar soal". Semua gerak mati pada
+  "Kurangi animasi" dan WebView lama.

@@ -1,4 +1,5 @@
-// Cute cats used on MENU screens only (walking strip + floating doodles). Never on problem screens.
+// Cute cats used on MENU screens only (walking strip + floating doodles). Never animated on problem screens.
+// v1.8: optional detective costume (deerstalker hat, scarf, swinging magnifying glass).
 
 export const CAT_COATS = {
   orange: { fur: '#F6A04D', dark: '#D9792A', inner: '#FFC9A3', belly: '#FFE3C8' },
@@ -7,11 +8,14 @@ export const CAT_COATS = {
 };
 
 /** Walking cat seen from the side, facing right. Legs/tail animate via CSS classes. */
-export function WalkingCat({ coat = 'orange', sign = null, width = 72 }) {
+export function WalkingCat({ coat = 'orange', sign = null, width = 72, detective = false, hat = '#8C6A3F' }) {
   const c = CAT_COATS[coat];
-  const h = width * (sign ? 0.98 : 0.72);
+  const top = sign ? -18 : detective ? -8 : 0;
+  const vw = detective ? 86 : 72;
+  const vh = 52 - top;
+  const h = width * (vh / vw);
   return (
-    <svg width={width} height={h} viewBox={sign ? '0 -18 72 70' : '0 0 72 52'} aria-hidden>
+    <svg width={width} height={h} viewBox={`0 ${top} ${vw} ${vh}`} aria-hidden>
       {sign && (
         <g>
           <line x1="56" y1="10" x2="56" y2="-6" stroke="#8B6488" strokeWidth="2" />
@@ -49,15 +53,34 @@ export function WalkingCat({ coat = 'orange', sign = null, width = 72 }) {
         <line x1="47" y1="21" x2="41" y2="20" /><line x1="47" y1="23" x2="41" y2="24" />
         <line x1="67" y1="21" x2="72" y2="20" /><line x1="67" y1="23" x2="72" y2="24" />
       </g>
+      {detective && (
+        <g>
+          {/* scarf */}
+          <path d="M47 28 Q57 33 67 27 L66 31 Q57 36 48 32 Z" fill="#E0566F" />
+          <path d="M50 31 L47 39 L51 38 L53 32 Z" fill="#C9445C" />
+          {/* deerstalker hat */}
+          <path d="M45 10 Q57 -6 69 10 Z" fill={hat} />
+          <path d="M44 10.5 L70 10.5 Q70 13 57 13 Q44 13 44 10.5 Z" fill="#6E5230" />
+          <path d="M49 4 L65 4 M47.5 7 L66.5 7" stroke="#6E5230" strokeWidth="1" opacity=".7" />
+          <path d="M51 1.5 L51 9.5 M57 -0.5 L57 9.5 M63 1.5 L63 9.5" stroke="#6E5230" strokeWidth="1" opacity=".5" />
+          <circle cx="57" cy="-1" r="1.6" fill="#6E5230" />
+          {/* magnifying glass held in front, swings */}
+          <g className="cat-glass">
+            <line x1="64" y1="34" x2="72" y2="27" stroke="#6E5230" strokeWidth="3" strokeLinecap="round" />
+            <circle cx="77" cy="22" r="7" fill="#DDF3FF" fillOpacity=".7" stroke="#3A5277" strokeWidth="2.4" />
+            <path d="M73.5 19.5 Q75 17.5 77.5 17.5" stroke="#fff" strokeWidth="1.5" fill="none" strokeLinecap="round" />
+          </g>
+        </g>
+      )}
     </svg>
   );
 }
 
 /** Round cat face for the floating background doodles. */
-export function CatFace({ coat = 'orange', size = 34 }) {
+export function CatFace({ coat = 'orange', size = 34, detective = false }) {
   const c = CAT_COATS[coat];
   return (
-    <svg width={size} height={size} viewBox="0 0 40 40" aria-hidden>
+    <svg width={size} height={size} viewBox={detective ? '0 -6 40 46' : '0 0 40 40'} aria-hidden>
       <path d="M6 14 L8 2 L17 9 Z" fill={c.fur} /><path d="M23 9 L32 2 L34 14 Z" fill={c.fur} />
       <path d="M8.5 11 L9.5 5 L14 9 Z" fill={c.inner} /><path d="M26 9 L30.5 5 L31.5 11 Z" fill={c.inner} />
       <circle cx="20" cy="22" r="15" fill={c.fur} stroke={c.dark} strokeWidth="1.2" />
@@ -66,6 +89,13 @@ export function CatFace({ coat = 'orange', size = 34 }) {
       <path d="M19 25 L21 25 L20 26.5 Z" fill="#FF7AA8" />
       <path d="M17 28 Q20 30 20 27 Q20 30 23 28" fill="none" stroke="#3B2240" strokeWidth="1.2" strokeLinecap="round" />
       <circle cx="11" cy="26.5" r="2.4" fill="#FFB3CC" opacity="0.8" /><circle cx="29" cy="26.5" r="2.4" fill="#FFB3CC" opacity="0.8" />
+      {detective && (
+        <g>
+          <path d="M6 10 Q20 -8 34 10 Z" fill="#8C6A3F" />
+          <path d="M5 10.5 L35 10.5 Q35 13 20 13 Q5 13 5 10.5 Z" fill="#6E5230" />
+          <circle cx="20" cy="-4" r="1.8" fill="#6E5230" />
+        </g>
+      )}
     </svg>
   );
 }

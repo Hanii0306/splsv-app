@@ -17,6 +17,7 @@ export const DEFAULT_SETTINGS = {
   detective: true, agentM: true, clues: true, xp: true, badges: true,
   summaries: true, quiz: true, cats: true,
   tutor: true, // Detektif AI chatbot (needs the Supabase Edge Function `tutor`)
+  pattern: true, // faint static detective pattern behind questions (no motion)
 };
 const caseById = (id) => cases.find((c) => c.id === id) || cases[0];
 
@@ -46,8 +47,9 @@ export default function App() {
     const root = document.documentElement;
     root.classList.toggle('reduce-motion', !!settings.reducedMotion);
     root.classList.toggle('no-cats', settings.cats === false);
+    root.classList.toggle('no-pattern', settings.pattern === false);
     root.dataset.skin = settings.detective === false ? 'cute' : 'detective';
-  }, [settings.reducedMotion, settings.cats, settings.detective]);
+  }, [settings.reducedMotion, settings.cats, settings.detective, settings.pattern]);
 
   const saveSettings = async (s) => { setSettings(s); await setSetting('app', s); };
 

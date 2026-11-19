@@ -202,3 +202,10 @@ tombol "lihat jawaban".
 - Panel bawah tingginya maksimal 70% layar. Soal tetap terlihat di atasnya (EL02).
 - Gelembung siswa berwarna hijau zamrud, gelembung AI ungu muda. Tanpa avatar di layar soal (aturan 2).
 - Maksimal 3 tombol cepat di awal percakapan. Pengingat: "Jangan tulis nama atau data pribadi. AI bisa keliru."
+
+## 12. Animasi detektif lucu (v1.8)
+| Layar | Animasi |
+|---|---|
+| Masuk, Peta, briefing, akhir kasus, hasil kuis, ringkasan | Kucing detektif berjalan + jejak kaki, doodle detektif melayang (opasitas 0,35–0,5), Agent M idle |
+| Soal kasus, kuis, istirahat, kuesioner | Pola SVG statis 140 px, opasitas ±0,12. **Tanpa gerak** |
+Durasi gerak lambat (1–22 detik per siklus). Tidak ada kilatan. Semua dimatikan oleh `reduce-motion` / `.lite`.

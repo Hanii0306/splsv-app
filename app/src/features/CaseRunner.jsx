@@ -7,7 +7,9 @@ import { logEvent } from '../telemetry/log.js';
 import { BADGE_SYMBOL } from '../ui/Badge.jsx';
 import Celebrate from '../ui/Celebrate.jsx';
 import { AgentSays, Stamp } from '../ui/Detective.jsx';
+import FloatingSymbols from '../ui/FloatingSymbols.jsx';
 import Header from '../ui/Header.jsx';
+import Walkers from '../ui/Walkers.jsx';
 import Questionnaire from './Questionnaire.jsx';
 import { McItem, StepsItem } from './CaseItem.jsx';
 import TutorChat from './TutorChat.jsx';
@@ -63,7 +65,9 @@ export default function CaseRunner({ caseInfo, profile, settings, onExit }) {
   const rank = end ? rankFor(end.total) : null;
 
   return (
-    <div className="screen case-screen">
+    <div className={`screen case-screen${phase === 'item' || phase === 'break' || phase === 'clq'
+      ? (settings.pattern !== false ? ' solve-bg' : '') : ' cute-bg'}`}>
+      {(phase === 'brief' || phase === 'done') && <FloatingSymbols />}
       <Header title={title} onBack={onExit} right={phase === 'item' && tutorOn
         ? <button type="button" className="icon-btn tutor-btn" onClick={() => setChat(!chat)} aria-label="Tanya Detektif AI">💬</button>
         : <span className="header-meta">{meta}</span>} />
@@ -93,6 +97,7 @@ export default function CaseRunner({ caseInfo, profile, settings, onExit }) {
               </ul>
             </div>
             {det && settings.agentM !== false && <AgentSays mood="happy">Siap, Agen {profile.studentCode}? Kerjakan satu bukti setiap kali.</AgentSays>}
+            <Walkers />
             <footer className="action-bar">
               <span />
               <button type="button" className="btn btn-primary" onClick={() => { logEvent('case_start', { levelId: caseInfo.id }); setPhase('item'); }}>
@@ -152,6 +157,7 @@ export default function CaseRunner({ caseInfo, profile, settings, onExit }) {
                 {caseInfo.id === 'L7' ? 'Luar biasa! Semua kasus terpecahkan. Kamu Master Detective!' : 'Kerja hebat! Berkas kasus berikutnya sudah terbuka.'}
               </AgentSays>
             )}
+            <Walkers />
             <footer className="action-bar">
               <span />
               <button type="button" className="btn btn-primary" onClick={onExit}>{det ? 'Ke Peta Investigasi' : 'Ke Peta Belajar'}</button>

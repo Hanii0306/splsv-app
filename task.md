@@ -68,6 +68,7 @@ Format: `[ ]` belum, `[~]` sedang, `[x]` selesai. Setiap task punya ID dan meruj
 ### Sprint 6 â€” Pemolesan
 - [~] T-V60 Aksesibilitas: reduced motion, target â‰¥48dp, dan mode gelap sudah ada. TalkBack belum diuji
 - [~] T-V61 Uji e2e alur utama: lulus di Chromium 360Ã—740 (loginâ†’diagnostikâ†’L0/L2/L5/L7â†’sinkronâ†’dashboard), tetapi skripnya belum dimasukkan ke repo
+- [x] T-V82 v1.8 desain detektif lucu bergerak (menu) + pola diam (layar soal), saklar peneliti. 167 uji lulus, e2e 360×640 lulus
 - [x] T-V80 v1.7 Detektif AI: `engine/tutor.js` (prompt RMT/CLT, helpLevel, penyaring jawaban), Edge Function `tutor`,
   tabel `percakapan_tutor`, TutorChat (soal + materi), saklar peneliti. 167 uji lulus; e2e 360Ã—640 dengan fungsi tiruan lulus
 - [x] T-V81 Fungsi `tutor` aktif (gemini-3.5-flash-lite, cadangan gemini-flash-lite-latest), tabel percakapan_tutor, uji nyata lulus (penyaring memblokir bocoran), web terbit

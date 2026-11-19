@@ -9,7 +9,7 @@ export function AgentM({ size = 72, mood = 'happy' }) {
     cheer: 'M40 61 Q50 75 60 61 Z',
   }[mood] || 'M41 63 Q50 71 59 63';
   return (
-    <svg className="agent-m" width={size} height={size * 1.1} viewBox="0 0 100 110" role="img" aria-label="Agent M">
+    <svg className="agent-m" width={size} height={size * 1.1} viewBox="0 0 104 110" role="img" aria-label="Agent M">
       {/* coat */}
       <path d="M18 110 Q20 84 50 80 Q80 84 82 110 Z" fill="#8C6A3F" />
       <path d="M50 80 L36 110 L30 110 Q32 90 50 80 Z M50 80 L64 110 L70 110 Q68 90 50 80 Z" fill="#A9834F" />
@@ -21,14 +21,23 @@ export function AgentM({ size = 72, mood = 'happy' }) {
       <circle cx="41" cy="52" r="7" fill="#E6EDF7" fillOpacity=".35" stroke="#1B2A44" strokeWidth="2.5" />
       <circle cx="59" cy="52" r="7" fill="#E6EDF7" fillOpacity=".35" stroke="#1B2A44" strokeWidth="2.5" />
       <path d="M48 52 L52 52" stroke="#1B2A44" strokeWidth="2.5" />
-      <circle cx="41" cy="53" r="2.2" fill="#1B2A44" />
-      <circle cx="59" cy="53" r="2.2" fill="#1B2A44" />
+      <g className="am-eyes">
+        <circle cx="41" cy="53" r="2.2" fill="#1B2A44" />
+        <circle cx="59" cy="53" r="2.2" fill="#1B2A44" />
+      </g>
       <path d={mouth} stroke="#7A3B2E" strokeWidth="2.5" fill={mood === 'cheer' ? '#7A3B2E' : 'none'} strokeLinecap="round" />
-      {/* fedora */}
+      {/* fedora (tips now and then) */}
+      <g className="am-hat">
       <ellipse cx="50" cy="36" rx="34" ry="7" fill="#2E4263" />
       <path d="M30 36 Q30 14 50 14 Q70 14 70 36 Z" fill="#3A5277" />
       <path d="M30.5 30 L69.5 30 L70 36 L30 36 Z" fill="#F5B942" />
       <path d="M44 15 Q50 22 56 15" stroke="#2E4263" strokeWidth="2" fill="none" />
+      </g>
+      {/* magnifying glass (swings) */}
+      <g className="am-glass">
+        <line x1="78" y1="96" x2="86" y2="84" stroke="#6E5230" strokeWidth="4" strokeLinecap="round" />
+        <circle cx="90" cy="77" r="8.5" fill="#DDF3FF" fillOpacity=".7" stroke="#3A5277" strokeWidth="3" />
+      </g>
     </svg>
   );
 }

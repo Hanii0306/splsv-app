@@ -12,6 +12,8 @@ import Walkers from '../ui/Walkers.jsx';
 import { MathText } from './CaseItem.jsx';
 
 const LETTERS = ['A', 'B', 'C', 'D'];
+// Faint static pattern behind questions (v1.8); follows Menu peneliti → Pola latar (html.no-pattern).
+const settingsPattern = () => typeof document === 'undefined' || !document.documentElement.classList.contains('no-pattern');
 
 /** Box text with inputs for the blanks; after checking, shows the given value (✓) or the key (!). */
 function QuizBoxText({ box, values, onChange, state }) {
@@ -173,7 +175,7 @@ export default function Quiz({ openLevels, onExit }) {
   }
 
   return (
-    <div className="screen">
+    <div className={`screen${settingsPattern() ? ' solve-bg' : ''}`}>
       <Header title="Kuis acak" onBack={onExit} />
       <div className="count-box">
         <span>Jumlah soal: <strong>{N}</strong></span>
