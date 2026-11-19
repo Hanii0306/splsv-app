@@ -1,9 +1,7 @@
 import { useEffect, useState } from 'react';
-import Quiz from '../features/Quiz.jsx';
-import SummaryView from '../features/SummaryView.jsx';
 import LearningMap from '../features/LearningMap.jsx';
-import CaseRunner from '../features/CaseRunner.jsx';
-import cases from '../content/cases.json';
+import TestRunner from '../features/TestRunner.jsx';
+import { installTapEffect } from '../ui/tapEffect.js';
 import Login from '../features/Login.jsx';
 import Research from '../features/Research.jsx';
 import { signOut } from '../storage/accounts.js';
@@ -13,16 +11,16 @@ import { getProfile, getSetting, setSetting } from '../storage/db.js';
 import { startSync, syncNow } from '../sync/syncWorker.js';
 import { logEvent, startSession } from '../telemetry/log.js';
 
-// Every learning/gamification feature can be switched off in Menu peneliti (v1.6).
+// v2.0: the only questions are the 4 soal of the PDF test. Every extra feature can be switched off in Menu peneliti.
 export const DEFAULT_SETTINGS = {
-  light3d: false, reducedMotion: false, clq: false, unlockAll: false,
-  detective: true, agentM: true, clues: true, xp: true, badges: true,
-  summaries: true, quiz: true, cats: true,
+  reducedMotion: false, clq: false,
+  testMode: 'tes', // 'tes' = no help (research) | 'latihan' = Amplop Petunjuk + Detektif AI
+  detective: true, agentM: true, clues: true, cats: true,
   tutor: true, // Detektif AI chatbot (needs the Supabase Edge Function `tutor`)
   pattern: true, // faint static detective pattern behind questions (no motion)
   music: true, // detective tune, started only by the student's tap on 🎵
 };
-const caseById = (id) => cases.find((c) => c.id === id) || cases[0];
+installTapEffect();
 
 export default function App() {
   const [route, setRoute] = useState({ name: 'boot' });
@@ -65,28 +63,20 @@ export default function App() {
 
   const saveSettings = async (s) => { setSettings(s); await setSetting('app', s); };
 
-  const openLevel = (level) => setRoute({ name: 'level', level });
-
   switch (route.name) {
     case 'boot':
       return <div className="screen center"><p className="muted">Memuat…</p></div>;
     case 'login':
       return <Login onDone={(p) => { setProfile(p); startSession(p.studentCode); startSync(); setRoute({ name: 'map' }); }} />;
-    case 'level':
-      return <CaseRunner key={route.level.id} caseInfo={caseById(route.level.id)} profile={profile} settings={settings} onExit={() => { syncNow(); setRoute({ name: 'map' }); }} />;
-    case 'summary':
-      return <SummaryView key={route.level.id} level={route.level} onBack={() => setRoute({ name: 'map' })} onStart={() => openLevel(caseById(route.level.id))} />;
-    case 'quiz':
-      return <Quiz openLevels={route.open} onExit={() => { syncNow(); setRoute({ name: 'map' }); }} />;
+    case 'test':
+      return <TestRunner profile={profile} settings={settings} onExit={() => { syncNow(); setRoute({ name: 'map' }); }} />;
     case 'research':
       return (
         <Research profile={profile} settings={settings} onSettings={saveSettings} onBack={() => setRoute({ name: 'map' })}
           onLogout={async () => { await signOut(); setProfile(null); setRoute({ name: 'login' }); }} />
       );
     default:
-      return <LearningMap key={route.name} profile={profile} settings={settings} onOpenLevel={openLevel}
-          onSummary={(level) => setRoute({ name: 'summary', level })}
-          onQuiz={(open) => setRoute({ name: 'quiz', open })}
+      return <LearningMap key={route.name} profile={profile} settings={settings} onOpenTest={() => setRoute({ name: 'test' })}
           onResearch={() => setRoute({ name: 'research' })}
           onSignOut={async () => { logEvent('session_end', {}); await signOut(); setProfile(null); setRoute({ name: 'login' }); }} />;
   }

@@ -1,0 +1,96 @@
+{
+  "id": "UJI-ML",
+  "title": "Uji Coba Tes Mathematical Literacy",
+  "subtitle": "Penerapan Persamaan Linear Satu Variabel (SPLSV) dalam Menyelesaikan Masalah",
+  "kelas": "VII (Tujuh)",
+  "jenis": "Uji Coba Instrumen",
+  "kodeNote": "Keterangan: Kode siswa = kelas + huruf kelas, tanda hubung (-), lalu nomor urut/absen (contoh: 7A-01). Tidak perlu menuliskan nama lengkap.",
+  "motivation": "★ Kamu pasti bisa! Kerjakan pelan-pelan dan tuliskan langkahmu dengan rapi ya! ★",
+  "petunjuk": [
+    "Terdapat 4 soal cerita kontekstual materi Persamaan Linear Satu Variabel (SPLSV). Kerjakan secara mandiri dan jujur sesuai kemampuanmu.",
+    "Setiap soal dikerjakan secara bertahap. Tuliskan langkah jawabanmu pada kotak tahapan yang sesuai secara berurutan mulai dari Tahap 1.",
+    "Jika mengalami kesulitan pada salah satu tahap, tetap lanjutkan ke tahap berikutnya. Langkah berpikir yang benar tetap memperoleh skor meskipun jawaban akhir belum tepat.",
+    "Kolom Skor diisi oleh peneliti; siswa tidak perlu mengisinya."
+  ],
+  "maxTotal": 24,
+  "nilaiRumus": "Nilai = (Total Skor ÷ 24) × 100",
+  "items": [
+    {
+      "id": "T1", "no": 1, "title": "Memilih Paket Sewa Lapangan Futsal", "ind": "reason", "indicator": "Mathematical Reasoning", "max": 6,
+      "stem": [
+        "Pengurus OSIS memiliki anggaran Rp340.000 untuk menyewa lapangan futsal minimal 4 jam dengan pilihan tempat sebagai berikut:"
+      ],
+      "list": ["Gelanggang A: Rp85.000/jam.", "Gelanggang B: biaya admin Rp40.000 + Rp75.000/jam.", "Gelanggang C: paket 4 jam sebesar Rp320.000."],
+      "ask": ["Tentukan keputusan terbaik berdasarkan penyelesaian SPLSV durasi maksimal dan jelaskan alasan matematis Anda."],
+      "tahap": [
+        { "label": "Tahap 1. Memahami masalah & pemisalan variabel:", "max": 1 },
+        { "label": "Tahap 2. Menyusun & menghitung SPLSV setiap pilihan:", "max": 2 },
+        { "label": "Tahap 3. Membandingkan biaya pilihan tempat:", "max": 1 },
+        { "label": "Tahap 4. Keputusan pilihan terbaik:", "max": 1 },
+        { "label": "Tahap 5. Alasan matematis:", "max": 1 }
+      ],
+      "footer": "★ Baca informasi setiap paket pelan-pelan, ya!",
+      "clue": "Misal x = lama sewa. Berapa jam maksimal di tiap tempat?",
+      "step": "A: 85.000x = 340.000. B: 75.000x + 40.000 = 340.000. Bandingkan dengan C.",
+      "steps": ["Anggaran Rp340.000, minimal 4 jam. Misal x = lama sewa.", "A: 85.000x = 340.000 → x = 4. B: 75.000x + 40.000 = 340.000 → x = 4. C: 4 jam = Rp320.000.", "Untuk 4 jam: Rp320.000 < Rp340.000.", "Pilih Gelanggang C.", "Durasi sama 4 jam, tetapi C lebih hemat Rp20.000."],
+      "keys": { "texts": ["Gelanggang C"], "numbers": [] }
+    },
+    {
+      "id": "T2", "no": 2, "title": "Bantuan Paket Sembako Desa", "ind": "formulate", "indicator": "Formulating Situations Mathematically", "max": 6,
+      "stem": [
+        "Komunitas sosial mengumpulkan dana sebesar Rp4.250.000. Sebesar Rp650.000 dipakai untuk biaya operasional dan sisanya dibelikan p paket sembako seharga Rp120.000/paket. Ubahlah situasi tersebut menjadi model persamaan linear satu variabel (SPLSV) yang tepat, kemudian tentukan banyak paket sembako (p) yang dapat dibeli."
+      ],
+      "tahap": [
+        { "label": "Tahap 1. Menuliskan informasi yang diketahui:", "max": 1 },
+        { "label": "Tahap 2. Menentukan variabel yang digunakan:", "max": 1 },
+        { "label": "Tahap 3. Menentukan hubungan matematis antarbesaran:", "max": 1 },
+        { "label": "Tahap 4. Menyusun model matematika (SPLSV):", "max": 1 },
+        { "label": "Tahap 5. Menyelesaikan perhitungan SPLSV:", "max": 1 },
+        { "label": "Tahap 6. Menuliskan kesimpulan:", "max": 1 }
+      ],
+      "footer": "★ Susun model persamaannya terlebih dahulu!",
+      "clue": "Biaya paket ditambah biaya operasional sama dengan apa?",
+      "step": "Model: 120.000p + 650.000 = 4.250.000. Kurangi 650.000 di kedua ruas.",
+      "steps": ["Dana Rp4.250.000, operasional Rp650.000, harga paket Rp120.000.", "Variabel p = banyak paket.", "Biaya paket + operasional = total dana.", "Model: 120.000p + 650.000 = 4.250.000.", "120.000p = 3.600.000 → p = 30.", "Jadi, banyak paket sembako = 30 paket."],
+      "eq": "120000x + 650000 = 4250000",
+      "keys": { "texts": [], "numbers": ["30", "3600000"] }
+    },
+    {
+      "id": "T3", "no": 3, "title": "Potongan Pita Dekorasi", "ind": "employ", "indicator": "Employing Mathematical Concepts, Facts, and Procedures", "max": 6,
+      "stem": [
+        "Seutas pita sepanjang 150 cm dipotong menjadi 3 bagian. Bagian kedua 15 cm lebih panjang dari bagian pertama, dan bagian ketiga dua kali panjang bagian pertama. Berapa cm panjang pita terpanjang? Tunjukkan langkah perhitungan Anda secara lengkap."
+      ],
+      "tahap": [
+        { "label": "Tahap 1. Pemisalan panjang bagian pita & penyusunan persamaan:", "max": 1 },
+        { "label": "Tahap 2. Langkah penyelesaian SPLSV:", "max": 2 },
+        { "label": "Tahap 3. Menghitung ukuran potongan pita terpanjang:", "max": 2 },
+        { "label": "Tahap 4. Kesimpulan:", "max": 1 }
+      ],
+      "footer": "★ Cek kembali hubungan panjang ketiga bagian pita!",
+      "clue": "Misal bagian pertama x. Tulis bagian kedua dan ketiga dengan x.",
+      "step": "x + (x + 15) + 2x = 150 → 4x + 15 = 150.",
+      "steps": ["Misal bagian 1 = x, bagian 2 = x + 15, bagian 3 = 2x. Persamaan: x + (x + 15) + 2x = 150.", "4x + 15 = 150 → 4x = 135 → x = 33,75 cm.", "Terpanjang (bagian 3): 2x = 2(33,75) = 67,50 cm.", "Jadi, panjang pita terpanjang 67,50 cm."],
+      "eq": "x + (x + 15) + 2x = 150",
+      "keys": { "texts": [], "numbers": ["67,5", "67,50", "33,75"] }
+    },
+    {
+      "id": "T4", "no": 4, "title": "Pemesanan Kotak Makan Katering", "ind": "interpret", "indicator": "Interpreting, Applying, and Evaluating Mathematical Outcomes", "max": 6,
+      "stem": [
+        "Dari persamaan 22.000n + 50.000 = 900.000 diperoleh hasil perhitungan n = 38,636... Seorang anggota panitia menyimpulkan bahwa panitia dapat memesan 39 kotak nasi. Apakah Anda setuju dengan kesimpulan tersebut? Tentukan maksimal pesanan kotak nasi beserta sisa anggarannya, dan jelaskan alasan Anda."
+      ],
+      "tahap": [
+        { "label": "Tahap 1. Menafsirkan makna bilangan desimal n = 38,636...:", "max": 1 },
+        { "label": "Tahap 2. Menghitung total biaya untuk 38 kotak nasi:", "max": 1 },
+        { "label": "Tahap 3. Menghitung sisa anggaran & membandingkan biaya 39 kotak:", "max": 1 },
+        { "label": "Tahap 4. Menentukan maksimal pesanan dan sisa anggaran:", "max": 1 },
+        { "label": "Tahap 5. Menilai kesimpulan panitia (Setuju / Tidak Setuju) & alasan:", "max": 1 },
+        { "label": "Tahap 6. Kesimpulan akhir:", "max": 1 }
+      ],
+      "footer": "★ Hampir selesai, semangat! Periksa kembali jawabanmu ♡",
+      "clue": "Hitung biaya 39 kotak. Apakah melebihi Rp900.000?",
+      "step": "Biaya 38 kotak = 38 × 22.000 + 50.000. Bandingkan dengan anggaran.",
+      "steps": ["n = 38,636… berarti 38 kotak utuh terbeli.", "Biaya 38 kotak = 38 × 22.000 + 50.000 = Rp886.000.", "Sisa = Rp900.000 − Rp886.000 = Rp14.000 (39 kotak = Rp908.000, melebihi).", "Maksimal 38 kotak, sisa Rp14.000.", "Tidak setuju: kotak harus bulat dan tidak melebihi anggaran.", "Jadi, maksimal 38 kotak nasi."],
+      "keys": { "texts": ["Tidak setuju", "Tidak Setuju"], "numbers": ["38", "14000", "886000"] }
+    }
+  ]
+}

@@ -1,11 +1,11 @@
 import { describe, expect, it } from 'vitest';
-import cases from '../src/content/cases.json';
+import test from '../src/content/test.json';
 import {
   buildMessages, fallbackReply, helpLevel, leaksAnswer, MAX_HISTORY, protectedAnswers, quickPrompts, systemPrompt,
 } from '../src/engine/tutor.js';
 
-const item = (id) => cases.flatMap((c) => c.items).find((i) => i.id === id);
-const caseOf = (id) => cases.find((c) => c.id === id.slice(0, 2));
+const item = (id) => test.items.find((i) => i.id === id);
+const caseOf = () => ({ id: 'UJI', title: test.title, form: 'soal cerita' });
 
 describe('helpLevel follows the H1→H4 ladder', () => {
   it('starts at 1 and grows with mistakes, opened clues and repeated asks', () => {
@@ -18,41 +18,35 @@ describe('helpLevel follows the H1→H4 ladder', () => {
   });
 });
 
-describe('answer-leak guard (AGENTS.md §2.1)', () => {
-  it('MC: blocks the correct letter and the value, allows question numbers', () => {
-    const it1 = item('L1-01'); // x + 9 = 17 → B (8)
-    expect(leaksAnswer('Jawabannya B.', it1)).toBe(true);
-    expect(leaksAnswer('Pilihan yang benar adalah (B).', it1)).toBe(true);
-    expect(leaksAnswer('B benar karena…', it1)).toBe(true);
-    expect(leaksAnswer('Jadi x = 8.', it1)).toBe(true);
-    expect(leaksAnswer('Hasilnya 8', it1)).toBe(true);
-    expect(leaksAnswer('Apa yang menempel pada x? Kurangi 9 pada kedua ruas.', it1)).toBe(false);
-    expect(leaksAnswer('Berapa 17 − 9?', it1)).toBe(false);
+describe('answer-leak guard (AGENTS.md §2.1) on the 4 PDF soal', () => {
+  it('Soal 1: the decision "Gelanggang C" is protected, comparing options is fine', () => {
+    const s1 = item('T1');
+    expect(leaksAnswer('Pilihan terbaik adalah Gelanggang C.', s1)).toBe(true);
+    expect(leaksAnswer('Jawabannya: Gelanggang C', s1)).toBe(true);
+    expect(leaksAnswer('Bandingkan biaya Gelanggang A, B, dan C untuk 4 jam. Mana yang lebih murah?', s1)).toBe(false);
   });
-  it('negative numbers in any minus style', () => {
-    const it4 = item('L1-04'); // m = −11
-    expect(leaksAnswer('Maka m = −11.', it4)).toBe(true);
-    expect(leaksAnswer('nilai m adalah -11', it4)).toBe(true);
-    expect(leaksAnswer('Tambahkan 8 pada kedua ruas: m = −19 + 8. Berapa hasilnya?', it4)).toBe(false);
+  it('Soal 2: p = 30 is protected, the model with given numbers is fine', () => {
+    const s2 = item('T2');
+    expect(leaksAnswer('Jadi p = 30.', s2)).toBe(true);
+    expect(leaksAnswer('Hasilnya 30 paket.', s2)).toBe(true);
+    expect(leaksAnswer('Kurangi 650.000 pada kedua ruas. Berapa sisanya?', s2)).toBe(false);
   });
-  it('scaffolded: protects the current and later boxes, not solved ones', () => {
-    const s = item('L1-07'); // boxes 14, 14, −8
-    expect(protectedAnswers(s, 2).numbers).toEqual(['-8']);
-    expect(leaksAnswer('Jadi y = −8.', s, 2)).toBe(true);
-    expect(leaksAnswer('Kamu sudah benar: dikurangi 14. Sekarang hitung 6 − 14.', s, 2)).toBe(false);
+  it('Soal 3: 67,50 cm protected in any notation', () => {
+    const s3 = item('T3');
+    expect(leaksAnswer('Panjangnya menjadi 67,5 cm', s3)).toBe(true);
+    expect(leaksAnswer('Diperoleh x = 33,75', s3)).toBe(true);
+    expect(leaksAnswer('Susun: x + (x + 15) + 2x = 150. Apa langkah berikutnya?', s3)).toBe(false);
   });
-  it('money and fractions with Indonesian separators', () => {
-    const t = item('L7-10'); // 20000 and 35000
-    expect(leaksAnswer('Harga tiket anak adalah Rp20.000', t)).toBe(true);
-    expect(leaksAnswer('Harga tiket anak = 20 000', t)).toBe(true);
-    expect(leaksAnswer('Misalkan harga tiket anak a. Tiket dewasa a + 15.000.', t)).toBe(false);
-    const ribbon = item('L7-04'); // 67,50 cm
-    expect(leaksAnswer('Panjangnya menjadi 67,50 cm', ribbon)).toBe(true);
+  it('Soal 4: 38 kotak / Rp14.000 / "tidak setuju" protected; quoting n = 38,636 is fine', () => {
+    const s4 = item('T4');
+    expect(leaksAnswer('Maksimal pesanan adalah 38 kotak.', s4)).toBe(true);
+    expect(leaksAnswer('Sisanya Rp14.000', s4)).toBe(true);
+    expect(leaksAnswer('Jawabanmu: Tidak setuju', s4)).toBe(true);
+    expect(leaksAnswer('Kamu dapat n = 38,636. Apakah jumlah kotak boleh pecahan?', s4)).toBe(false);
   });
-  it('choice boxes (Benar/Salah) are protected', () => {
-    const bs = item('L1-09');
-    expect(leaksAnswer('Jawabannya "Salah".', bs, 0)).toBe(true);
-    expect(leaksAnswer('Coba substitusi x = 8 ke persamaan. Apakah hasilnya 10?', bs, 0)).toBe(false);
+  it('protectedAnswers reads the kisi-kisi keys of essay soal', () => {
+    expect(protectedAnswers(item('T2')).numbers).toContain('30');
+    expect(protectedAnswers(item('T1')).texts).toEqual(['Gelanggang C']);
   });
 });
 
@@ -66,21 +60,20 @@ describe('prompt building (RMT + CLT, no student data)', () => {
     expect(s).toMatch(/15 kata/);
   });
   it('item mode includes the verbatim PDF question; history is trimmed', () => {
-    const it2 = item('L2-02');
+    const it2 = item('T2');
     const history = Array.from({ length: 10 }, (_, k) => ({ role: k % 2 ? 'assistant' : 'user', content: `pesan ${k}` }));
-    const m = buildMessages({ mode: 'item', item: it2, caseInfo: caseOf('L2-02'), level: 2, history, message: 'bingung' });
+    const m = buildMessages({ mode: 'item', item: it2, caseInfo: caseOf(), level: 2, history, message: 'bingung' });
     expect(m[0].role).toBe('system');
-    expect(m[0].content).toContain(it2.prompt[0]);
+    expect(m[0].content).toContain(it2.stem[0]);
+    expect(m[0].content).toContain(it2.tahap[3].label);
     expect(m).toHaveLength(1 + MAX_HISTORY + 1);
     expect(m.at(-1)).toEqual({ role: 'user', content: 'bingung' });
     expect(JSON.stringify(m)).not.toMatch(/S0\d|studentCode|kode_siswa/);
   });
   it('fallback and quick prompts stay short and never contain the key', () => {
-    for (const c of cases) {
-      for (const i of c.items) {
-        expect(leaksAnswer(fallbackReply(i, 1), i)).toBe(false);
-        expect(quickPrompts('item', i).length).toBeLessThanOrEqual(3);
-      }
+    for (const i of test.items) {
+      expect(leaksAnswer(fallbackReply(i, 1), i)).toBe(false);
+      expect(quickPrompts('item', i).length).toBeLessThanOrEqual(3);
     }
     expect(quickPrompts('materi')).toHaveLength(3);
   });

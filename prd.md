@@ -404,3 +404,26 @@ Tidak ada soal baru: chatbot dilarang membuat soal latihan (total soal tetap 70)
 - **Latar penuh-jendela lebih ramai:** hujan malam, 18 butir debu emas yang naik, 13 doodle, lampu sorot, kaca
   pembesar, papan kasus kiri-kanan (laptop), jejak sepatu.
 - Layar soal tetap pola diam (kini keemasan samar di latar gelap).
+
+## 18. v2.0 — isi aplikasi = 4 soal "Uji Coba Tes Mathematical Literacy" (permintaan pengembang)
+- **70 soal lama, kuis acak, ringkasan per level, dan timbangan dihapus.** Satu-satunya soal adalah 4 soal cerita
+  dari PDF, verbatim:
+  1. Memilih Paket Sewa Lapangan Futsal — Reasoning, 6;
+  2. Bantuan Paket Sembako Desa — Formulating, 6;
+  3. Potongan Pita Dekorasi — Employing, 6;
+  4. Pemesanan Kotak Makan Katering — Interpreting, 6.
+  Total 24, Nilai = (Total ÷ 24) × 100.
+- **Halaman sampul** sama dengan PDF: identitas (kode siswa, tanggal, kelas, jenis tes, jam mulai/selesai otomatis),
+  keterangan kode, Petunjuk Pengerjaan (4 butir), Rekap Skor (diisi peneliti).
+- **Isian = teks bebas per tahap persis seperti PDF** (21 tahap, label dan skor maks per tahap sama).
+  - Tidak ada koreksi otomatis; skor diisi peneliti.
+  - Semua tahap boleh diisi/dilewati sesuai Petunjuk no. 3.
+  - Draf tersimpan otomatis di HP.
+- **Mode diatur guru** (Menu peneliti):
+  - **Mode tes** (bawaan): tanpa Amplop, tanpa Detektif AI, tanpa pembahasan.
+  - **Mode latihan**: Amplop Petunjuk H1–H4 (dari kisi-kisi), Detektif AI, dan pembahasan setelah kirim.
+- **Kirim ke Supabase:** tabel `jawaban_tes`, satu baris per tahap dengan kolom `skor` diisi peneliti; view
+  `rekap_tes` menghitung skor per soal, total, dan nilai. Bila offline, jawaban antre di HP lalu dikirim otomatis.
+- **Efek sentuh detektif** di semua layar: sidik jari emas + cincin kaca pembesar ±0,6 dtk (mati dengan
+  "Kurangi animasi").
+- Pengecualian EL01: kalimat soal tidak dipotong (≤ 20 kata) karena harus persis seperti instrumen.

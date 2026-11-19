@@ -31,8 +31,15 @@ export function helpLevel({ wrongs = 0, hintLevel = 0, asks = 0 } = {}) {
 const IND = { formulate: 'Merumuskan', employ: 'Menerapkan', interpret: 'Menafsirkan', reason: 'Bernalar' };
 
 /** Values the tutor must not reveal for this item (MC letter/option, keys of the current and later boxes). */
+/** Question text of any item shape (70-item MC/steps or the 4-soal test: stem + list + ask). */
+export const itemText = (item) => [...(item.prompt || item.stem || []), ...(item.list || []), ...(item.ask || [])].join(' ');
+
 export function protectedAnswers(item, box = 0) {
   if (!item) return { letters: [], texts: [], numbers: [] };
+  if (item.keys) { // test soal (essay): the kisi-kisi results are protected
+    const givens = new Set((itemText(item).replace(/[−–]/g, '-').match(/-?\d[\d.,]*/g) || []).map((g) => g.replace(/[.,]$/, '')));
+    return { letters: [], texts: item.keys.texts || [], numbers: (item.keys.numbers || []).filter((n) => !givens.has(n)) };
+  }
   if (item.kind === 'mc') {
     const text = String(item.options[item.answer]);
     const num = (text.replace(/^[a-z]\s*=\s*/i, '').trim().match(/^[−\-+]?\d[\d.,/]*/) || [])[0];
@@ -46,7 +53,7 @@ export function protectedAnswers(item, box = 0) {
     else [].concat(b.answer).forEach((a) => numbers.push(String(a)));
   });
   // Numbers already printed in the question are givens, not answers (e.g. the 2 in "(3x + 2)").
-  const givens = new Set((item.prompt.join(' ').replace(/[−–]/g, '-').match(/-?\d[\d.,]*/g) || []).map((g) => g.replace(/[.,]$/, '')));
+  const givens = new Set((itemText(item).replace(/[−–]/g, '-').match(/-?\d[\d.,]*/g) || []).map((g) => g.replace(/[.,]$/, '')));
   return { letters: [], texts, numbers: numbers.filter((n) => !givens.has(n)) };
 }
 
@@ -80,7 +87,7 @@ export function leaksAnswer(reply, item, box = 0) {
     if (new RegExp(`${before}\\s*(Rp\\s*)?${np}(?![\\d,.]*\\d)`, 'i').test(t)) return true;
   }
   for (const s of p.texts) {
-    if (s && s.length > 2 && new RegExp(`(jawab\\w*|pilih\\w*|benar\\w*|tepat\\w*)\\W+(adalah\\s*)?"?${esc(s)}`, 'i').test(t)) return true;
+    if (s && s.length > 2 && new RegExp(`(jawab\\w*|pilih\\w*|benar\\w*|tepat\\w*|adalah|ialah|yaitu|terbaik)\\W+(adalah\\s*)?"?${esc(s)}`, 'i').test(t)) return true;
   }
   return false;
 }
@@ -118,9 +125,12 @@ export function itemBrief(item, caseInfo, box = 0) {
   if (!item) return '';
   const lines = [
     `Level: ${caseInfo?.title || ''} (bentuk ${caseInfo?.form || ''}). Indikator literasi: ${IND[item.ind] || item.ind}.`,
-    `Soal: ${item.prompt.join(' ')}`,
+    `Soal: ${itemText(item)}`,
   ];
-  if (item.kind === 'mc') lines.push(`Pilihan: ${item.options.map((o, i) => `${'ABCD'[i]}. ${o}`).join(' | ')}`);
+  if (item.tahap) {
+    lines.push(`Jawaban ditulis per tahap (siswa sedang di tahap ${box + 1}):`);
+    item.tahap.forEach((t) => lines.push(`  ${t.label}`));
+  } else if (item.kind === 'mc') lines.push(`Pilihan: ${item.options.map((o, i) => `${'ABCD'[i]}. ${o}`).join(' | ')}`);
   else {
     lines.push(`Isian bertahap (siswa sedang di kotak ${box + 1} dari ${item.boxes.length}):`);
     item.boxes.forEach((b, i) => lines.push(`  Kotak ${i + 1}: ${b.text}${b.choices ? ` [${b.choices.join(' / ')}]` : ''}${i < box ? ' (sudah benar)' : ''}`));
@@ -159,6 +169,6 @@ export function fallbackReply(item, level) {
 /** Quick-start questions shown as chips (≤ 3, rule 6). */
 export function quickPrompts(mode, item) {
   if (mode !== 'item') return ['Apa itu persamaan linear satu variabel?', 'Mengapa operasinya harus di kedua ruas?', 'Bagaimana cara memeriksa jawaban?'];
-  if (item?.ind === 'formulate' || item?.id?.startsWith('L7')) return ['Aku bingung mulai dari mana', 'Bantu ubah cerita jadi persamaan', 'Cek langkahku'];
+  if (item?.tahap || item?.ind === 'formulate' || item?.id?.startsWith('L7')) return ['Aku bingung mulai dari mana', 'Bantu ubah cerita jadi persamaan', 'Cek langkahku'];
   return ['Aku bingung mulai dari mana', 'Langkah berikutnya apa?', 'Cek langkahku'];
 }

@@ -28,7 +28,7 @@ function fakeFetch({ replies = [], counts = { device: 0, total: 0 }, aiStatus = 
 const req = (body, origin = 'https://hanii0306.github.io') => new Request('https://fn.test/tutor', {
   method: 'POST', headers: { origin, 'content-type': 'application/json' }, body: JSON.stringify(body),
 });
-const base = { mode: 'item', itemId: 'L1-01', message: 'aku bingung', installId: INSTALL, studentCode: 's07', version: '1.7.0' };
+const base = { mode: 'item', itemId: 'T2', message: 'aku bingung', installId: INSTALL, studentCode: 's07', version: '1.7.0' };
 
 describe('Detektif AI edge function', () => {
   it('generated lib is in sync with app/src/engine/tutor.js', () => {
@@ -40,7 +40,7 @@ describe('Detektif AI edge function', () => {
   it('validates input', () => {
     expect(validate({ ...base, message: '' }).ok).toBe(false);
     expect(validate({ ...base, message: 'x'.repeat(501) }).ok).toBe(false);
-    expect(validate({ ...base, itemId: 'L9-99' }).ok).toBe(false);
+    expect(validate({ ...base, itemId: 'L1-01' }).ok).toBe(false);
     expect(validate({ ...base, installId: 'nope' }).ok).toBe(false);
     expect(validate({ ...base, studentCode: 'Budi Santoso' }).v.studentCode).toBeNull();
     expect(validate(base).v.studentCode).toBe('S07');
@@ -52,7 +52,7 @@ describe('Detektif AI edge function', () => {
   });
 
   it('answers, logs the conversation, and never sends the student code to the AI provider', async () => {
-    const f = fakeFetch({ replies: ['Apa yang menempel pada x? Operasi apa yang menghapusnya dari kedua ruas?'] });
+    const f = fakeFetch({ replies: ['Apa yang diketahui? Lalu susun biaya paket ditambah operasional, lakukan hal sama pada kedua ruas.'] });
     const res = await handle(req(base), ENV, f);
     expect(res.status).toBe(200);
     const data = await res.json();
@@ -60,23 +60,23 @@ describe('Detektif AI edge function', () => {
     expect(data.blocked).toBe(false);
     const ai = f.calls.find((c) => c.url.includes('/chat/completions'));
     expect(ai.init.body).not.toMatch(/S07|6f1c2a40/);
-    expect(JSON.parse(ai.init.body).messages[0].content).toContain('x + 9 = 17');
+    expect(JSON.parse(ai.init.body).messages[0].content).toContain('Rp4.250.000');
     const log = JSON.parse(f.calls.find((c) => c.url.endsWith('/rest/v1/percakapan_tutor')).init.body);
-    expect(log).toMatchObject({ kode_siswa: 'S07', item_id: 'L1-01', pesan_siswa: 'aku bingung', diblokir: false, model: 'model-a' });
+    expect(log).toMatchObject({ kode_siswa: 'S07', item_id: 'T2', pesan_siswa: 'aku bingung', diblokir: false, model: 'model-a' });
     expect(res.headers.get('access-control-allow-origin')).toBe('https://hanii0306.github.io');
   });
 
   it('blocks a leaked final answer: retries once, then falls back to a safe clue', async () => {
-    const f = fakeFetch({ replies: ['Jawabannya B, x = 8.', 'Tetap: x = 8.'] });
+    const f = fakeFetch({ replies: ['Jadi p = 30.', 'Tetap: p = 30.'] });
     const data = await (await handle(req(base), ENV, f)).json();
     expect(data.blocked).toBe(true);
-    expect(data.reply).not.toMatch(/x = 8|Jawabannya B/);
+    expect(data.reply).not.toMatch(/p = 30/);
     const log = JSON.parse(f.calls.find((c) => c.url.endsWith('/rest/v1/percakapan_tutor')).init.body);
     expect(log.diblokir).toBe(true);
   });
 
   it('uses the fallback model on 429 and a safe reply when every model fails', async () => {
-    const f = fakeFetch({ aiStatus: [429, 200], replies: ['Coba kurangi 9 pada kedua ruas. Berapa hasilnya?'] });
+    const f = fakeFetch({ aiStatus: [429, 200], replies: ['Coba kurangi 650.000 pada kedua ruas. Berapa hasilnya?'] });
     const ok = await (await handle(req(base), ENV, f)).json();
     expect(ok.reply).toMatch(/kedua ruas/);
     const g = fakeFetch({ aiStatus: [500, 500] });

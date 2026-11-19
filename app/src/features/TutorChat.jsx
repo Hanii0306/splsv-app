@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { quickPrompts } from '../engine/index.js';
 import { askTutor } from '../sync/tutor.js';
 import { logEvent } from '../telemetry/log.js';
-import { MathText } from './CaseItem.jsx';
+import MathText from '../ui/MathText.jsx';
 
 /**
  * Detektif AI chat sheet. Opens any time (developer decision v1.7). Short, one-step answers;

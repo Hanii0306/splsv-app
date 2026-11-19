@@ -695,3 +695,37 @@ html[data-skin='detective'] {
 .reduce-motion .det-scene .dust { opacity: .5; }
 .reduce-motion .case-banner .cb-print { opacity: .8; }
 .lite .det-scene .rain { display: none; }
+
+/* ================= v2.0 PDF test layout + detective tap effect ================= */
+.test-cover h3 { margin: 12px 0 4px; font-size: 17px; color: var(--sun); }
+.test-cover .small { font-size: 13px; font-style: italic; }
+.motivation { text-align: center; font-weight: 700; color: var(--sun); border: 1.5px dashed var(--sun); border-radius: 10px; padding: 8px; margin: 8px 0 !important; }
+.id-table, .score-table { width: 100%; border-collapse: collapse; font-size: 14px; margin: 6px 0; }
+.id-table td, .score-table td, .score-table th { border: 1px solid var(--border); padding: 6px 8px; text-align: left; vertical-align: top; }
+.score-table th { background: var(--surface-pink); color: var(--sun); font-size: 13px; }
+.score-table td:last-child, .score-table th:last-child { text-align: center; width: 48px; }
+.petunjuk { margin: 0; padding-left: 20px; display: grid; gap: 4px; font-size: 15px; }
+.count-box.inline { width: 100%; margin: 8px 0 0; }
+.stem-list { margin: 6px 0; padding-left: 22px; display: grid; gap: 2px; font-size: 17px; }
+.tahap-table { border: 1.5px solid var(--border); border-radius: 12px; overflow: hidden; background: var(--surface); }
+.tahap-head { display: flex; justify-content: space-between; padding: 8px 12px; background: var(--surface-pink); color: var(--sun); font-weight: 800; font-size: 14px; }
+.tahap-row { display: flex; flex-direction: column; gap: 6px; padding: 10px 12px; border-top: 1px solid var(--border); }
+.tahap-label { font-weight: 800; font-size: 15px; }
+.tahap-body { display: flex; gap: 8px; align-items: flex-start; }
+.tahap-body textarea { flex: 1; min-height: 76px; padding: 8px 10px; border-radius: 10px; border: 2px solid var(--border); background: var(--bg);
+  color: var(--text); font: 16px/1.4 var(--font-ui); resize: vertical; }
+.tahap-body textarea:focus { outline: none; border-color: var(--sun); }
+.tahap-score { flex: none; min-width: 48px; text-align: center; padding: 6px 4px; border: 1.5px dashed var(--border); border-radius: 8px; font-size: 13px; color: var(--text-muted); }
+.footer-note { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px; margin: 0; padding: 8px 12px; border-radius: 10px;
+  border: 1.5px solid var(--sun); color: var(--sun); font-size: 14px; font-weight: 700; }
+.soal-list { margin: 0; padding: 0 14px 12px 74px; display: grid; gap: 4px; font-size: 14px; list-style: none; }
+.test-card .level-item { border: none; }
+
+.tap-fx { position: fixed; z-index: 9999; pointer-events: none; width: 0; height: 0; }
+.tap-fx .tap-ring { position: absolute; left: -26px; top: -26px; width: 52px; height: 52px; border-radius: 50%;
+  border: 3px solid #F2B33D; box-shadow: 0 0 10px rgba(242, 179, 61, .6), inset 0 0 10px rgba(221, 243, 255, .45);
+  animation: tap-ring .6s ease-out forwards; }
+.tap-fx .tap-print { position: absolute; left: -17px; top: -17px; color: #F5C04E; line-height: 0; filter: drop-shadow(0 0 4px rgba(245, 192, 78, .8));
+  animation: tap-print .65s ease-out forwards; }
+@keyframes tap-ring { from { transform: scale(.3); opacity: 1; } to { transform: scale(1.6); opacity: 0; } }
+@keyframes tap-print { 0% { transform: scale(.5) rotate(-20deg); opacity: 0; } 25% { opacity: 1; } 100% { transform: scale(1.1) rotate(8deg); opacity: 0; } }

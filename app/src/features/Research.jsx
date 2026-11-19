@@ -6,7 +6,6 @@ import { onSyncStatus, syncNow } from '../sync/syncWorker.js';
 import { exportEvents } from '../telemetry/log.js';
 import { createBatch, deleteAccount, listAccounts, randomPin, setPin } from '../storage/accounts.js';
 import Header from '../ui/Header.jsx';
-import { reasonNo3D } from '../ui/ScaleView.jsx';
 
 // Light obfuscation only; the menu holds no identities, just research toggles and exports.
 async function hashPin(pin) {
@@ -51,7 +50,6 @@ export default function Research({ profile, settings, onSettings, onBack, onLogo
   const [exportText, setExportText] = useState(null);
   const [copied, setCopied] = useState(false);
   const [confirmLogout, setConfirmLogout] = useState(false);
-  const [notice3d, setNotice3d] = useState('');
   const [accts, setAccts] = useState([]);
   const [batch, setBatch] = useState({ prefix: 'S', count: 30, start: 1 });
   const [made, setMade] = useState(null);
@@ -197,38 +195,34 @@ export default function Research({ profile, settings, onSettings, onBack, onLogo
         )}
 
         <section>
-          <h2>Pengaturan</h2>
-          {[
-            ['detective', 'Tema detektif (mati = tema pink lama)'],
-            ['agentM', 'Agent M di peta & akhir kasus'],
-            ['clues', 'Amplop petunjuk (H1–H4)'],
-            ['xp', 'XP & pangkat agen'],
-            ['badges', 'Lencana kehormatan'],
-            ['summaries', 'Tombol Ringkasan'],
-            ['quiz', 'Kuis acak'],
-            ['tutor', 'Chatbot Detektif AI (perlu internet)'],
-            ['cats', 'Animasi detektif di menu (lampu sorot, kaca pembesar, papan kasus, Agent M)'],
-            ['pattern', 'Pola latar detektif diam di layar soal'],
-            ['music', 'Musik latar detektif (tombol 🎵; pelan di layar soal)'],
-            ['light3d', 'Mode ringan (timbangan 2D)'],
-            ['reducedMotion', 'Kurangi animasi'],
-            ['clq', 'Kuesioner beban kognitif di akhir level'],
-            ['unlockAll', 'Buka semua level (uji coba/validasi ahli)'],
-          ].map(([k, label]) => (
-            <label key={k} className="check">
-              <input type="checkbox" checked={!!settings[k]} onChange={() => toggle(k)} />
+          <h2>Mode soal</h2>
+          <p className="muted">Tes = tanpa bantuan (untuk data penelitian). Latihan = Amplop Petunjuk + Detektif AI + pembahasan.</p>
+          {[['tes', 'Mode tes (tanpa bantuan)'], ['latihan', 'Mode latihan (dengan bantuan)']].map(([v, label]) => (
+            <label key={v} className="check">
+              <input type="radio" name="testMode" checked={(settings.testMode || 'tes') === v} onChange={() => onSettings({ ...settings, testMode: v })} />
               <span>{label}</span>
             </label>
           ))}
         </section>
 
         <section>
-          <h2>Timbangan 3D</h2>
-          <p className="muted">{reasonNo3D() ? `Saat ini memakai timbangan 2D (${{ crash: 'pernah crash di HP ini', old_webview: 'WebView lama', no_webgl2: 'GPU tidak mendukung WebGL2', init_error: 'gagal dimulai' }[reasonNo3D()] || reasonNo3D()}).` : 'Timbangan 3D aktif.'}</p>
-          <button type="button" className="btn" onClick={() => { try { localStorage.removeItem('splv.scale3d.disabled'); localStorage.removeItem('splv.scale3d.pending'); } catch { /* ignore */ } setNotice3d('Deteksi 3D direset. Buka sebuah level untuk mencoba lagi.'); }}>
-            Coba lagi timbangan 3D
-          </button>
-          {notice3d && <p className="feedback feedback-ok">{notice3d}</p>}
+          <h2>Pengaturan</h2>
+          {[
+            ['detective', 'Tema detektif (mati = tema pink lama)'],
+            ['agentM', 'Agent M di peta & layar akhir'],
+            ['clues', 'Amplop petunjuk (mode latihan)'],
+            ['tutor', 'Chatbot Detektif AI (mode latihan, perlu internet)'],
+            ['cats', 'Animasi detektif di menu (lampu sorot, kaca pembesar, papan kasus, Agent M)'],
+            ['pattern', 'Pola latar detektif diam di layar soal'],
+            ['music', 'Musik latar detektif (tombol 🎵; pelan di layar soal)'],
+            ['reducedMotion', 'Kurangi animasi (termasuk efek sentuh)'],
+            ['clq', 'Kuesioner beban kognitif setelah tes'],
+          ].map(([k, label]) => (
+            <label key={k} className="check">
+              <input type="checkbox" checked={!!settings[k]} onChange={() => toggle(k)} />
+              <span>{label}</span>
+            </label>
+          ))}
         </section>
 
         <section>
