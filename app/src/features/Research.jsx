@@ -207,7 +207,7 @@ export default function Research({ profile, settings, onSettings, onBack, onLogo
             ['summaries', 'Tombol Ringkasan'],
             ['quiz', 'Kuis acak'],
             ['tutor', 'Chatbot Detektif AI (perlu internet)'],
-            ['cats', 'Animasi detektif lucu di menu (kucing detektif, Agent M, jejak kaki)'],
+            ['cats', 'Animasi detektif di menu (lampu sorot, kaca pembesar, papan kasus, Agent M)'],
             ['pattern', 'Pola latar detektif diam di layar soal'],
             ['light3d', 'Mode ringan (timbangan 2D)'],
             ['reducedMotion', 'Kurangi animasi'],

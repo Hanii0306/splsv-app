@@ -26,8 +26,8 @@ Setiap aturan mengacu pada kode temuan wawancara.
    Isian bertahap: semua kotak terlihat, tetapi **hanya satu yang aktif** (aturan 3). Semua fitur ini bisa
    dimatikan di Menu peneliti.
    Sejak v1.8 (keputusan pengembang 19 Nov 2026): **layar menu** (Masuk, Peta, briefing, akhir kasus, hasil kuis,
-   ringkasan) boleh memakai animasi detektif lucu yang bergerak (kucing detektif, doodle melayang, jejak kaki,
-   Agent M bergerak). **Layar soal hanya boleh memakai pola latar detektif yang samar dan DIAM** (`.solve-bg`),
+   ringkasan) boleh memakai animasi detektif yang bergerak (v1.9: lampu sorot, kaca pembesar besar, papan kasus,
+   doodle, jejak sepatu, Agent M berjalan; tanpa hewan). **Layar soal hanya boleh memakai pola latar detektif yang samar dan DIAM** (`.solve-bg`),
    tanpa gerak dan tanpa karakter. Keduanya bisa dimatikan di Menu peneliti.
 3. **Satu langkah per layar.** Jangan menggabungkan beberapa transformasi dalam satu interaksi (IL02, EL04).
 4. **Tidak ada auto-advance / autoplay.** Siswa selalu yang menekan "Lanjut" (EL04, K02 "video cepet banget").

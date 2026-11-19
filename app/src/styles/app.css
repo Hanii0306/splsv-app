@@ -580,3 +580,64 @@ html[data-skin='detective'] { background: #D8C6F5; }
 .reduce-motion .agent-m .am-eyes, .reduce-motion .agent-m .am-hat, .reduce-motion .agent-m .am-glass,
 .lite .floaty-det .doodle { animation: none; }
 .reduce-motion .paw { opacity: .35; }
+
+/* ================= v1.9 big detective scene (menus, full window, laptop too) ================= */
+.det-scene { position: fixed; top: 0; right: 0; bottom: 0; left: 0; overflow: hidden; pointer-events: none; }
+.floaty-det { opacity: 1 !important; }
+.spotlight { position: absolute; top: -10vh; width: 70vmax; height: 130vh; left: calc(50% - 35vmax);
+  background: linear-gradient(180deg, rgba(255, 214, 120, .38), rgba(255, 214, 120, 0) 85%);
+  clip-path: polygon(46% 0, 54% 0, 100% 100%, 0 100%); transform-origin: 50% 0; animation: sweep 9s ease-in-out infinite alternate; }
+.spotlight-b { left: calc(15% - 35vmax); opacity: .6; animation-duration: 12s; animation-delay: -6s; }
+@keyframes sweep { from { transform: rotate(-32deg); } to { transform: rotate(32deg); } }
+
+.roam-glass { position: absolute; width: clamp(110px, 15vw, 210px); height: clamp(110px, 15vw, 210px); left: 0; top: 0;
+  animation: roam 26s ease-in-out infinite; filter: drop-shadow(0 8px 10px rgba(46, 66, 99, .25)); }
+.roam-glass svg { width: 100%; height: 100%; animation: glass-tilt 3s ease-in-out infinite alternate; }
+@keyframes roam {
+  0% { transform: translate(4vw, 14vh); } 20% { transform: translate(64vw, 8vh); } 40% { transform: translate(72vw, 52vh); }
+  60% { transform: translate(30vw, 66vh); } 80% { transform: translate(2vw, 44vh); } 100% { transform: translate(4vw, 14vh); }
+}
+@keyframes glass-tilt { from { transform: rotate(-12deg); } to { transform: rotate(10deg); } }
+
+.case-board { position: absolute; top: 12vh; width: 20vw; max-width: 260px; height: auto; opacity: .9; display: none; }
+.case-board-left { left: 1.5vw; }
+.case-board-right { right: 1.5vw; transform: scaleX(-1); }
+.case-board-right text { transform-box: fill-box; transform-origin: center; transform: scaleX(-1); }
+@media (min-width: 820px) { .case-board { display: block; } }
+.board-string { animation: string-draw 2.2s linear infinite; }
+@keyframes string-draw { to { stroke-dashoffset: -34; } }
+.polaroid { animation: polaroid-sway 4s ease-in-out infinite alternate; transform-box: fill-box; }
+@keyframes polaroid-sway { from { transform: translateY(0); } to { transform: translateY(-5px); } }
+
+.det-scene .det-float { position: absolute; line-height: 0; opacity: .75; animation: det-float ease-in-out infinite; }
+.det-scene .det-float-q { animation-name: det-pop; }
+@keyframes det-float { 0%, 100% { transform: translate(0, 0) rotate(-6deg); } 50% { transform: translate(10px, -18px) rotate(8deg); } }
+@keyframes det-pop { 0%, 100% { transform: scale(1) rotate(0); } 30% { transform: scale(1.25) rotate(-14deg); } 60% { transform: scale(.9) rotate(10deg); } }
+
+.shoe-trail { position: absolute; left: 0; right: 0; bottom: 10px; height: 34px; }
+.det-scene .shoe { position: absolute; line-height: 0; opacity: 0; animation: shoe-step 4.9s ease-in-out infinite; }
+.det-scene .shoe-l { bottom: 12px; transform: rotate(90deg); }
+.det-scene .shoe-r { bottom: 0; transform: rotate(90deg); }
+@keyframes shoe-step { 0% { opacity: 0; } 6% { opacity: .55; } 60% { opacity: .4; } 80%, 100% { opacity: 0; } }
+
+/* Agent M walking strip */
+.walkers-det { height: 112px; }
+.walker-agent { animation-name: walk-across; animation-timing-function: linear; animation-iteration-count: infinite; }
+.agent-walk .aw-leg { transform-box: fill-box; transform-origin: 50% 0; animation: aw-step .45s ease-in-out infinite alternate; }
+.agent-walk .aw-leg-b { animation-direction: alternate-reverse; }
+.agent-walk .aw-arm { transform-box: fill-box; transform-origin: 0 0; animation: aw-arm .9s ease-in-out infinite alternate; }
+@keyframes aw-step { from { transform: rotate(-18deg); } to { transform: rotate(18deg); } }
+@keyframes aw-arm { from { transform: rotate(-8deg); } to { transform: rotate(10deg); } }
+
+/* Problem screens: static pattern in detective colours (navy / brown / gold), no motion */
+.solve-bg {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150' viewBox='0 0 150 150'%3E%3Cg fill='none' stroke='%232E4263' stroke-width='2.2' opacity='.12'%3E%3Ccircle cx='30' cy='30' r='12'/%3E%3Cpath d='M39 39l11 11' stroke='%236E5230' stroke-width='5' stroke-linecap='round'/%3E%3Cpath d='M100 84a12 12 0 0 1 21 0M97 91c0-7 6-13 13-13s13 6 13 13M102 101c-2-3-3-6-3-10a10 10 0 0 1 20 0'/%3E%3C/g%3E%3Cg opacity='.12'%3E%3Cpath d='M30 104c5 0 7 5 6 10-1 4-3 6-6 6-4 0-6-3-6-7 0-5 2-9 6-9zM31 124c3 0 4 2 4 4s-1 4-4 4-4-2-4-4 1-4 4-4z' fill='%236E5230'/%3E%3Ctext x='108' y='42' font-size='28' font-family='sans-serif' font-weight='800' fill='%23B7791F'%3E%3F%3C/text%3E%3C/g%3E%3C/svg%3E");
+  background-size: 150px 150px;
+}
+
+/* In-app "Kurangi animasi" stops everything; old WebViews keep the light parts moving */
+.reduce-motion .spotlight, .reduce-motion .roam-glass, .reduce-motion .roam-glass svg, .reduce-motion .board-string,
+.reduce-motion .polaroid, .reduce-motion .det-scene .det-float, .reduce-motion .det-scene .shoe, .reduce-motion .walker-agent,
+.reduce-motion .agent-walk .aw-leg, .reduce-motion .agent-walk .aw-arm { animation: none; }
+.reduce-motion .det-scene .shoe { opacity: .35; }
+.lite .spotlight { display: none; }

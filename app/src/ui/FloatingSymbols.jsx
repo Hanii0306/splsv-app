@@ -1,4 +1,5 @@
 import { CatFace } from './Cats.jsx';
+import DetectiveScene from './DetectiveScene.jsx';
 
 // Cute doodles drifting slowly behind MENU screens (login, map, briefing, summary, results).
 // Problem-solving screens only get a faint STATIC pattern (.solve-bg, v1.8) — never motion (EL03).
@@ -85,6 +86,8 @@ const isDetective = () => typeof document !== 'undefined' && document.documentEl
 
 export default function FloatingSymbols() {
   const det = isDetective();
+  // v1.9: the detective theme uses the big full-window scene (no animals); the cute cats stay in the pink theme.
+  if (det) return <div className="floaty floaty-det"><DetectiveScene /></div>;
   return (
     <div className={`floaty${det ? ' floaty-det' : ''}`} aria-hidden>
       {det

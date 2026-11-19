@@ -367,3 +367,15 @@ Tidak ada soal baru: chatbot dilarang membuat soal latihan (total soal tetap 70)
 - Saklar: "Animasi detektif lucu di menu" dan "Pola latar detektif diam di layar soal". Semua gerak mati pada
   "Kurangi animasi" dan WebView lama.
 - v1.8.1: animasi tetap bergerak walau HP diatur 'kurangi/hapus animasi' (keputusan pengembang); yang menghentikan hanya saklar 'Kurangi animasi' di Menu peneliti. WebView lama (.lite) hanya mendiamkan doodle latar penuh-layar.
+
+### v1.9.0 — adegan detektif besar, tanpa hewan (19 Nov 2026)
+- Tema detektif tidak lagi memakai kucing/jejak kaki hewan (dinilai "terlalu animalis"). Kucing hanya tersisa di tema pink lama.
+- Layar menu memakai adegan penuh-jendela (juga di laptop):
+  - dua lampu sorot yang menyapu;
+  - kaca pembesar besar yang menjelajah layar;
+  - papan kasus kiri-kanan (foto, paku, benang merah yang bergerak, tampil di layar ≥ 820 px);
+  - doodle detektif (?, sidik jari, amplop, topi);
+  - jejak sepatu;
+  - Agent M berjalan membawa kaca pembesar.
+- Warna properti detektif: navy, khaki jas hujan, cokelat, emas, merah benang. Latar ungu pastel tetap.
+  Pola diam di layar soal kini berwarna navy/cokelat/emas.
