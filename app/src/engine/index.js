@@ -9,3 +9,4 @@ export * from './adaptive.js';
 export * from './story.js';
 export * from './generator.js';
 export * from './cases.js';
+export * from './tutor.js';

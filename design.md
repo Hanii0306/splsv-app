@@ -194,3 +194,11 @@ juga tersedia sebagai tombol (bukan gesture saja). Label TalkBack pada objek pen
 ## 10. Yang sengaja **tidak** didesain
 Maskot, latar ilustrasi, confetti, papan peringkat, timer hitung mundur, notifikasi push harian, dan
 tombol "lihat jawaban".
+
+## 11. Panel Detektif AI (v1.7)
+
+- Tombol 💬 di **header** layar soal, bukan di action bar, sehingga action bar tetap ≤ 3 tombol. Di Peta ada tombol
+  "Tanya Agent M tentang materi".
+- Panel bawah tingginya maksimal 70% layar. Soal tetap terlihat di atasnya (EL02).
+- Gelembung siswa berwarna hijau zamrud, gelembung AI ungu muda. Tanpa avatar di layar soal (aturan 2).
+- Maksimal 3 tombol cepat di awal percakapan. Pengingat: "Jangan tulis nama atau data pribadi. AI bisa keliru."

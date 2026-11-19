@@ -14,7 +14,7 @@ const uuid = () =>
   });
 
 /** Random id per installation/browser (NOT a hardware/device identifier). */
-async function installId() {
+export async function installId() {
   let id = await getSetting('installId');
   if (!id) { id = uuid(); await setSetting('installId', id); }
   return id;

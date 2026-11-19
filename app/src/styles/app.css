@@ -525,3 +525,23 @@ html[data-skin='detective'] { background: #D8C6F5; }
   padding: 6px 12px; border-radius: 10px; border: 1.5px solid var(--border); background: var(--surface); font-size: 14px; color: var(--text-muted); }
 .count-box strong { color: var(--sun); font-size: 16px; }
 .count-pill { align-self: flex-start; font-size: 12px; font-weight: 700; padding: 0 8px; margin: 2px 0; border-radius: 6px; border: 1.5px solid var(--border); color: var(--text-muted); }
+
+/* v1.7 Detektif AI chat sheet */
+.tutor-sheet { position: fixed; left: 0; right: 0; bottom: 0; margin: 0 auto; max-width: 520px; z-index: 30;
+  max-height: 70vh; display: flex; flex-direction: column; gap: 8px; border-top-color: var(--primary); }
+.tutor-head { justify-content: space-between; }
+.tutor-head .muted { flex: 1; font-size: 13px; }
+.tutor-close { width: 40px; height: 40px; font-size: 18px; }
+.chat-log { overflow-y: auto; display: flex; flex-direction: column; gap: 6px; min-height: 60px; }
+.bubble { margin: 0; padding: 8px 12px; border-radius: 14px; font-size: 16px; max-width: 88%; line-height: 1.4; }
+.bubble-me { align-self: flex-end; background: var(--primary); color: var(--primary-text, #fff); border-bottom-right-radius: 4px; }
+.bubble-ai { align-self: flex-start; background: var(--surface-pink); border: 1px solid var(--border); border-bottom-left-radius: 4px; }
+.chat-hint { margin: 0; font-size: 14px; }
+.chat-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chat-input { display: flex; gap: 8px; align-items: flex-end; }
+.chat-input textarea { flex: 1; min-height: 48px; padding: 8px 10px; border-radius: 12px; border: 2px solid var(--border);
+  background: var(--bg); color: var(--text); font: 16px/1.35 var(--font-ui); resize: none; }
+.chat-input textarea:focus { outline: none; border-color: var(--primary); }
+.chat-note { margin: 0; font-size: 12px; }
+.tutor-btn { font-size: 22px; }
+.tutor-open { align-self: flex-start; }

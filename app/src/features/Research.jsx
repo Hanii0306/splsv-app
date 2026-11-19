@@ -206,6 +206,7 @@ export default function Research({ profile, settings, onSettings, onBack, onLogo
             ['badges', 'Lencana kehormatan'],
             ['summaries', 'Tombol Ringkasan'],
             ['quiz', 'Kuis acak'],
+            ['tutor', 'Chatbot Detektif AI (perlu internet)'],
             ['cats', 'Animasi kucing & simbol di menu'],
             ['light3d', 'Mode ringan (timbangan 2D)'],
             ['reducedMotion', 'Kurangi animasi'],

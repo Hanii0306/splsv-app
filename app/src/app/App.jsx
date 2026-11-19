@@ -16,6 +16,7 @@ export const DEFAULT_SETTINGS = {
   light3d: false, reducedMotion: false, clq: false, unlockAll: false,
   detective: true, agentM: true, clues: true, xp: true, badges: true,
   summaries: true, quiz: true, cats: true,
+  tutor: true, // Detektif AI chatbot (needs the Supabase Edge Function `tutor`)
 };
 const caseById = (id) => cases.find((c) => c.id === id) || cases[0];
 

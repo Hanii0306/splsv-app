@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import levels from '../content/levels.json';
 import { firstTryCount, isClean, nextLevel, rankFor, totalXp, xpForCase } from '../engine/index.js';
 import { resetSegment, segmentDue } from '../app/session.js';
@@ -10,6 +10,8 @@ import { AgentSays, Stamp } from '../ui/Detective.jsx';
 import Header from '../ui/Header.jsx';
 import Questionnaire from './Questionnaire.jsx';
 import { McItem, StepsItem } from './CaseItem.jsx';
+import TutorChat from './TutorChat.jsx';
+import { tutorConfigured } from '../sync/tutor.js';
 
 const plainTitle = (id) => levels.find((l) => l.id === id)?.title || id;
 
@@ -20,6 +22,9 @@ export default function CaseRunner({ caseInfo, profile, settings, onExit }) {
   const [idx, setIdx] = useState(0);
   const [results, setResults] = useState([]);
   const [end, setEnd] = useState(null);
+  const [chat, setChat] = useState(false);
+  const live = useRef({});
+  const tutorOn = settings.tutor !== false && tutorConfigured();
   const item = caseInfo.items[idx];
   const title = det ? `${caseInfo.code} · ${caseInfo.title}` : `${caseInfo.id} · ${plainTitle(caseInfo.id)}`;
 
@@ -46,6 +51,7 @@ export default function CaseRunner({ caseInfo, profile, settings, onExit }) {
     logEvent('item_complete', { levelId: caseInfo.id, wrongs: r.wrongs, maxHint: r.maxHint, ms: r.ms, ind: item.ind, kind: item.kind }, item.id);
     const all = [...results, r];
     setResults(all);
+    setChat(false);
     if (idx + 1 < caseInfo.items.length) {
       setIdx(idx + 1);
       if (segmentDue()) setPhase('break');
@@ -58,7 +64,9 @@ export default function CaseRunner({ caseInfo, profile, settings, onExit }) {
 
   return (
     <div className="screen case-screen">
-      <Header title={title} onBack={onExit} right={<span className="header-meta">{meta}</span>} />
+      <Header title={title} onBack={onExit} right={phase === 'item' && tutorOn
+        ? <button type="button" className="icon-btn tutor-btn" onClick={() => setChat(!chat)} aria-label="Tanya Detektif AI">💬</button>
+        : <span className="header-meta">{meta}</span>} />
       {phase === 'item' && (
         <div className="count-box">
           <span>Jumlah soal: <strong>{caseInfo.items.length}</strong></span>
@@ -81,6 +89,7 @@ export default function CaseRunner({ caseInfo, profile, settings, onExit }) {
               <ul className="case-facts">
                 <li>Jumlah soal: {caseInfo.items.length} (6 pilihan ganda, 4 isian).</li>
                 {settings.clues !== false && <li>Macet? Buka amplop petunjuk.</li>}
+                {tutorOn && <li>Bisa juga tanya Detektif AI lewat tombol 💬 di kanan atas.</li>}
               </ul>
             </div>
             {det && settings.agentM !== false && <AgentSays mood="happy">Siap, Agen {profile.studentCode}? Kerjakan satu bukti setiap kali.</AgentSays>}
@@ -94,7 +103,10 @@ export default function CaseRunner({ caseInfo, profile, settings, onExit }) {
         )}
 
         {phase === 'item' && item && (
-          <ItemView key={item.id} item={item} caseInfo={caseInfo} n={idx + 1} settings={settings} onDone={afterItem} />
+          <ItemView key={item.id} item={item} caseInfo={caseInfo} n={idx + 1} settings={settings} onDone={afterItem} live={live} />
+        )}
+        {phase === 'item' && item && chat && (
+          <TutorChat key={item.id} mode="item" item={item} caseInfo={caseInfo} live={live} profile={profile} onClose={() => setChat(false)} />
         )}
 
         {phase === 'break' && (

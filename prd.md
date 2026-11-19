@@ -334,3 +334,24 @@ Lihat daftar di `task.md` bagian **"Keputusan tertunda"**.
 ### v1.6.6 — latar ungu pastel (16 Nov 2026)
 - Latar tema detektif diganti **ungu pastel** (#EFE7FB) dengan kartu putih; aksen zamrud & emas tetap. Makna warna semantik tidak berubah (design.md §3.1b).
 - v1.6.7: ungu pastel dipertegas (#D8C6F5) agar tidak terlihat putih di layar HP.
+
+## 16. v1.7 — Chatbot "Detektif AI" (permintaan pengembang, 19 Nov 2026)
+
+Keputusan pengembang:
+- Backend **Supabase Edge Function** `tutor`.
+- Penyedia AI **gratis: Google Gemini** (format standar, jadi bisa diganti DeepSeek lewat secret).
+- Chatbot **bisa dibuka kapan saja**.
+- **Percakapan disimpan** untuk data penelitian.
+
+| ID | Fitur | Kriteria terima |
+|---|---|---|
+| F30 | Tanya materi SPLSV dari Peta (mode `materi`) | Menjawab konsep dengan contoh angka kecil; menolak topik di luar SPLSV |
+| F31 | Tanya soal yang sedang dikerjakan (tombol 💬 di kanan atas layar soal, mode `item`) | Server menerima nomor soal, bukan teks bebas, sehingga bunyi soal PDF utuh. Siswa tetap melihat soal di atas panel chat |
+| F32 | Bimbingan bertahap RMT | Satu langkah per balasan: orientasi → representasi → rencana → langkah → cek substitusi → refleksi. Selalu diakhiri satu pertanyaan |
+| F33 | Bantuan sesuai kesulitan | Tingkat 1–4 (`helpLevel`): naik karena jumlah salah, amplop yang dibuka, dan berapa kali bertanya. Sama dengan tangga H1→H4 |
+| F34 | Tidak memberi jawaban akhir (GL03) | Setiap balasan diperiksa `leaksAnswer`. Bila bocor: tulis ulang sekali, lalu diganti petunjuk aman (`diblokir = true`) |
+| F35 | Beban kognitif | IL: satu langkah. EL: ≤ 3 kalimat × ≤ 15 kata, istilah sama dengan aplikasi ("kedua ruas"). GL: pertanyaan "mengapa" |
+| F36 | Data penelitian | Tabel `percakapan_tutor` (kode siswa, soal, kotak, salah, tingkat bantuan, pesan, balasan, diblokir) + event lokal `tutor_open/tutor_chat/tutor_error` |
+| F37 | Aman & hemat | Kunci hanya di secret Supabase. Batas 60 tanya/perangkat/hari dan 1200/hari total. Kode siswa tidak dikirim ke penyedia AI. Bisa dimatikan di Menu peneliti |
+
+Tidak ada soal baru: chatbot dilarang membuat soal latihan (total soal tetap 70). Kuis acak tetap tanpa chatbot.

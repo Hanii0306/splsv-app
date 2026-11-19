@@ -43,7 +43,7 @@ function ClueSheet({ clue, canMore, lockedH4, onMore, onClose }) {
 }
 
 /** Shared attempt / clue bookkeeping for one item. */
-function useItemState(item, caseInfo, settings) {
+function useItemState(item, caseInfo, settings, live) {
   const stats = useRef({ wrongs: 0, maxHint: 0, attempts: 0, t0: Date.now() });
   const [hint, setHint] = useState(initialHintState);
   const [clueLevel, setClueLevel] = useState(0);
@@ -84,6 +84,8 @@ function useItemState(item, caseInfo, settings) {
       <Envelope size={20} /> Amplop petunjuk
     </button>
   );
+  // Live state for the Detektif AI chat (read when the student asks; no re-render needed).
+  if (live) Object.assign(live.current, { itemId: item.id, wrongs: stats.current.wrongs, hintLevel: clueLevel });
   return { attempt, result, sheet, envBtn, hint, stats, cluesOn };
 }
 
@@ -117,8 +119,9 @@ function Solved({ item, onNext }) {
 }
 
 /** Multiple choice as fingerprint cards (A–D). Wrong cards are marked, never removed silently. */
-export function McItem({ item, caseInfo, n, settings, onDone }) {
-  const s = useItemState(item, caseInfo, settings);
+export function McItem({ item, caseInfo, n, settings, onDone, live }) {
+  const s = useItemState(item, caseInfo, settings, live);
+  if (live) Object.assign(live.current, { box: 0, work: '' });
   const [marks, setMarks] = useState({});
   const [solved, setSolved] = useState(false);
   const [msg, setMsg] = useState(null);
@@ -180,8 +183,8 @@ function BoxText({ text, values, onChange, active, wrong, done, inputRefs }) {
 }
 
 /** Scaffolded input: every box visible, only one active; the next opens after the current one is right. */
-export function StepsItem({ item, caseInfo, n, settings, onDone }) {
-  const s = useItemState(item, caseInfo, settings);
+export function StepsItem({ item, caseInfo, n, settings, onDone, live }) {
+  const s = useItemState(item, caseInfo, settings, live);
   const [cur, setCur] = useState(0);
   const [vals, setVals] = useState(() => item.boxes.map(() => []));
   const [wrong, setWrong] = useState([]);
@@ -190,6 +193,7 @@ export function StepsItem({ item, caseInfo, n, settings, onDone }) {
   const inputRefs = useRef([]);
   const solved = cur >= item.boxes.length;
   const box = item.boxes[cur];
+  if (live) Object.assign(live.current, { box: Math.min(cur, item.boxes.length - 1), work: (vals[cur] || []).filter(Boolean).join(', ') });
 
   function setVal(bi, i, v) {
     setVals((all) => all.map((row, k) => (k === bi ? Object.assign([...row], { [i]: v }) : row)));

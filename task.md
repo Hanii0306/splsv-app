@@ -68,6 +68,9 @@ Format: `[ ]` belum, `[~]` sedang, `[x]` selesai. Setiap task punya ID dan meruj
 ### Sprint 6 — Pemolesan
 - [~] T-V60 Aksesibilitas: reduced motion, target ≥48dp, dan mode gelap sudah ada. TalkBack belum diuji
 - [~] T-V61 Uji e2e alur utama: lulus di Chromium 360×740 (login→diagnostik→L0/L2/L5/L7→sinkron→dashboard), tetapi skripnya belum dimasukkan ke repo
+- [x] T-V80 v1.7 Detektif AI: `engine/tutor.js` (prompt RMT/CLT, helpLevel, penyaring jawaban), Edge Function `tutor`,
+  tabel `percakapan_tutor`, TutorChat (soal + materi), saklar peneliti. 167 uji lulus; e2e 360×640 dengan fungsi tiruan lulus
+- [ ] T-V81 Pasang fungsi `tutor` ke Supabase + secret Gemini (perlu kunci AI Studio & token Supabase), uji nyata, terbitkan web
 - [x] T-V76 v1.6.6 latar ungu pastel. e2e 360×640 lulus
 - [x] T-V75 v1.6.5 nomor soal PDF disembunyikan, kotak "Jumlah soal". 147 uji lulus, e2e lulus
 - [x] T-V74 v1.6.4 latihan timbangan, tes prasyarat & penguatan dihapus; total soal = 70 PDF. 147 uji lulus, e2e kasus & kuis lulus

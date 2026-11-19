@@ -197,3 +197,16 @@ Tabel tambahan di Dexie: `outbox` (`++id`, `clientEventId`, `payload`, `status`,
 
 Kode galat: `400` skema tidak valid, `401` token salah, `409` duplikat batch (diabaikan aman), `429` terlalu
 sering.
+
+## 8. Detektif AI — `POST {SUPABASE_URL}/functions/v1/tutor` (v1.7)
+
+Header: `apikey: <publishable key>`. Body JSON:
+```json
+{ "mode": "item" | "materi", "itemId": "L1-01", "message": "≤ 500 karakter",
+  "history": [{"role": "user|assistant", "content": "…"}], "box": 0, "wrongs": 0, "hintLevel": 0, "asks": 1,
+  "work": "isian siswa saat ini", "installId": "uuid", "studentCode": "S07", "version": "1.7.0" }
+```
+Respons 200: `{ "reply": "…", "level": 1-4, "blocked": false, "offline": false }`.
+Galat: 400 (validasi), 413, 429 (kuota), 503 (secret belum diisi).
+Server mengirim ke penyedia AI hanya instruksi + bunyi soal + riwayat + pesan. `studentCode` dan `installId`
+hanya dipakai untuk tabel `percakapan_tutor` dan batas kuota.

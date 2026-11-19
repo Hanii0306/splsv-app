@@ -37,6 +37,14 @@ Setiap aturan mengacu pada kode temuan wawancara.
    ini tanpa mengubah `prd.md`.
 10. Kalimat instruksi ≤ 15 kata, dan kalimat soal cerita ≤ 20 kata per potongan (EL01).
 
+11. **Detektif AI (v1.7):** chatbot boleh dibuka kapan saja (keputusan pengembang), tetapi:
+    - tidak boleh menyebut jawaban akhir. `leaksAnswer` wajib dijalankan di server untuk setiap balasan;
+    - satu langkah per balasan, dengan tingkat bantuan mengikuti H1→H4;
+    - tidak membuat soal baru;
+    - tidak tampil di kuis acak;
+    - kode siswa tidak dikirim ke penyedia AI.
+    Logika bersama ada di `src/engine/tutor.js` dan disalin ke fungsi oleh `supabase/build-tutor.mjs`.
+
 Jika sebuah permintaan bertentangan dengan aturan di atas, **berhenti dan tanyakan** kepada pengembang.
 Jangan diam-diam mengikuti permintaan itu.
 

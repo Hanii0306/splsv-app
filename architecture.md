@@ -191,3 +191,14 @@ Literacy_app/
 - **Aplikasi**: `validateServerUrl()` hanya menerima `https://`, kecuali `http://localhost` di browser desktop saat pengembangan.
 - **Penandatanganan**: `app/android/keystore/splv-release.jks` (PKCS12, RSA 3072) via `keystore.properties`.
   Keduanya tidak di-commit. `app/scripts/build-apk.ps1` → `assembleRelease` + `apksigner verify`.
+
+## 10. Detektif AI (v1.7)
+
+```
+App (TutorChat.jsx) ──POST──▶ Supabase Edge Function `tutor` (handler.js, Deno)
+                                ├─ lib/tutor.js  ← salinan app/src/engine/tutor.js (prompt RMT/CLT, helpLevel, leaksAnswer)
+                                ├─ lib/items.js  ← 70 soal dari app/src/content/cases.json
+                                ├─▶ Gemini (OpenAI-compatible /chat/completions; model + cadangan dari secret)
+                                └─▶ tabel percakapan_tutor (kunci service; RLS menolak publik)
+```
+Uji: `app/tests/tutor.test.js` (logika) dan `app/tests/tutor-function.test.js` (handler dengan fetch tiruan).

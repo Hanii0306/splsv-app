@@ -10,6 +10,8 @@ import FloatingSymbols from '../ui/FloatingSymbols.jsx';
 import Header from '../ui/Header.jsx';
 import Logo from '../ui/Logo.jsx';
 import Walkers from '../ui/Walkers.jsx';
+import { tutorConfigured } from '../sync/tutor.js';
+import TutorChat from './TutorChat.jsx';
 
 export const QUIZ_MIN_MASTERED = 2;
 const levelMeta = (id) => levels.find((l) => l.id === id);
@@ -32,6 +34,8 @@ function agentLine(code, solved, next) {
 export default function LearningMap({ profile, settings, onOpenLevel, onSummary, onQuiz, onResearch, onSignOut }) {
   const det = settings.detective !== false;
   const [progress, setProgress] = useState({});
+  const [chat, setChat] = useState(false);
+  const tutorOn = settings.tutor !== false && tutorConfigured();
   useEffect(() => { getProgress(profile.studentCode).then(setProgress); }, [profile.studentCode]);
 
   const statusOf = (id, i) => {
@@ -70,6 +74,9 @@ export default function LearningMap({ profile, settings, onOpenLevel, onSummary,
           <div className="progress" role="progressbar" aria-valuemin={0} aria-valuemax={cases.length} aria-valuenow={solved}>
             <span style={{ width: `${(solved / cases.length) * 100}%` }} />
           </div>
+          {tutorOn && (
+            <button type="button" className="mini-btn tutor-open" onClick={() => setChat(true)}>💬 Tanya {det && settings.agentM !== false ? 'Agent M' : 'Detektif AI'} tentang materi</button>
+          )}
           <div className="who">
             <span className="muted">{solved} dari {cases.length} {det ? 'kasus terpecahkan' : 'level selesai'}</span>
             <button type="button" className="mini-btn" onClick={onSignOut}>Bukan {profile.studentCode}? Keluar</button>
@@ -118,6 +125,7 @@ export default function LearningMap({ profile, settings, onOpenLevel, onSummary,
           </button>
         )}
         <Walkers />
+        {chat && <TutorChat mode="materi" profile={profile} onClose={() => setChat(false)} />}
       </main>
     </div>
   );
