@@ -2,7 +2,8 @@
 // Never rendered on problem screens (they only get the static .solve-bg pattern, EL03).
 // Palette = detective props (not semantic maths colours): navy, trench-coat khaki, brown, gold, case-string red.
 
-export const DET = { navy: '#2E4263', navy2: '#3A5277', khaki: '#B08D57', khaki2: '#8C6A3F', brown: '#6E5230', gold: '#E0A526', red: '#C0392B', paper: '#FFF8EA', glass: '#DDF3FF' };
+// v1.11 noir: props are lighter so they read on the dark night background.
+export const DET = { navy: '#4A5D8A', navy2: '#6178AE', khaki: '#C9A46A', khaki2: '#9C7A47', brown: '#8A6A3E', gold: '#F2B33D', red: '#E04A3A', paper: '#FFF8EA', glass: '#DDF3FF', print: '#D9C49A' };
 
 /** Agent M walking, side view facing right (legs, arm and magnifier swing via CSS). */
 export function AgentWalking({ width = 84 }) {
@@ -41,8 +42,8 @@ export function AgentWalking({ width = 84 }) {
 function ShoePrint({ size = 18 }) {
   return (
     <svg width={size} height={size * 1.8} viewBox="0 0 20 36" aria-hidden>
-      <path d="M10 1 C16 1 18 7 17 13 C16 18 13 20 10 20 C6 20 3 17 3 12 C3 6 5 1 10 1 Z" fill={DET.brown} />
-      <path d="M10 24 C14 24 15 27 15 30 C15 33 13 35 10 35 C7 35 5 33 5 30 C5 27 6 24 10 24 Z" fill={DET.brown} />
+      <path d="M10 1 C16 1 18 7 17 13 C16 18 13 20 10 20 C6 20 3 17 3 12 C3 6 5 1 10 1 Z" fill={DET.print} />
+      <path d="M10 24 C14 24 15 27 15 30 C15 33 13 35 10 35 C7 35 5 33 5 30 C5 27 6 24 10 24 Z" fill={DET.print} />
     </svg>
   );
 }
@@ -74,14 +75,22 @@ const FLOAT = [
   { k: 'q', left: '62%', top: '80%', size: 30, dur: 8, delay: 4 },
   { k: 'print', left: '28%', top: '30%', size: 26, dur: 12, delay: 1.5 },
   { k: 'note', left: '40%', top: '6%', size: 26, dur: 9.5, delay: 3.5 },
+  { k: 'glass', left: '92%', top: '78%', size: 34, dur: 8.5, delay: 2.5 },
+  { k: 'q', left: '18%', top: '90%', size: 26, dur: 9, delay: 5 },
+  { k: 'hat', left: '70%', top: '35%', size: 28, dur: 13, delay: 6 },
+  { k: 'print', left: '50%', top: '92%', size: 24, dur: 10, delay: 0.8 },
+  { k: 'q', left: '95%', top: '28%', size: 22, dur: 7.5, delay: 3 },
+  { k: 'note', left: '2%', top: '35%', size: 24, dur: 11, delay: 4.2 },
 ];
+
+const DUST = Array.from({ length: 18 }, (_, i) => ({ left: `${(i * 53) % 100}%`, size: 3 + (i % 4), dur: 7 + (i % 6), delay: (i * 0.9) % 9 }));
 
 export function Doodle({ kind, size = 30 }) {
   const common = { width: size, height: size, viewBox: '0 0 32 32', 'aria-hidden': true };
   switch (kind) {
     case 'print':
       return (
-        <svg {...common} fill="none" stroke={DET.navy2} strokeWidth="1.8" strokeLinecap="round">
+        <svg {...common} fill="none" stroke={DET.print} strokeWidth="1.8" strokeLinecap="round">
           <path d="M9 11a8 8 0 0 1 14 0" /><path d="M7 16c0-5 4-9 9-9s9 4 9 9" /><path d="M10.5 23c-1.3-2-2-4-2-6.5a7.5 7.5 0 0 1 15 0v1" />
           <path d="M13 26c-1.5-2.3-2.3-5-2.3-8.3a5.3 5.3 0 0 1 10.6 0c0 2.4.3 4.5 1 6.5" /><path d="M16 17.7c0 3.8.8 6.8 2.6 9" /></svg>
       );
@@ -109,6 +118,10 @@ export function Doodle({ kind, size = 30 }) {
 export default function DetectiveScene() {
   return (
     <div className="det-scene" aria-hidden>
+      <div className="rain" />
+      {DUST.map((d, i) => (
+        <span key={`dust${i}`} className="dust" style={{ left: d.left, width: d.size, height: d.size, animationDuration: `${d.dur}s`, animationDelay: `-${d.delay}s` }} />
+      ))}
       <div className="spotlight spotlight-a" />
       <div className="spotlight spotlight-b" />
       <CaseBoard side="left" />
@@ -135,6 +148,39 @@ export default function DetectiveScene() {
           </span>
         ))}
       </div>
+    </div>
+  );
+}
+
+/**
+ * Animated case-board banner placed IN the page flow (top of Map, Login, briefing), so the detective
+ * animation is clearly visible on phones where the full-window scene sits behind the cards.
+ */
+export function CaseBanner({ title = 'BERKAS RAHASIA' }) {
+  return (
+    <div className="case-banner" aria-hidden>
+      <div className="cb-light" />
+      <svg className="cb-board" viewBox="0 0 360 150" preserveAspectRatio="xMidYMid slice">
+        <path className="board-string" d="M40 34 L120 92 L200 30 L282 88 L338 36" fill="none" stroke={DET.red} strokeWidth="2.6" strokeDasharray="9 6" />
+        {[[14, 12, -7, 'x = ?'], [94, 70, 5, '2x + 3'], [176, 8, -4, 'BUKTI'], [256, 66, 6, 'KASUS'], [312, 14, -5, '?']].map(([x, y, r, t], i) => (
+          <g key={i} className="polaroid" style={{ animationDelay: `${i * 0.6}s` }}><g transform={`rotate(${r} ${x + 26} ${y + 30})`}>
+            <rect x={x} y={y} width="52" height="60" rx="2.5" fill={DET.paper} />
+            <rect x={x + 5} y={y + 5} width="42" height="36" fill={i % 2 ? '#CFC3E9' : '#E7D9B8'} />
+            <circle cx={x + 26} cy={y + 18} r="7" fill="#3A5277" opacity=".55" />
+            <path d={`M${x + 14} ${y + 41} Q${x + 26} ${y + 27} ${x + 38} ${y + 41} Z`} fill="#3A5277" opacity=".55" />
+            <text x={x + 26} y={y + 54} textAnchor="middle" fontSize="9" fontWeight="800" fill="#6E5230" fontFamily="Fredoka, sans-serif">{t}</text>
+            <circle cx={x + 26} cy={y + 2} r="4" fill={DET.red} />
+          </g></g>
+        ))}
+      </svg>
+      {[0, 1, 2].map((i) => <span key={i} className="cb-print" style={{ left: `${18 + i * 30}%`, animationDelay: `${i * 1.3}s` }}><Doodle kind="print" size={26} /></span>)}
+      <span className="cb-stamp">{title}</span>
+      <div className="cb-glass">
+        <svg viewBox="0 0 120 120"><circle cx="50" cy="50" r="34" fill={DET.glass} fillOpacity=".35" stroke={DET.gold} strokeWidth="8" />
+          <path d="M30 38 Q36 26 50 24" stroke="#fff" strokeWidth="5" fill="none" strokeLinecap="round" />
+          <path d="M76 76 L106 106" stroke={DET.brown} strokeWidth="12" strokeLinecap="round" /></svg>
+      </div>
+      <span className="cb-agent"><AgentWalking width={44} /></span>
     </div>
   );
 }

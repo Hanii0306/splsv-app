@@ -75,7 +75,7 @@ Aturan:
 
 ### 3.1b Tema detektif v1.6 (`data-skin="detective"`, bawaan)
 
-Sejak v1.6.6 latar **ungu pastel** (permintaan pengembang) dengan aksen hijau zamrud dan emas. Makna warna semantik **tidak berubah**:
+Sejak v1.11 latar **malam gelap (noir)** dengan gradasi dan aksen emas (sebelumnya ungu pastel v1.6.6–1.10). Makna warna semantik **tidak berubah**:
 
 | Token | Nilai | Makna |
 |---|---|---|

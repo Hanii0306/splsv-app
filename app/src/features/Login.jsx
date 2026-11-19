@@ -5,6 +5,9 @@ import { joinClass, validateServerUrl } from '../sync/api.js';
 import FloatingSymbols from '../ui/FloatingSymbols.jsx';
 import Logo from '../ui/Logo.jsx';
 import Walkers from '../ui/Walkers.jsx';
+import { CaseBanner } from '../ui/DetectiveScene.jsx';
+const isDet = () => typeof document !== 'undefined' && document.documentElement.dataset.skin === 'detective';
+
 
 /**
  * Each student has their own code + PIN, so one phone/browser can be shared by a whole class.
@@ -89,7 +92,7 @@ export default function Login({ onDone }) {
         <div className="brand"><Logo size={104} /></div>
         <h1 className="brand-name">SPLV app</h1>
         <p className="muted brand-sub">Belajar persamaan linear satu variabel bersama si Timbangan.</p>
-        <Walkers />
+        {isDet() ? <CaseBanner title="AGEN BARU?" /> : <Walkers />}
 
         <div className="tabs" role="tablist">
           <button type="button" role="tab" aria-selected={tab === 'masuk'} className={tab === 'masuk' ? 'tab on' : 'tab'} onClick={() => { setTab('masuk'); setError(''); setNeedPin(null); }}>Masuk</button>

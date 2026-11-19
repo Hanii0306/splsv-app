@@ -10,6 +10,7 @@ import FloatingSymbols from '../ui/FloatingSymbols.jsx';
 import Header from '../ui/Header.jsx';
 import Logo from '../ui/Logo.jsx';
 import MusicButton from '../ui/MusicButton.jsx';
+import { CaseBanner } from '../ui/DetectiveScene.jsx';
 import Walkers from '../ui/Walkers.jsx';
 import { tutorConfigured } from '../sync/tutor.js';
 import TutorChat from './TutorChat.jsx';
@@ -57,6 +58,7 @@ export default function LearningMap({ profile, settings, onOpenLevel, onSummary,
       <Header title={det ? 'Peta Investigasi Kasus' : 'Peta Belajar'}
         right={<span className="row-tight">{settings.music !== false && <MusicButton />}<button type="button" className="icon-btn" onClick={onResearch} aria-label="Menu peneliti">⚙</button></span>} />
       <main className="content">
+        {det && <CaseBanner title="TOP SECRET" />}
         <section className="hello">
           <div className="hello-top">
             <h2>{det ? `Agen ${profile.studentCode}` : `Halo, ${profile.studentCode}!`}</h2>

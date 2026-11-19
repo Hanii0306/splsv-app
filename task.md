@@ -68,6 +68,7 @@ Format: `[ ]` belum, `[~]` sedang, `[x]` selesai. Setiap task punya ID dan meruj
 ### Sprint 6 â€” Pemolesan
 - [~] T-V60 Aksesibilitas: reduced motion, target â‰¥48dp, dan mode gelap sudah ada. TalkBack belum diuji
 - [~] T-V61 Uji e2e alur utama: lulus di Chromium 360Ã—740 (loginâ†’diagnostikâ†’L0/L2/L5/L7â†’sinkronâ†’dashboard), tetapi skripnya belum dimasukkan ke repo
+- [x] T-V85 v1.11 tema noir gelap + papan kasus beranimasi di halaman (HP) + hujan/debu emas. 172 uji lulus, e2e laptop & HP lulus
 - [x] T-V84 v1.10 musik detektif orisinal (Web Audio, tombol 🎵, pelan di layar soal) + gradasi senja. 172 uji lulus, e2e laptop & HP lulus
 - [x] T-V83 v1.9 adegan detektif besar penuh-jendela (laptop & HP), tanpa hewan; gerak tetap jalan walau OS reduce-motion. 168 uji lulus
 - [x] T-V82 v1.8 desain detektif lucu bergerak (menu) + pola diam (layar soal), saklar peneliti. 167 uji lulus, e2e 360×640 lulus

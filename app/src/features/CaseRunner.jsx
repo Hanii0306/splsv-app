@@ -12,6 +12,7 @@ import { AgentSays, Stamp } from '../ui/Detective.jsx';
 import FloatingSymbols from '../ui/FloatingSymbols.jsx';
 import Header from '../ui/Header.jsx';
 import Walkers from '../ui/Walkers.jsx';
+import { CaseBanner } from '../ui/DetectiveScene.jsx';
 import Questionnaire from './Questionnaire.jsx';
 import { McItem, StepsItem } from './CaseItem.jsx';
 import TutorChat from './TutorChat.jsx';
@@ -95,6 +96,7 @@ export default function CaseRunner({ caseInfo, profile, settings, onExit }) {
       <main className="content">
         {phase === 'brief' && (
           <div className="briefing">
+            {det && <CaseBanner title={caseInfo.code} />}
             <div className="case-file">
               {det && <Stamp>Top Secret</Stamp>}
               <p className="case-code">{det ? `Berkas ${caseInfo.code}` : caseInfo.id}</p>

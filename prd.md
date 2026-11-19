@@ -389,3 +389,18 @@ Tidak ada soal baru: chatbot dilarang membuat soal latihan (total soal tetap 70)
   - Berhenti saat aplikasi disembunyikan. Saklar "Musik latar detektif" di Menu peneliti.
 - **Gradasi senja detektif:** lavender #F1E8FD → #DCCBF7 → periwinkle #B9C2EE → #AFB9E8 (diam, menempel di
   jendela). Header semi-transparan. Pola diam di layar soal tetap tampil.
+
+### v1.11.0 — tema detektif malam (noir) & animasi lebih ramai (19 Nov 2026)
+- **Warna gelap khas detektif** (permintaan pengembang; menggantikan ungu pastel v1.6.6–1.10):
+  - latar gradasi malam #070B1A → #10173A → #1B1640 → #120E26 dengan cahaya lampu emas di atas;
+  - kartu biru tua #182140, teks krem #EEE8DA;
+  - tombol utama emas #F2B33D. Makna warna semantik matematika tetap.
+- **Papan kasus beranimasi di dalam halaman** (Peta, Masuk, briefing), jadi jelas terlihat di HP:
+  - foto berpaku dan benang merah bergerak;
+  - lampu sorot dan kaca pembesar yang menjelajah;
+  - stempel TOP SECRET yang menghentak;
+  - sidik jari yang muncul-hilang;
+  - Agent M berjalan.
+- **Latar penuh-jendela lebih ramai:** hujan malam, 18 butir debu emas yang naik, 13 doodle, lampu sorot, kaca
+  pembesar, papan kasus kiri-kanan (laptop), jejak sepatu.
+- Layar soal tetap pola diam (kini keemasan samar di latar gelap).
