@@ -43,11 +43,11 @@ function ClueSheet({ clue, canMore, lockedH4, onMore, onClose }) {
  * The PDF test, verbatim: cover (identitas, petunjuk, rekap skor) → Soal 1–4 with free-text Tahap boxes → kirim.
  * settings.testMode: 'tes' (no help, for research) | 'latihan' (Amplop Petunjuk + Detektif AI, pembahasan after).
  */
-export default function TestRunner({ profile, settings, onExit }) {
+export default function TestRunner({ profile, settings, onExit, startIdx = 0 }) {
   const practice = settings.testMode === 'latihan';
   const det = settings.detective !== false;
   const [phase, setPhase] = useState('cover');
-  const [idx, setIdx] = useState(0);
+  const [idx, setIdx] = useState(startIdx);
   const [answers, setAnswers] = useState(() => restoreAnswers(test, null));
   const [start, setStart] = useState(null);
   const [end, setEnd] = useState(null);

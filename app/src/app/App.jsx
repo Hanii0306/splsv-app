@@ -69,14 +69,14 @@ export default function App() {
     case 'login':
       return <Login onDone={(p) => { setProfile(p); startSession(p.studentCode); startSync(); setRoute({ name: 'map' }); }} />;
     case 'test':
-      return <TestRunner profile={profile} settings={settings} onExit={() => { syncNow(); setRoute({ name: 'map' }); }} />;
+      return <TestRunner key={route.idx} startIdx={route.idx || 0} profile={profile} settings={settings} onExit={() => { syncNow(); setRoute({ name: 'map' }); }} />;
     case 'research':
       return (
         <Research profile={profile} settings={settings} onSettings={saveSettings} onBack={() => setRoute({ name: 'map' })}
           onLogout={async () => { await signOut(); setProfile(null); setRoute({ name: 'login' }); }} />
       );
     default:
-      return <LearningMap key={route.name} profile={profile} settings={settings} onOpenTest={() => setRoute({ name: 'test' })}
+      return <LearningMap key={route.name} profile={profile} settings={settings} onOpenTest={(i) => setRoute({ name: 'test', idx: i })}
           onResearch={() => setRoute({ name: 'research' })}
           onSignOut={async () => { logEvent('session_end', {}); await signOut(); setProfile(null); setRoute({ name: 'login' }); }} />;
   }
