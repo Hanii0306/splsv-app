@@ -44,7 +44,8 @@ Setiap aturan mengacu pada kode temuan wawancara.
 
 12. **Soal (v2.0):** satu-satunya soal adalah 4 soal `content/test.json`, verbatim dari PDF instrumen.
     Jangan menambah, mengurangi, atau mengubah bunyi soal, tahap, maupun skor. Di **mode tes** tidak boleh ada
-    bantuan apa pun (amplop, AI, pembahasan, koreksi otomatis).
+    amplop, pembahasan, atau koreksi otomatis. **Detektif AI selalu aktif di semua mode** (keputusan pengembang
+    v2.1, 27 Nov 2026; saklarnya dihapus). Penyaring jawaban akhir tetap wajib.
 11. **Detektif AI (v1.7):** chatbot boleh dibuka kapan saja (keputusan pengembang), tetapi:
     - tidak boleh menyebut jawaban akhir. `leaksAnswer` wajib dijalankan di server untuk setiap balasan;
     - satu langkah per balasan, dengan tingkat bantuan mengikuti H1→H4;

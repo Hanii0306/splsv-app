@@ -427,3 +427,8 @@ Tidak ada soal baru: chatbot dilarang membuat soal latihan (total soal tetap 70)
 - **Efek sentuh detektif** di semua layar: sidik jari emas + cincin kaca pembesar ±0,6 dtk (mati dengan
   "Kurangi animasi").
 - Pengecualian EL01: kalimat soal tidak dipotong (≤ 20 kata) karena harus persis seperti instrumen.
+
+### v2.1.0 — Detektif AI selalu aktif (27 Nov 2026)
+- Saklar chatbot dihapus. Tombol 💬 selalu ada di layar soal dan Peta, **di mode tes dan latihan**. Akibatnya,
+  mode tes tidak lagi tanpa bantuan sepenuhnya; AI tetap tidak menyebut jawaban akhir (penyaring server).
+  Percakapan tercatat di `percakapan_tutor`, sehingga peneliti bisa melihat siswa mana yang dibantu AI saat tes.

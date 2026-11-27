@@ -211,7 +211,6 @@ export default function Research({ profile, settings, onSettings, onBack, onLogo
             ['detective', 'Tema detektif (mati = tema pink lama)'],
             ['agentM', 'Agent M di peta & layar akhir'],
             ['clues', 'Amplop petunjuk (mode latihan)'],
-            ['tutor', 'Chatbot Detektif AI (mode latihan, perlu internet)'],
             ['cats', 'Animasi detektif di menu (lampu sorot, kaca pembesar, papan kasus, Agent M)'],
             ['pattern', 'Pola latar detektif diam di layar soal'],
             ['music', 'Musik latar detektif (tombol 🎵; pelan di layar soal)'],

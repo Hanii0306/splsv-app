@@ -30,7 +30,7 @@ export default function LearningMap({ profile, settings, onOpenTest, onResearch,
   const [done, setDone] = useState({});
   const [pending, setPending] = useState(0);
   const [chat, setChat] = useState(false);
-  const tutorOn = practice && settings.tutor !== false && tutorConfigured();
+  const tutorOn = tutorConfigured(); // v2.1: Detektif AI always on, in both modes (developer decision)
 
   useEffect(() => {
     getSetting(`testDraft:${profile.studentCode}`).then(setDraft);

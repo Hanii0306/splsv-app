@@ -60,7 +60,7 @@ export default function TestRunner({ profile, settings, onExit, startIdx = 0 }) 
   const focus = useRef(0);
   const item = test.items[idx];
   const prog = progressOf(test, answers);
-  const tutorOn = practice && settings.tutor !== false && tutorConfigured();
+  const tutorOn = tutorConfigured(); // v2.1: Detektif AI always on, in both modes (developer decision)
 
   useEffect(() => {
     getSetting(draftKey(profile.studentCode)).then((d) => {

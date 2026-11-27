@@ -16,7 +16,6 @@ export const DEFAULT_SETTINGS = {
   reducedMotion: false, clq: false,
   testMode: 'tes', // 'tes' = no help (research) | 'latihan' = Amplop Petunjuk + Detektif AI
   detective: true, agentM: true, clues: true, cats: true,
-  tutor: true, // Detektif AI chatbot (needs the Supabase Edge Function `tutor`)
   pattern: true, // faint static detective pattern behind questions (no motion)
   music: true, // detective tune, started only by the student's tap on 🎵
 };
